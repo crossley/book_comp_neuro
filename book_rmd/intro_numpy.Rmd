@@ -1,0 +1,16 @@
+# Numpy and Matplotlib
+
+## Learning Python
+* Just like with other programming languages you have been
+exposed to, the base functionality of Python is extended by
+external libraries. We will make heavy use of the following
+libraries:
+
+* [Numpy](https://numpy.org)
+
+  * [Learn Numpy](https://numpy.org/learn/)
+  
+* [Matplotlib](https://matplotlib.org/stable/index.html)
+
+  * [Learn Matplotlib](https://matplotlib.org/stable/tutorials/index.html)
+  

@@ -1,0 +1,55 @@
+---
+title: "Tutorial 11"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* TBD
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_11_solutions.html)
+
+### 1. 
+Extend the examples given in lecture such that rewards are
+given for every response for trials 1 to 100, absent no
+matter the response for trials 101 to 200, and present again
+for trials 201 to 300. Make the same plot as used in lecture
+or some very similar plot to illustrate what happens to the
+synaptic weight between neuron 1 and neuron 2 in this
+example.
+
+### 2. 
+Extend the examples given in lecture such that rewards are
+given for 75% of all responses made during trials 1 to 100,
+absent no matter the response for trials 101 to 200, and
+present again for 75% of all responses during trials 201 to
+300. Make the same plot as used in lecture or some very
+similar plot to illustrate what happens to the synaptic
+weight between neuron 1 and neuron 2 in this example.
+
+### 3. 
+Compare your simulation results from problems 1 and 2 above.
+What do you notice about the growth / decay rate of the
+synaptic weight during each phase? Just leave your answer in
+a comment. A quiz question or few will be devoted to
+assessing this question more fully.

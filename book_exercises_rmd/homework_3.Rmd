@@ -1,0 +1,458 @@
+---
+title: "Homework 3"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* Cultivate and demonstrate a deep understanding of how to build 
+biologically plausible models of brain networks using Izhikevich
+neurons.
+  
+## General instructions
+
+* When I say 'show that blah blah blah' in the problems below, I mean
+replicate the plots. Or get close enough to replication that I can see
+that you understand how to program the basal ganglia and also that you
+understand the qualitative patterns that I'm trying to highlight. 
+
+## Key features of the basal ganglia
+
+* The **direct pathway** of the basal ganglia is: Cerebral cortex (ctx)
+  $\rightarrow$ striatum (str) $\rightarrow$ internal segment of the globus
+  pallidus (gpi) $\rightarrow$ thalamus (thl) $\rightarrow$ cerebral cortex
+  (ctx). The striatal cells on this pathway contain D1 dopamine receptors so
+  we may abbreviate them d1 instead of str.
+
+* The **indirect pathway** of the basal ganglia is: Cerebral cortex (ctx)
+  $\rightarrow$ striatum (str) $\rightarrow$ external segment of the globus
+  pallidus (gpe) $\rightarrow$ internal segment of the globus pallidus (gpi)
+  $\rightarrow$ thalamus (thl) $\rightarrow$ cerebral cortex (ctx). The 
+  striatal cells on this pathway contain d2 dopamine receptors so we may 
+  abbreviate them d2 instead of str.
+
+* The **hyperdirect pathway** of the basal ganglia is: Cerebral cortex (ctx)
+  $\rightarrow$ subthalamic nucleus $\rightarrow$ internal segment of the globus
+  pallidus (gpi) $\rightarrow$ thalamus (thl) $\rightarrow$ cerebral cortex
+  (ctx).
+  
+* Both segments of the globus pallidus have high baseline firing rates (they 
+fire a high frequency train of action potentials even in the absence of excitatory 
+inputs).
+
+## 0
+
+* Striatal cells (d1 and d2 cells) have interesting elecrophysiological 
+properties, so they are deserving of a special set of izhikevich model
+parameters. Every other cells in the network can be modeled with a 
+regular spiking neuron. Please use the following parameters for these
+two neuron types:
+  
+```{python echo=T, include=T}
+# # striatal projection neuron
+# C = 50; vr = -80; vt = -25; vpeak = 40;
+# a = 0.01; b = -20; c = -55; d = 150; k = 1;
+
+# # regular spiking neuron
+# C = 100; vr = -60; vt = -40; vpeak = 35;
+# a = 0.03; b = -2; c = -50; d = 100; k = 0.7;
+```
+
+* Show how the d1 and d2 cells in the striatum respond to current 
+differently from a regular spiking neuron.
+
+```{python echo=F, include=T}
+import numpy as np
+import matplotlib.pyplot as plt
+
+tau = 0.1
+T = 3000
+t = np.arange(0, T, tau)
+n_steps = t.shape[0]
+
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps//3:2*n_steps//3] = 3e2
+
+w_in = [0.175, 1.125]
+
+# # striatal projection neuron
+# C = 50; vr = -80; vt = -25; vpeak = 40;
+# a = 0.01; b = -20; c = -55; d = 150; k = 1;
+
+# # regular spiking neuron
+# C = 100; vr = -60; vt = -40; vpeak = 35;
+# a = 0.03; b = -2; c = -50; d = 100; k = 0.7;
+
+iz_params = np.array([
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # regular spiking
+    [50, -80, -25, 40, 0.01, -20, -55, 150, 1]  # str
+])
+
+n_cells = iz_params.shape[0]
+
+# response of each spike on post synaptic membrane v
+psp_amp = 1e3
+psp_decay = 100
+
+# allocate memory for each neuron
+v = np.zeros((n_cells, n_steps))
+u = np.zeros((n_cells, n_steps))
+g = np.zeros((n_cells, n_steps))
+spike = np.zeros((n_cells, n_steps))
+v[:, 0] = iz_params[:, 1]
+
+# connection weight matrix
+w = np.zeros((n_cells, n_cells))
+
+# input into cells from other cells
+I_net = np.zeros((n_cells, n_steps))
+
+for i in range(1, n_steps):
+
+    dt = t[i] - t[i - 1]
+
+    I_net = np.zeros((n_cells, n_steps))
+    for jj in range(n_cells):
+        for kk in range(n_cells):
+            if jj != kk:
+                I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1]
+
+        I_net[jj, i - 1] += w_in[jj] * I_in[i - 1]
+
+        C = iz_params[jj, 0]
+        vr = iz_params[jj, 1]
+        vt = iz_params[jj, 2]
+        vpeak = iz_params[jj, 3]
+        a = iz_params[jj, 4]
+        b = iz_params[jj, 5]
+        c = iz_params[jj, 6]
+        d = iz_params[jj, 7]
+        k = iz_params[jj, 8]
+
+        dvdt = (k * (v[jj, i - 1] - vr) * (v[jj, i - 1] - vt) - u[jj, i - 1] +
+                I_net[jj, i - 1]) / C
+        dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1])
+        dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay
+
+        v[jj, i] = v[jj, i - 1] + dvdt * dt
+        u[jj, i] = u[jj, i - 1] + dudt * dt
+        g[jj, i] = g[jj, i - 1] + dgdt * dt
+
+        if v[jj, i] >= vpeak:
+            v[jj, i - 1] = vpeak
+            v[jj, i] = c
+            u[jj, i] = u[jj, i] + d
+            spike[jj, i] = 1
+
+fig, ax = plt.subplots(2, 1, squeeze=False)
+ax[0, 0].plot(t, v[0, :], label='regular spiking')
+ax[1, 0].plot(t, v[1, :], label='striatal projection')
+[x.legend() for x in ax.flatten()]
+plt.show()
+```
+
+## Helper function
+```{python echo=T, include=T}
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def sim_bg(I_in, w_in):
+
+    # response of each spike on post synaptic membrane v
+    psp_amp = 1e3
+    psp_decay = 100
+
+    # allocate memory for each neuron
+    v = np.zeros((n_cells, n_steps))
+    u = np.zeros((n_cells, n_steps))
+    g = np.zeros((n_cells, n_steps))
+    spike = np.zeros((n_cells, n_steps))
+    v[:, 0] = iz_params[:, 1] + np.random.rand(n_cells) * 100
+
+    # connection weight matrix
+    w = np.zeros((n_cells, n_cells))
+
+    # direct pathway
+    w[0, 1] = 1 * 100
+    w[1, 3] = -1 * 125
+
+    # indirect pathway
+    w[0, 2] = 1 * 100
+    w[2, 4] = -1 * 100
+    w[4, 3] = -1 * 25
+
+    # hyperdirect pathway
+    w[0, 6] = 1 * 90
+    w[6, 3] = 1 * 50
+
+    # stn-gpe feedback
+    w[6, 4] = 1
+    w[4, 6] = -1 * 50
+
+    # output
+    w[3, 5] = -1 * 100
+    w[5, 0] = 1
+
+    # input into cells from other cells
+    I_net = np.zeros((n_cells, n_steps))
+
+    for i in range(1, n_steps):
+
+        dt = t[i] - t[i - 1]
+
+        I_net = np.zeros((n_cells, n_steps))
+        for jj in range(n_cells):
+            for kk in range(n_cells):
+                if jj != kk:
+                    I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1]
+                
+            I_net[jj, i - 1] += w_in[jj] * I_in[i - 1]
+
+            C = iz_params[jj, 0]
+            vr = iz_params[jj, 1]
+            vt = iz_params[jj, 2]
+            vpeak = iz_params[jj, 3]
+            a = iz_params[jj, 4]
+            b = iz_params[jj, 5]
+            c = iz_params[jj, 6]
+            d = iz_params[jj, 7]
+            k = iz_params[jj, 8]
+
+            dvdt = (k * (v[jj, i - 1] - vr) * (v[jj, i - 1] - vt) -
+                    u[jj, i - 1] + I_net[jj, i - 1] + E[jj]) / C
+            dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1])
+            dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay
+
+            v[jj, i] = v[jj, i - 1] + dvdt * dt
+            u[jj, i] = u[jj, i - 1] + dudt * dt
+            g[jj, i] = g[jj, i - 1] + dgdt * dt
+
+            if v[jj, i] >= vpeak:
+                v[jj, i - 1] = vpeak
+                v[jj, i] = c
+                u[jj, i] = u[jj, i] + d
+                spike[jj, i] = 1
+
+    fig, ax = plt.subplots(3, 4, squeeze=False)
+    # ctx
+    ax[1, 0].set_title('ctx')
+    ax1 = ax[1, 0]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[0, :], 'C0')
+    ax2.plot(t, g[0, :], 'C1')
+    # stn
+    ax[0, 1].set_title('stn')
+    ax1 = ax[0, 1]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[6, :], 'C0')  # stn
+    ax2.plot(t, g[6, :], 'C1')  # stn
+    # d1
+    ax[1, 1].set_title('d1')
+    ax1 = ax[1, 1]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[1, :], 'C0')  # d1
+    ax2.plot(t, g[1, :], 'C1')  # d1
+    # d2
+    ax[2, 1].set_title('d2')
+    ax1 = ax[2, 1]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[2, :], 'C0')  # d2
+    ax2.plot(t, g[2, :], 'C1')  # d2
+    # gpi
+    ax[1, 2].set_title('gpi')
+    ax1 = ax[1, 2]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[3, :], 'C0')  # gpi
+    ax2.plot(t, g[3, :], 'C1')  # gpi
+    # gpe
+    ax[2, 2].set_title('gpe')
+    ax1 = ax[2, 2]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[4, :], 'C0')  # gpe
+    ax2.plot(t, g[4, :], 'C1')  # gpe
+    # thal
+    ax[1, 3].set_title('thal')
+    ax1 = ax[1, 3]
+    ax2 = ax1.twinx()
+    ax1.plot(t, v[5, :], 'C0')  # thal
+    ax2.plot(t, g[5, :], 'C1')  # thal
+    plt.tight_layout()
+    plt.show()
+```
+
+## Helper init code
+```{python echo=T, include=T}
+
+tau = 0.1
+T = 3000
+t = np.arange(0, T, tau)
+n_steps = t.shape[0]
+
+# Cells: CTX, D1, D2, GPi, GPe, Thal, STN
+# Direct: CTX -> D1 -> GPi
+# Indirect: CTX -> D2 -> GPe -> GPi
+# Hyperdirect: CTX -> STN -> GPi
+# Output: GPi -> Thal -> CTX
+# Gain limiter: STN <-> GPe
+
+# # striatal projection neuron
+# C = 50; vr = -80; vt = -25; vpeak = 40;
+# a = 0.01; b = -20; c = -55; d = 150; k = 1;
+
+# # regular spiking neuron
+# C = 100; vr = -60; vt = -40; vpeak = 35;
+# a = 0.03; b = -2; c = -50; d = 100; k = 0.7;
+
+iz_params = np.array([
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # ctx (rs) 0
+    [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d1 (spn) 1
+    [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d2 (spn) 2
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpi (rs) 3
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpe (rs) 4
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # thal (rs) 5
+    [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7]  # stn (rs) 6
+])
+
+# baseline firing (high for GPi, GPe, and thal)
+E = np.array([0, 0, 0, 300, 300, 300, 0])
+
+n_cells = iz_params.shape[0]
+```
+
+## 1
+
+* Show that increasing drive through the direct pathway reduces 
+inhibition of the thalamus and therefore may be seen as a 'go' pathway.
+
+### low d1 input
+```{python echo=F, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 8
+
+sim_bg(I_in, w_in)
+```
+
+### high d1 input
+```{python echo=F, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 100
+
+sim_bg(I_in, w_in)
+```
+
+## 2
+
+* Show that increasing drive through the indirect pathway increases
+inhibition of the thalamus and therefore may be seen as a 'no-go'
+pathway.
+
+### low d2 input
+```{python echo=F, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 10
+w_in[2] = 10
+
+sim_bg(I_in, w_in)
+```
+
+### high d2 input
+```{python echo=F, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 10
+w_in[2] = 100
+
+sim_bg(I_in, w_in)
+```
+
+
+## 3
+
+* Show that increasing drive through the hyperdirect pathway increases
+inhibition of the thalamus and so can also be seen as a 'no-go' pathway.
+
+### low stn input
+```{python echo=T, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 10
+w_in[6] = 1
+
+sim_bg(I_in, w_in)
+```
+
+### high stn input
+```{python echo=T, include=T}
+# define input signal
+I_in = np.zeros(n_steps)
+I_in[n_steps // 3:2 * n_steps // 3] = 5e1
+
+w_in = np.zeros(n_cells)
+
+# add input only to d1
+w_in[1] = 10
+w_in[6] = 10
+
+sim_bg(I_in, w_in)
+```
+
+## 4
+
+* Not marked but interesting to think about: What are some key differences
+between the indirect and the hyperdirect pathway? Why would the basal 
+ganglia need two 'no-go' pathways?
+
+
+## 5
+
+* Not marked but interesting to think about: The thalamus is merely 
+released from inhibition. How might that lead to 'go' responses?
+
+  

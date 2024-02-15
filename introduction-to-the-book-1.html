@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Introduction to the book | Introduction to Computational Neuroscience</title>
+  <meta name="description" content="2 Introduction to the book | Introduction to Computational Neuroscience" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Introduction to the book | Introduction to Computational Neuroscience" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Introduction to the book | Introduction to Computational Neuroscience" />
+  
+  
+  
+
+<meta name="author" content="Matthew J. Crossley" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="numpy-and-matplotlib.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html"><i class="fa fa-check"></i><b>2</b> Introduction to the book</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-computational-neuroscience"><i class="fa fa-check"></i><b>2.1</b> What is computational neuroscience?</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#marrs-levels"><i class="fa fa-check"></i><b>2.2</b> Marr’s levels</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-computers"><i class="fa fa-check"></i><b>2.3</b> Why computers?</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-the-real-value-gained"><i class="fa fa-check"></i><b>2.4</b> What is the real value gained?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-python"><i class="fa fa-check"></i><b>2.5</b> Why Python</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#getting-started-with-python"><i class="fa fa-check"></i><b>2.6</b> Getting started with Python</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#learning-python"><i class="fa fa-check"></i><b>2.7</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html"><i class="fa fa-check"></i><b>3</b> Numpy and Matplotlib</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html#learning-python-1"><i class="fa fa-check"></i><b>3.1</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="intro-to-calculus.html"><a href="intro-to-calculus.html"><i class="fa fa-check"></i><b>4</b> Intro to calculus</a></li>
+<li class="chapter" data-level="5" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html"><i class="fa fa-check"></i><b>5</b> Intro to dynamical systems</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#differential-equations"><i class="fa fa-check"></i><b>5.1</b> Differential equations</a></li>
+<li class="chapter" data-level="5.2" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#eulers-method"><i class="fa fa-check"></i><b>5.2</b> Euler’s method</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html"><i class="fa fa-check"></i><b>6</b> Simple neuron models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#review-of-hh"><i class="fa fa-check"></i><b>6.1</b> Review of HH</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#leaky-integrate-and-fire"><i class="fa fa-check"></i><b>6.2</b> Leaky integrate and fire</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#quadratic-integrate-and-fire"><i class="fa fa-check"></i><b>6.3</b> Quadratic integrate and fire</a></li>
+<li class="chapter" data-level="6.4" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#izhikevich-neuron"><i class="fa fa-check"></i><b>6.4</b> Izhikevich Neuron</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html"><i class="fa fa-check"></i><b>7</b> Hodgkin-Huxley neuron model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_1"><i class="fa fa-check"></i><b>7.1</b> neuron_func_1</a></li>
+<li class="chapter" data-level="7.2" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_2"><i class="fa fa-check"></i><b>7.2</b> neuron_func_2</a></li>
+<li class="chapter" data-level="7.3" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_3"><i class="fa fa-check"></i><b>7.3</b> neuron_func_3</a></li>
+<li class="chapter" data-level="7.4" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_4"><i class="fa fa-check"></i><b>7.4</b> neuron_func_4</a></li>
+<li class="chapter" data-level="7.5" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_5"><i class="fa fa-check"></i><b>7.5</b> neuron_func_5</a></li>
+<li class="chapter" data-level="7.6" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_6"><i class="fa fa-check"></i><b>7.6</b> neuron_func_6</a></li>
+<li class="chapter" data-level="7.7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_7"><i class="fa fa-check"></i><b>7.7</b> neuron_func_7</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html"><i class="fa fa-check"></i><b>8</b> Neurotransmitter release</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#synaptics-responses"><i class="fa fa-check"></i><b>8.1</b> Synaptics responses</a></li>
+<li class="chapter" data-level="8.2" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#spikes-as-a-change-in-conductance"><i class="fa fa-check"></i><b>8.2</b> Spikes as a change in conductance</a></li>
+<li class="chapter" data-level="8.3" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#coupling-conductance-to-psp"><i class="fa fa-check"></i><b>8.3</b> Coupling conductance to PSP</a></li>
+<li class="chapter" data-level="8.4" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psps-superimpose"><i class="fa fa-check"></i><b>8.4</b> PSPs superimpose</a></li>
+<li class="chapter" data-level="8.5" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psp-model-in-the-izhikevich-neuron"><i class="fa fa-check"></i><b>8.5</b> PSP model in the Izhikevich neuron</a></li>
+<li class="chapter" data-level="8.6" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#chaining-neurons-together"><i class="fa fa-check"></i><b>8.6</b> Chaining neurons together</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html"><i class="fa fa-check"></i><b>9</b> Synpatic Plasticity</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#python-helper-functions"><i class="fa fa-check"></i><b>9.1</b> Python helper functions</a></li>
+<li class="chapter" data-level="9.2" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-1"><i class="fa fa-check"></i><b>9.2</b> Hebbian Learning 1</a></li>
+<li class="chapter" data-level="9.3" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-2"><i class="fa fa-check"></i><b>9.3</b> Hebbian Learning 2</a></li>
+<li class="chapter" data-level="9.4" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-3"><i class="fa fa-check"></i><b>9.4</b> Hebbian Learning 3</a></li>
+<li class="chapter" data-level="9.5" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-stdp"><i class="fa fa-check"></i><b>9.5</b> Hebbian STDP</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reinforcement-learning.html"><a href="reinforcement-learning.html"><i class="fa fa-check"></i><b>10</b> Reinforcement Learning</a></li>
+<li class="chapter" data-level="11" data-path="reinforcement-learning-rule.html"><a href="reinforcement-learning-rule.html"><i class="fa fa-check"></i><b>11</b> Reinforcement learning rule</a></li>
+<li class="chapter" data-level="12" data-path="example-1.html"><a href="example-1.html"><i class="fa fa-check"></i><b>12</b> Example 1</a></li>
+<li class="chapter" data-level="13" data-path="example-2.html"><a href="example-2.html"><i class="fa fa-check"></i><b>13</b> Example 2</a></li>
+<li class="chapter" data-level="14" data-path="example-3.html"><a href="example-3.html"><i class="fa fa-check"></i><b>14</b> Example 3</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="example-3.html"><a href="example-3.html#reinforcement-learning-framework"><i class="fa fa-check"></i><b>14.1</b> Reinforcement learning framework</a></li>
+<li class="chapter" data-level="14.2" data-path="example-3.html"><a href="example-3.html#estimating-the-state-value-function"><i class="fa fa-check"></i><b>14.2</b> Estimating the state-value function</a></li>
+<li class="chapter" data-level="14.3" data-path="example-3.html"><a href="example-3.html#temporal-difference-td-learning"><i class="fa fa-check"></i><b>14.3</b> Temporal difference (TD) learning</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="example-3.html"><a href="example-3.html#td-rl-model-of-classical-conditioning"><i class="fa fa-check"></i><b>14.3.1</b> TD RL model of classical conditioning</a></li>
+<li class="chapter" data-level="14.3.2" data-path="example-3.html"><a href="example-3.html#td-rl-as-the-learning-signal-in-a-spiking-network"><i class="fa fa-check"></i><b>14.3.2</b> TD RL as the learning signal in a spiking network</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="example-3.html"><a href="example-3.html#td0-for-estimating-v_pi"><i class="fa fa-check"></i><b>14.4</b> TD(0) for estimating <span class="math inline">\(v_{\pi}\)</span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="example-3.html"><a href="example-3.html#td-in-a-simple-2-arm-bandit-task"><i class="fa fa-check"></i><b>14.4.1</b> TD in a simple 2-arm bandit task</a></li>
+<li class="chapter" data-level="14.4.2" data-path="example-3.html"><a href="example-3.html#action-selection-policy"><i class="fa fa-check"></i><b>14.4.2</b> Action selection policy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="example-3.html"><a href="example-3.html#sarsa-for-estimating-q"><i class="fa fa-check"></i><b>14.5</b> SARSA for estimating <span class="math inline">\(Q\)</span></a></li>
+<li class="chapter" data-level="14.6" data-path="example-3.html"><a href="example-3.html#q-learning-for-estimating-pi"><i class="fa fa-check"></i><b>14.6</b> Q-learning for estimating <span class="math inline">\(\pi\)</span></a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.6.1</b> Q-learning applied to instrumental conditioning</a></li>
+<li class="chapter" data-level="14.6.2" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning-2"><i class="fa fa-check"></i><b>14.6.2</b> Q-learning applied to instrumental conditioning 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="example-3.html"><a href="example-3.html#dyna-q-model-based-rl"><i class="fa fa-check"></i><b>14.7</b> Dyna-Q: Model-based RL</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="example-3.html"><a href="example-3.html#dyna-q-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.7.1</b> Dyna-Q applied to instrumental conditioning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>15</b> supervised learning</a></li>
+<li class="chapter" data-level="16" data-path="supervised-learning-1.html"><a href="supervised-learning-1.html"><i class="fa fa-check"></i><b>16</b> Supervised Learning</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Computational Neuroscience</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-the-book-1" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Introduction to the book<a href="introduction-to-the-book-1.html#introduction-to-the-book-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-is-computational-neuroscience" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> What is computational neuroscience?<a href="introduction-to-the-book-1.html#what-is-computational-neuroscience" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Computational neuroscience is just using computers to
+study brains.</p></li>
+<li><p>What counts as <em>brains</em> has come to refer to pretty much
+anything across a very wide range of levels. E.g.,</p>
+<ul>
+<li><p>Biochemical and electrical signal transduction and
+prorogation within individual cell compartments.</p></li>
+<li><p>Intracellular signalling cascades.</p></li>
+<li><p>Whole cell action potential spiking properties.</p></li>
+<li><p>Collection of neurons as dynamical systems.</p></li>
+<li><p>Local field potential, hemodynamic response, cortical
+oscillatory patterns.</p></li>
+<li><p>Behaviour (e.g., decision making, action selection and
+execution).</p></li>
+</ul></li>
+<li><p>Using computers to study purely neural systems – without
+concern for behaviour – is pretty fairly called
+<em>computational neuroscience</em>.</p></li>
+<li><p>Using computers to study behaviour – without concern for
+neural systems – would fall more naturally under the banner
+of <em>cognitive modelling</em>.</p></li>
+<li><p>Using computers to study how the brain drives behaviour –
+i.e., explicitly caring about both neural and cognitive
+domains and trying to link them – is sometimes given
+special names like <em>computational cognitive neuroscience</em>.</p></li>
+</ul>
+</div>
+<div id="marrs-levels" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Marr’s levels<a href="introduction-to-the-book-1.html#marrs-levels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><strong>Computational</strong>: A specification of what a system does
+and why it does it.</p></li>
+<li><p><strong>Algorithmic</strong>: A specification of how it does what it
+does (i.e., what process is followed).</p></li>
+<li><p><strong>implementational</strong>: A specification of how the system is
+implemented in the brain.</p></li>
+<li><p>In my opinion, few models cleanly reside at a single one
+of these levels and many probably are best classified
+between levels. Even so, the conceptual divisions they get
+us thinking about are useful to have on hand.</p></li>
+</ul>
+</div>
+<div id="why-computers" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Why computers?<a href="introduction-to-the-book-1.html#why-computers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Mathematics is at the heart of computational neuroscience.</p></li>
+<li><p>The goal is to write down equations that formally describe
+the process through which the phenomena of interest are
+hypothesised to emerge.</p></li>
+<li><p>The need for computers arises when the mathematics that
+you write down is complicated and difficult to evaluate.</p></li>
+<li><p>Computational approaches give us tools to deal with these
+difficult mathematical situations. Well, some of them at
+least.</p></li>
+</ul>
+</div>
+<div id="what-is-the-real-value-gained" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> What is the real value gained?<a href="introduction-to-the-book-1.html#what-is-the-real-value-gained" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Have you ever stuggled or argued with yourelf or others
+about what a certain hypothesis predicts in a particular
+experiment?</p></li>
+<li><p>Mathematical precision makes science happy. It eliminates
+ambiguity and thereby makes mathematical models more
+falsifiable.</p></li>
+<li><p>In practice, the word <em>more</em> in the last sentence above
+can do an awful lot of work. Coming up with experiments that
+are strong tests of any model, even mathematically precise
+models, can be very difficult.</p></li>
+<li><p>Even so, there is no question that mathematics and
+computers help… and sometimes they help a whole lot.</p></li>
+</ul>
+</div>
+<div id="why-python" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Why Python<a href="introduction-to-the-book-1.html#why-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>It is a real programming language</li>
+<li>It is mature</li>
+<li>It is widely embraced in psychology and neuroscience</li>
+<li>It is widely embraced inside and outside academia</li>
+<li>It is widely used in the machine learning community</li>
+<li>It is relatively easy to learn</li>
+</ul>
+</div>
+<div id="getting-started-with-python" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Getting started with Python<a href="introduction-to-the-book-1.html#getting-started-with-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>I recommend getting started with
+<a href="https://colab.research.google.com/?utm_source=scs-index">Google Colab</a>.</p></li>
+<li><p>If you dislike the web notebook interface, then you might try
+<a href="https://www.anaconda.com/products/individual">Anaconda</a>.</p></li>
+<li><p>Anaconda will provide the IDE
+<a href="https://www.spyder-ide.org">Spyder</a> which isn’t a bad place
+to work with Python.</p></li>
+<li><p>Ultimately, there are many Python programming tools to
+choose from. Use what you like.</p></li>
+</ul>
+</div>
+<div id="learning-python" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Learning Python<a href="introduction-to-the-book-1.html#learning-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Just like with other programming languages you have been
+exposed to, the base functionality of Python is extended by
+external libraries. We will make heavy use of the following
+libraries:</p></li>
+<li><p><a href="https://www.python.org">Python</a></p>
+<ul>
+<li><p><a href="https://realpython.com/python-first-steps/">Learn the basics</a></p></li>
+<li><p><a href="https://docs.python.org/3/tutorial/index.html">Learn the basics 2</a></p>
+<p>This one isn’t as beginner friendly. It’s just here for those of you
+with more programming experience that want to advance your skills and
+understand the language at a deeper level.</p></li>
+</ul></li>
+<li><p><a href="https://numpy.org">Numpy</a></p>
+<ul>
+<li><a href="https://numpy.org/learn/">Learn Numpy</a></li>
+</ul>
+<p>This will be the focus of week 2</p></li>
+<li><p><a href="https://matplotlib.org/stable/index.html">Matplotlib</a></p>
+<ul>
+<li><a href="https://matplotlib.org/stable/tutorials/index.html">Learn Matplotlib</a></li>
+</ul>
+<p>This will be the focus of weeks 2 and 3</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="numpy-and-matplotlib.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"depth": 2
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

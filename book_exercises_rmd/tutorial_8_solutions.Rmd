@@ -1,0 +1,205 @@
+---
+title: "Tutorial 8 Solutions"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python message=FALSE, echo=T}
+import numpy as np
+import matplotlib.pyplot as plt
+
+my_name = "John Doe"
+my_student_id = "12345678"
+
+
+# 1.
+def izn(a, b, c, d, I):
+    v = np.zeros(n)
+    u = np.zeros(n)
+    v[0] = c
+
+    for i in range(1, n):
+
+        dvdt = 0.04 * v[i - 1]**2 + 5 * v[i - 1] + 140 - u[i - 1] + I[i - 1]
+        dudt = a * (b * v[i - 1] - u[i - 1])
+
+        dt = t[i] - t[i - 1]
+
+        v[i] = v[i - 1] + dvdt * dt
+        u[i] = u[i - 1] + dudt * dt
+
+        if v[i] > 30:
+            v[i - 1] = 30
+            v[i] = c
+            u[i] = u[i] + d
+
+    fig, ax = plt.subplots(2, 1, squeeze=False)
+    ax[0, 0].plot(t, v, label='v')
+    ax[1, 0].plot(t, I, '--k')
+    ax[0, 0].legend()
+    plt.show()
+
+
+tau = 0.1
+T = 1000
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+# rs
+I = np.zeros(n)
+I[200:] = 4e0
+a = 0.02
+b = 0.2
+c = -65
+d = 0.8
+izn(a, b, c, d, I)
+
+# lts
+I = np.zeros(n)
+I[200:] = 4e0
+a = 0.1
+b = 0.2
+c = -65
+d = 2
+izn(a, b, c, d, I)
+
+# rz
+I = np.zeros(n)
+I[n // 10:] = 7e-1
+I[n // 2:(n // 2 + n // 40)] = 1e0
+a = 0.1
+b = 0.25
+c = -65
+d = 2
+izn(a, b, c, d, I)
+
+
+# 2.
+def qif(I, vpeak, vreset):
+    spike = np.zeros(n)
+    v = np.zeros(n)
+    v[0] = vreset
+
+    for i in range(1, n):
+
+        dvdt = v[i - 1]**2 + I[i - 1]
+        dt = t[i] - t[i - 1]
+        v[i] = v[i - 1] + dvdt * dt
+
+        if v[i] > vpeak:
+            v[i] = vreset
+            spike[i] = 1
+
+    T = np.diff(t[spike == 1])
+    print("Average **empirical** interspike interval:")
+    print(T.mean())
+
+    fig, ax = plt.subplots(2, 1, squeeze=False)
+    ax[0, 0].plot(t, v, label='v')
+    ax[1, 0].plot(t, I, '--k')
+    ax[0, 0].legend()
+    plt.show()
+
+
+tau = 0.1
+T = 1000
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+# 2
+I = np.zeros(n)
+b = 1e-4
+I[200:] = b
+vreset = 0
+vpeak = 1
+qif(I, vpeak, vreset)
+T = (1 / np.sqrt(b) * (np.arctan(vpeak / np.sqrt(b))) -
+     np.arctan(vreset / np.sqrt(b)))
+print("Average **theoretical** interspike interval:")
+print(T)
+
+# 3
+b = -0.02
+vreset = np.sqrt(np.abs(b)) + 1e-1
+vpeak = 1
+qif(I, vpeak, vreset)
+ratio_1 = np.log((1 - np.sqrt(np.abs(b))) / (1 + np.sqrt(np.abs(b))))
+ratio_2 = np.log((vreset - np.sqrt(np.abs(b))) / (vreset + np.sqrt(np.abs(b))))
+T = 1 / (2 * np.sqrt(np.abs(b))) * (ratio_1 - ratio_2)
+print("Average **theoretical** interspike interval:")
+print(T)
+
+
+# 4.
+def n4(a, b, c, d, vpeak, vreset, I):
+    v = np.zeros(n)
+    u = np.zeros(n)
+    for i in range(1, n):
+
+        dvdt = I[i - 1] - v[i - 1] - u[i - 1]
+        dudt = a * (b * v[i - 1] - u[i - 1])
+
+        dt = t[i] - t[i - 1]
+
+        v[i] = v[i - 1] + dvdt * dt
+        u[i] = u[i - 1] + dudt * dt
+
+        if v[i] > 1:
+            v[i - 1] = 1
+            v[i] = 0
+            u[i] = u[i] + d
+
+    v2 = np.zeros(n)
+    for i in range(1, n):
+
+        dvdt = I[i - 1] - v2[i - 1]
+        dt = t[i] - t[i - 1]
+        v2[i] = v2[i - 1] + dvdt * dt
+
+        if v2[i] > 1:
+            v2[i - 1] = vpeak
+            v2[i] = vreset
+
+    fig, ax = plt.subplots(3, 1, squeeze=False)
+    ax[0, 0].plot(t, I, '--k')
+    ax[1, 0].plot(t, v, label='v')
+    ax[2, 0].plot(t, v2, label='v')
+    plt.show()
+
+
+tau = 0.1
+T = 1000
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+I = np.zeros(n)
+I[200:] = 1 + 1e-15
+
+# essentially we need to eliminate the influence of the slow recovery u
+# set a=0 to pin dudt to zero and set d = 0 so that it stays zero after v
+# spikes.
+a = 0.0
+b = 0.2
+c = 0.0
+d = 0.0
+vpeak = 1
+vreset = 0
+n4(a, b, c, d, vpeak, vreset, I)
+```

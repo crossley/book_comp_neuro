@@ -1,0 +1,136 @@
+---
+title: "Tutorial 9 Solutions"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python, echo=T}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def simulate_network(n_cells, w, w_global_input):
+
+    tau = 0.01
+    T = 200
+    t = np.arange(0, T, tau)
+    n = t.shape[0]
+
+    A = 1
+    t_peak = 2
+    psp_amp = 1
+    psp_decay = 10
+
+    v = np.zeros((n_cells, n))
+    u = np.zeros((n_cells, n))
+    g = np.zeros((n_cells, n))
+    spike = np.zeros((n_cells, n))
+
+    # hold onto sum of all presynaptic outputs
+    I_net = np.zeros((n_cells, n))
+
+    I_global_input = np.zeros(n)
+    I_global_input[n // 3:2 * n // 3] = 2e3
+
+    # neuron parameters
+    C = 50
+    vr = -80
+    vt = -25
+    vpeak = 40
+    k = 1
+    a = 0.1
+    b = -20
+    c = -55
+    d = 150
+
+    for i in range(1, n):
+
+        dt = t[i] - t[i - 1]
+
+        # iterate through postsynaptic neurons
+        for jj in range(n_cells):
+
+            # iterate through presynaptic neurons
+            for kk in range(n_cells):
+                if jj != kk:
+                    I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1]
+
+            dvdt = (k * (v[jj, i - 1] - vr) *
+                    (v[jj, i - 1] - vt) - u[jj, i - 1] + I_net[jj, i - 1] +
+                    w_global_input[jj] * I_global_input[i - 1]) / C
+            dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1])
+            dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay
+
+            v[jj, i] = v[jj, i - 1] + dvdt * dt
+            u[jj, i] = u[jj, i - 1] + dudt * dt
+            g[jj, i] = g[jj, i - 1] + dgdt * dt
+
+            if v[jj, i] >= vpeak:
+                v[jj, i - 1] = vpeak
+                v[jj, i] = c
+                u[jj, i] = u[jj, i] + d
+                spike[jj, i] = 1
+
+    fig, ax = plt.subplots(3, 1, squeeze=False)
+    ax[0, 0].plot(I_global_input)
+    ax[1, 0].imshow(v, aspect='auto')
+    # for ii in range(n_cells):
+    #     ax[1, 0].plot(t, v[ii, :])
+    ax[2, 0].imshow(g, aspect='auto')
+    plt.show()
+
+    return g
+
+
+# 1
+n_cells = 3
+w_global_input = np.zeros(n_cells)
+w_global_input[0] = 1
+w = np.zeros((n_cells, n_cells))
+w[0, 0] = 0.0
+w[0, 1] = 1.0 * np.random.normal(3e5, 1e5)
+w[0, 2] = 1.0 * np.random.normal(3e5, 1e5)
+w[1, 0] = 0.0
+w[1, 1] = 0.0
+w[1, 2] = 0.0
+w[2, 0] = 0.0
+w[2, 1] = 0.0
+w[2, 2] = 0.0
+simulate_network(n_cells, w, w_global_input)
+
+# 2
+n_cells = 2
+w_global_input = np.zeros(n_cells)
+w_global_input[0] = 1
+w = np.zeros((n_cells, n_cells))
+w[0, 0] = 0.0
+w[0, 1] = 3e5
+w[1, 0] = -5e5
+w[1, 1] = 0.0
+simulate_network(n_cells, w, w_global_input)
+
+# 3
+n_cells = 20
+w_global_input = np.ones(n_cells)
+w = np.random.uniform(0.001, 0.9, (n_cells, n_cells)) * 10000
+g = simulate_network(n_cells, w, w_global_input)
+cov_matrix = np.corrcoef(g)
+plt.imshow(cov_matrix)
+plt.show()
+```

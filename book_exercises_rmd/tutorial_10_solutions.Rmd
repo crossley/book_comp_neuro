@@ -1,0 +1,485 @@
+---
+title: "Tutorial 10 Solutions"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python, echo=T, eval=F}
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+
+def init_arrays():
+    vA = np.zeros(n)
+    uA = np.zeros(n)
+    gA = np.zeros(n)
+    spikeA = np.zeros(n)
+    vA[0] = vr
+
+    vB = np.zeros(n)
+    uB = np.zeros(n)
+    gB = np.zeros(n)
+    spikeB = np.zeros(n)
+    vB[0] = vr
+
+    vC = np.zeros(n)
+    uC = np.zeros(n)
+    gC = np.zeros(n)
+    spikeC = np.zeros(n)
+    vC[0] = vr
+
+    w_0A = 1 * np.ones(n_trials)
+    w_AB = 0.4 * np.ones(n_trials)
+    w_AC = 0.4 * np.ones(n_trials)
+
+    g_record = np.zeros((n_trials, n))
+    vA_record = np.zeros((n_trials, n))
+    gA_record = np.zeros((n_trials, n))
+    vB_record = np.zeros((n_trials, n))
+    gB_record = np.zeros((n_trials, n))
+    vC_record = np.zeros((n_trials, n))
+    gC_record = np.zeros((n_trials, n))
+
+    return {
+        'vA': vA,
+        'uA': uA,
+        'gA': gA,
+        'spikeA': spikeA,
+        'vB': vB,
+        'uB': uB,
+        'gB': gB,
+        'spikeB': spikeB,
+        'vC': vC,
+        'uC': uC,
+        'gC': gC,
+        'spikeC': spikeC,
+        'w_0A': w_0A,
+        'w_AB': w_AB,
+        'w_AC': w_AC,
+        'g_record': g_record,
+        'vA_record': vA_record,
+        'gA_record': gA_record,
+        'vB_record': vB_record,
+        'gB_record': gB_record,
+        'vC_record': vC_record,
+        'gC_record': gC_record
+    }
+
+
+def plot_results():
+    fig = plt.figure(figsize=(8, 8))
+    gs = gridspec.GridSpec(5, 2)
+
+    ax00 = fig.add_subplot(gs[0, 0])
+    ax10 = fig.add_subplot(gs[1, 0])
+    ax20 = fig.add_subplot(gs[2, 0])
+    ax30 = fig.add_subplot(gs[3, 0])
+    ax01 = fig.add_subplot(gs[0, 1])
+    ax11 = fig.add_subplot(gs[1, 1])
+    ax21 = fig.add_subplot(gs[2, 1])
+    ax31 = fig.add_subplot(gs[3, 1])
+    ax3 = fig.add_subplot(gs[4, :])
+
+    ax1 = ax00
+    ax2 = ax00.twinx()
+    ax2.plot(t, g_record[0], 'C0', label='external g')
+    ax2.legend(loc='lower right')
+    ax1.set_title('Trial 1')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax10
+    ax2 = ax10.twinx()
+    ax1.plot(t, vA_record[0], 'C0', label='vA')
+    ax2.plot(t, gA_record[0], 'C1', label='gA')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax20
+    ax2 = ax20.twinx()
+    ax1.plot(t, vB_record[0], 'C0', label='vB')
+    ax2.plot(t, gB_record[0], 'C1', label='gB')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax30
+    ax2 = ax30.twinx()
+    ax1.plot(t, vC_record[0], 'C0', label='vC')
+    ax2.plot(t, gC_record[0], 'C1', label='gC')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax01
+    ax2 = ax01.twinx()
+    ax2.plot(t, g_record[0], 'C0', label='external g')
+    ax2.legend(loc='lower right')
+    ax1.set_title('Trial n')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax11
+    ax2 = ax11.twinx()
+    ax1.plot(t, vA_record[-2], 'C0', label='vA')
+    ax2.plot(t, gA_record[-2], 'C1', label='gA')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax21
+    ax2 = ax21.twinx()
+    ax1.plot(t, vB_record[-2], 'C0', label='vB')
+    ax2.plot(t, gB_record[-2], 'C1', label='gB')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax31
+    ax2 = ax31.twinx()
+    ax1.plot(t, vC_record[-2], 'C0', label='vC')
+    ax2.plot(t, gC_record[-2], 'C1', label='gC')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax3.plot(np.arange(0, n_trials, 1), w_AB, label='w_AB')
+    ax3.plot(np.arange(0, n_trials, 1), w_AC, label='w_AC')
+    ax3.set_xlabel('Trial')
+    ax3.set_ylabel('Synaptic Weight (w)')
+    ax3.legend(loc='upper right')
+    plt.tight_layout()
+    plt.show()
+
+
+def simulate_network(update_weight_func):
+
+    for j in range(n_trials - 1):
+        trl = j
+
+        for i in range(1, n):
+
+            dt = t[i] - t[i - 1]
+
+            # external input
+            dgdt = (-g[i - 1] + psp_amp * spike[i - 1]) / psp_decay
+            g[i] = g[i - 1] + dgdt * dt
+
+            # neuron A
+            dvdt1 = (k * (vA[i - 1] - vr) *
+                     (vA[i - 1] - vt) - uA[i - 1] + w_0A[trl] * g[i - 1]) / C
+            dudt1 = a * (b * (vA[i - 1] - vr) - uA[i - 1])
+            dgdt1 = (-gA[i - 1] + psp_amp * spikeA[i - 1]) / psp_decay
+            vA[i] = vA[i - 1] + dvdt1 * dt
+            uA[i] = uA[i - 1] + dudt1 * dt
+            gA[i] = gA[i - 1] + dgdt1 * dt
+            if vA[i] >= vpeak:
+                vA[i - 1] = vpeak
+                vA[i] = c
+                uA[i] = uA[i] + d
+                spikeA[i] = 1
+
+            # neuron B
+            dvdt2 = (k * (vB[i - 1] - vr) *
+                     (vB[i - 1] - vt) - uB[i - 1] + w_AB[trl] * gA[i - 1]) / C
+            dudt2 = a * (b * (vB[i - 1] - vr) - uB[i - 1])
+            dgdt2 = (-gB[i - 1] + psp_amp * spikeB[i - 1]) / psp_decay
+            vB[i] = vB[i - 1] + dvdt2 * dt
+            uB[i] = uB[i - 1] + dudt2 * dt
+            gB[i] = gB[i - 1] + dgdt2 * dt
+            if vB[i] >= vpeak:
+                vB[i - 1] = vpeak
+                vB[i] = c
+                uB[i] = uB[i] + d
+                spikeB[i] = 1
+
+            # neuron C
+            dvdt2 = (k * (vC[i - 1] - vr) *
+                     (vC[i - 1] - vt) - uC[i - 1] + w_AC[trl] * gA[i - 1]) / C
+            dudt2 = a * (b * (vC[i - 1] - vr) - uC[i - 1])
+            dgdt2 = (-gC[i - 1] + psp_amp * spikeC[i - 1]) / psp_decay
+            vC[i] = vC[i - 1] + dvdt2 * dt
+            uC[i] = uC[i - 1] + dudt2 * dt
+            gC[i] = gC[i - 1] + dgdt2 * dt
+            if vC[i] >= vpeak:
+                vC[i - 1] = vpeak
+                vC[i] = c
+                uC[i] = uC[i] + d
+                spikeC[i] = 1
+
+        # update synaptic weights
+        pre = gA.sum()
+        postB = gB.sum()
+        postC = gC.sum()
+
+        if update_weight_func == update_weight_3:
+            # Hebbian
+            alpha = 3e-14
+            beta = 3e-14
+            theta = 2e6
+            delta_w_AB = update_weight_func(pre, postB, w_AB, alpha, beta,
+                                            theta)
+            w_AB[trl + 1] = w_AB[trl] + delta_w_AB
+
+            alpha = 3e-14
+            beta = 3e-14
+            theta = 2e7
+            delta_w_AC = update_weight_func(pre, postC, w_AC, alpha, beta,
+                                            theta)
+            w_AC[trl + 1] = w_AC[trl] + delta_w_AC
+
+        elif update_weight_func == update_weight_stdp:
+            # STDP
+            alpha = 3e-14
+            beta = 3e-14
+            theta = 2e6
+            tau_pos = 10
+            tau_neg = 10
+            delta_w_AB = update_weight_func(spikeA, spikeB, pre, postB, w_AB,
+                                            alpha, beta, theta, tau_pos,
+                                            tau_neg)
+            w_AB[trl + 1] = w_AB[trl] + delta_w_AB
+
+            alpha = 3e-14
+            beta = 3e-14
+            theta = 5e11
+            tau_pos = 10
+            tau_neg = 10
+            delta_w_AC = update_weight_func(spikeA, spikeC, pre, postB, w_AC,
+                                            alpha, beta, theta, tau_pos,
+                                            tau_neg)
+            w_AC[trl + 1] = w_AC[trl] + delta_w_AC
+
+            # store trial info
+            g_record[trl, :] = g
+            vA_record[trl, :] = vA
+            gA_record[trl, :] = gA
+            vB_record[trl, :] = vB
+            gB_record[trl, :] = gB
+
+    plot_results()
+
+
+def update_weight_3(pre, post, w, alpha, beta, theta):
+    post_ltp = np.clip(post - theta, 0, None) * (1 - w[trl])
+    post_ltd = np.clip(theta - post, 0, None) * w[trl]
+    delta_w = alpha * pre * post_ltp - beta * pre * post_ltd
+
+    return delta_w
+
+def update_weight_3_v2(pre, post, w, alpha, beta, theta):
+    post_ltp = np.clip(post - theta, 0, None) * (1 - w)
+    post_ltd = np.clip(theta - post, 0, None) * w
+    delta_w = alpha * pre * post_ltp - beta * pre * post_ltd
+
+    return delta_w
+
+
+def update_weight_stdp(spike_pre, spike_post, pre, post, w, alpha, beta, theta,
+                       tau_pos, tau_neg):
+    delta_stdp = 0
+    n_pre_spikes = spike_pre.sum().astype(int)
+    n_post_spikes = spike_post.sum().astype(int)
+    pre_spike_times = t[spike_pre == 1]
+    post_spike_times = t[spike_post == 1]
+    for i in range(n_pre_spikes):
+        for j in range(n_post_spikes):
+            T_pre = pre_spike_times[i]
+            T_post = post_spike_times[j]
+            delta_T = T_post - T_pre
+            if delta_T > 0:
+                delta_stdp += np.exp(-(delta_T) / tau_pos)
+            else:
+                delta_stdp += np.exp((delta_T) / tau_neg)
+
+    post_above_thresh = np.clip(post - theta, 0,
+                                None) * (1 - w[trl]) * delta_stdp
+    post_below_thresh = np.clip(theta - post, 0, None) * w[trl]
+    delta_w = alpha * pre * post_above_thresh - beta * pre * post_below_thresh
+
+    return delta_w
+
+
+n_trials = 10
+trl = 0
+
+tau = 0.1
+T = 100
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+C = 50
+vr = -80
+vt = -25
+vpeak = 40
+k = 1
+a = 0.01
+b = -20
+c = -55
+d = 150
+
+psp_amp = 1e5
+psp_decay = 10
+
+g = np.zeros(n)
+spike = np.zeros(n)
+spike[200:800:20] = 1
+
+array_dict = init_arrays()
+
+vA = array_dict['vA']
+uA = array_dict['uA']
+gA = array_dict['gA']
+spikeA = array_dict['spikeA']
+vB = array_dict['vB']
+uB = array_dict['uB']
+gB = array_dict['gB']
+spikeB = array_dict['spikeB']
+vC = array_dict['vC']
+uC = array_dict['uC']
+gC = array_dict['gC']
+spikeC = array_dict['spikeC']
+w_0A = array_dict['w_0A']
+w_AB = array_dict['w_AB']
+w_AC = array_dict['w_AC']
+g_record = array_dict['g_record']
+vA_record = array_dict['vA_record']
+gA_record = array_dict['gA_record']
+vB_record = array_dict['vB_record']
+gB_record = array_dict['gB_record']
+vC_record = array_dict['vB_record']
+gC_record = array_dict['gB_record']
+
+# NOTE: 1
+# update_weight_func = update_weight_3
+# simulate_network(update_weight_func)
+
+# NOTE: 2
+# update_weight_func = update_weight_stdp
+# simulate_network(update_weight_func)
+
+# NOTE: 3
+# low noise stdp
+# jitter = 1e3
+# update_weight_func = update_weight_stdp
+# simulate_network(update_weight_func)
+
+# low noise non-stdp
+# jitter = 1e3
+# update_weight_func = update_weight_3
+# simulate_network(update_weight_func)
+
+# high noise stdp
+# jitter = 5e3
+# update_weight_func = update_weight_stdp
+# simulate_network(update_weight_func)
+
+# high noise non-stdp
+# jitter = 5e3
+# update_weight_func = update_weight_3
+# simulate_network(update_weight_func)
+
+
+# NOTE: 4
+def simulate_network_4(n_cells, w, w_global_input):
+
+    tau = 0.01
+    T = 200
+    t = np.arange(0, T, tau)
+    n = t.shape[0]
+
+    A = 1
+    t_peak = 2
+    psp_amp = 1
+    psp_decay = 10
+
+    v = np.zeros((n_cells, n))
+    u = np.zeros((n_cells, n))
+    g = np.zeros((n_cells, n))
+    spike = np.zeros((n_cells, n))
+
+    # hold onto sum of all presynaptic outputs
+    I_net = np.zeros((n_cells, n))
+
+    I_global_input = np.zeros(n)
+    I_global_input[n // 3:2 * n // 3] = 2e3
+
+    # neuron parameters
+    C = 50
+    vr = -80
+    vt = -25
+    vpeak = 40
+    k = 1
+    a = 0.1
+    b = -20
+    c = -55
+    d = 150
+
+    for trl in range(10):
+        for i in range(1, n):
+
+            dt = t[i] - t[i - 1]
+
+            # iterate through postsynaptic neurons
+            for jj in range(n_cells):
+
+                # iterate through presynaptic neurons
+                for kk in range(n_cells):
+                    if jj != kk:
+                        I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1]
+
+                dvdt = (k * (v[jj, i - 1] - vr) *
+                        (v[jj, i - 1] - vt) - u[jj, i - 1] + I_net[jj, i - 1] +
+                        w_global_input[jj] * I_global_input[i - 1]) / C
+                dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1])
+                dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay
+
+                v[jj, i] = v[jj, i - 1] + dvdt * dt
+                u[jj, i] = u[jj, i - 1] + dudt * dt
+                g[jj, i] = g[jj, i - 1] + dgdt * dt
+
+                if v[jj, i] >= vpeak:
+                    v[jj, i - 1] = vpeak
+                    v[jj, i] = c
+                    u[jj, i] = u[jj, i] + d
+                    spike[jj, i] = 1
+
+        alpha = 3e-5
+        beta = 3e-5
+        theta = 0
+        for jj in range(n_cells):
+            post = g[jj, :].sum()
+            for kk in range(n_cells):
+                if jj != kk:
+                    pre = g[kk, :].sum()
+                    delta_w = update_weight_3_v2(pre, post, w[kk, jj], alpha,
+                                              beta, theta)
+                    w[kk, jj] = w[kk, jj] + delta_w
+                    # print(delta_w)
+
+        plt.imshow(w)
+        plt.show()
+
+
+n_cells = 20
+w_global_input = np.ones(n_cells)
+w = np.random.uniform(0.001, 0.9, (n_cells, n_cells)) * 10000
+simulate_network_4(n_cells, w, w_global_input)
+```

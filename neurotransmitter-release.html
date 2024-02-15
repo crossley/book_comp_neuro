@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Neurotransmitter release | Introduction to Computational Neuroscience</title>
+  <meta name="description" content="8 Neurotransmitter release | Introduction to Computational Neuroscience" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Neurotransmitter release | Introduction to Computational Neuroscience" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Neurotransmitter release | Introduction to Computational Neuroscience" />
+  
+  
+  
+
+<meta name="author" content="Matthew J. Crossley" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hodgkin-huxley-neuron-model.html"/>
+<link rel="next" href="synpatic-plasticity.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html"><i class="fa fa-check"></i><b>2</b> Introduction to the book</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-computational-neuroscience"><i class="fa fa-check"></i><b>2.1</b> What is computational neuroscience?</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#marrs-levels"><i class="fa fa-check"></i><b>2.2</b> Marr’s levels</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-computers"><i class="fa fa-check"></i><b>2.3</b> Why computers?</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-the-real-value-gained"><i class="fa fa-check"></i><b>2.4</b> What is the real value gained?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-python"><i class="fa fa-check"></i><b>2.5</b> Why Python</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#getting-started-with-python"><i class="fa fa-check"></i><b>2.6</b> Getting started with Python</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#learning-python"><i class="fa fa-check"></i><b>2.7</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html"><i class="fa fa-check"></i><b>3</b> Numpy and Matplotlib</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html#learning-python-1"><i class="fa fa-check"></i><b>3.1</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="intro-to-calculus.html"><a href="intro-to-calculus.html"><i class="fa fa-check"></i><b>4</b> Intro to calculus</a></li>
+<li class="chapter" data-level="5" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html"><i class="fa fa-check"></i><b>5</b> Intro to dynamical systems</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#differential-equations"><i class="fa fa-check"></i><b>5.1</b> Differential equations</a></li>
+<li class="chapter" data-level="5.2" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#eulers-method"><i class="fa fa-check"></i><b>5.2</b> Euler’s method</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html"><i class="fa fa-check"></i><b>6</b> Simple neuron models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#review-of-hh"><i class="fa fa-check"></i><b>6.1</b> Review of HH</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#leaky-integrate-and-fire"><i class="fa fa-check"></i><b>6.2</b> Leaky integrate and fire</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#quadratic-integrate-and-fire"><i class="fa fa-check"></i><b>6.3</b> Quadratic integrate and fire</a></li>
+<li class="chapter" data-level="6.4" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#izhikevich-neuron"><i class="fa fa-check"></i><b>6.4</b> Izhikevich Neuron</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html"><i class="fa fa-check"></i><b>7</b> Hodgkin-Huxley neuron model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_1"><i class="fa fa-check"></i><b>7.1</b> neuron_func_1</a></li>
+<li class="chapter" data-level="7.2" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_2"><i class="fa fa-check"></i><b>7.2</b> neuron_func_2</a></li>
+<li class="chapter" data-level="7.3" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_3"><i class="fa fa-check"></i><b>7.3</b> neuron_func_3</a></li>
+<li class="chapter" data-level="7.4" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_4"><i class="fa fa-check"></i><b>7.4</b> neuron_func_4</a></li>
+<li class="chapter" data-level="7.5" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_5"><i class="fa fa-check"></i><b>7.5</b> neuron_func_5</a></li>
+<li class="chapter" data-level="7.6" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_6"><i class="fa fa-check"></i><b>7.6</b> neuron_func_6</a></li>
+<li class="chapter" data-level="7.7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_7"><i class="fa fa-check"></i><b>7.7</b> neuron_func_7</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html"><i class="fa fa-check"></i><b>8</b> Neurotransmitter release</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#synaptics-responses"><i class="fa fa-check"></i><b>8.1</b> Synaptics responses</a></li>
+<li class="chapter" data-level="8.2" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#spikes-as-a-change-in-conductance"><i class="fa fa-check"></i><b>8.2</b> Spikes as a change in conductance</a></li>
+<li class="chapter" data-level="8.3" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#coupling-conductance-to-psp"><i class="fa fa-check"></i><b>8.3</b> Coupling conductance to PSP</a></li>
+<li class="chapter" data-level="8.4" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psps-superimpose"><i class="fa fa-check"></i><b>8.4</b> PSPs superimpose</a></li>
+<li class="chapter" data-level="8.5" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psp-model-in-the-izhikevich-neuron"><i class="fa fa-check"></i><b>8.5</b> PSP model in the Izhikevich neuron</a></li>
+<li class="chapter" data-level="8.6" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#chaining-neurons-together"><i class="fa fa-check"></i><b>8.6</b> Chaining neurons together</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html"><i class="fa fa-check"></i><b>9</b> Synpatic Plasticity</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#python-helper-functions"><i class="fa fa-check"></i><b>9.1</b> Python helper functions</a></li>
+<li class="chapter" data-level="9.2" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-1"><i class="fa fa-check"></i><b>9.2</b> Hebbian Learning 1</a></li>
+<li class="chapter" data-level="9.3" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-2"><i class="fa fa-check"></i><b>9.3</b> Hebbian Learning 2</a></li>
+<li class="chapter" data-level="9.4" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-3"><i class="fa fa-check"></i><b>9.4</b> Hebbian Learning 3</a></li>
+<li class="chapter" data-level="9.5" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-stdp"><i class="fa fa-check"></i><b>9.5</b> Hebbian STDP</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reinforcement-learning.html"><a href="reinforcement-learning.html"><i class="fa fa-check"></i><b>10</b> Reinforcement Learning</a></li>
+<li class="chapter" data-level="11" data-path="reinforcement-learning-rule.html"><a href="reinforcement-learning-rule.html"><i class="fa fa-check"></i><b>11</b> Reinforcement learning rule</a></li>
+<li class="chapter" data-level="12" data-path="example-1.html"><a href="example-1.html"><i class="fa fa-check"></i><b>12</b> Example 1</a></li>
+<li class="chapter" data-level="13" data-path="example-2.html"><a href="example-2.html"><i class="fa fa-check"></i><b>13</b> Example 2</a></li>
+<li class="chapter" data-level="14" data-path="example-3.html"><a href="example-3.html"><i class="fa fa-check"></i><b>14</b> Example 3</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="example-3.html"><a href="example-3.html#reinforcement-learning-framework"><i class="fa fa-check"></i><b>14.1</b> Reinforcement learning framework</a></li>
+<li class="chapter" data-level="14.2" data-path="example-3.html"><a href="example-3.html#estimating-the-state-value-function"><i class="fa fa-check"></i><b>14.2</b> Estimating the state-value function</a></li>
+<li class="chapter" data-level="14.3" data-path="example-3.html"><a href="example-3.html#temporal-difference-td-learning"><i class="fa fa-check"></i><b>14.3</b> Temporal difference (TD) learning</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="example-3.html"><a href="example-3.html#td-rl-model-of-classical-conditioning"><i class="fa fa-check"></i><b>14.3.1</b> TD RL model of classical conditioning</a></li>
+<li class="chapter" data-level="14.3.2" data-path="example-3.html"><a href="example-3.html#td-rl-as-the-learning-signal-in-a-spiking-network"><i class="fa fa-check"></i><b>14.3.2</b> TD RL as the learning signal in a spiking network</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="example-3.html"><a href="example-3.html#td0-for-estimating-v_pi"><i class="fa fa-check"></i><b>14.4</b> TD(0) for estimating <span class="math inline">\(v_{\pi}\)</span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="example-3.html"><a href="example-3.html#td-in-a-simple-2-arm-bandit-task"><i class="fa fa-check"></i><b>14.4.1</b> TD in a simple 2-arm bandit task</a></li>
+<li class="chapter" data-level="14.4.2" data-path="example-3.html"><a href="example-3.html#action-selection-policy"><i class="fa fa-check"></i><b>14.4.2</b> Action selection policy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="example-3.html"><a href="example-3.html#sarsa-for-estimating-q"><i class="fa fa-check"></i><b>14.5</b> SARSA for estimating <span class="math inline">\(Q\)</span></a></li>
+<li class="chapter" data-level="14.6" data-path="example-3.html"><a href="example-3.html#q-learning-for-estimating-pi"><i class="fa fa-check"></i><b>14.6</b> Q-learning for estimating <span class="math inline">\(\pi\)</span></a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.6.1</b> Q-learning applied to instrumental conditioning</a></li>
+<li class="chapter" data-level="14.6.2" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning-2"><i class="fa fa-check"></i><b>14.6.2</b> Q-learning applied to instrumental conditioning 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="example-3.html"><a href="example-3.html#dyna-q-model-based-rl"><i class="fa fa-check"></i><b>14.7</b> Dyna-Q: Model-based RL</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="example-3.html"><a href="example-3.html#dyna-q-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.7.1</b> Dyna-Q applied to instrumental conditioning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>15</b> supervised learning</a></li>
+<li class="chapter" data-level="16" data-path="supervised-learning-1.html"><a href="supervised-learning-1.html"><i class="fa fa-check"></i><b>16</b> Supervised Learning</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Computational Neuroscience</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="neurotransmitter-release" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Neurotransmitter release<a href="neurotransmitter-release.html#neurotransmitter-release" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="synaptics-responses" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Synaptics responses<a href="neurotransmitter-release.html#synaptics-responses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Action potentials lead to neurotransmitter release which
+float across the synaptic cleft and bind to postsynaptic
+receptors on a receiving neuron, causing excitatory or
+inhibitory postsynaptic potentials (EPSP or IPSP) in the
+receiving neuron. The timecourse of the PSP on the receiving
+membrane potential is commonly modelled as follows.</li>
+</ul>
+<p><span class="math display">\[
+\Delta V_{\text{PSP}}(t) =  A t e^{\frac{-t}{t_{\text{peak}}}}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(A\)</span> is amplitude parameter</p></li>
+<li><p><span class="math inline">\(t_{\text{peak}}\)</span> is the time at which <span class="math inline">\(\Delta V_{\text{PSP}}(t)\)</span> reaches its max value.</p></li>
+<li><p>In neuroscience, this function is often called the <em>alpha function</em>.</p></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="neurotransmitter-release.html#cb14-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="neurotransmitter-release.html#cb14-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-3"><a href="neurotransmitter-release.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="neurotransmitter-release.html#cb14-4" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb14-5"><a href="neurotransmitter-release.html#cb14-5" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb14-6"><a href="neurotransmitter-release.html#cb14-6" tabindex="-1"></a>A <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb14-7"><a href="neurotransmitter-release.html#cb14-7" tabindex="-1"></a>t_peak <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb14-8"><a href="neurotransmitter-release.html#cb14-8" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb14-9"><a href="neurotransmitter-release.html#cb14-9" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb14-10"><a href="neurotransmitter-release.html#cb14-10" tabindex="-1"></a>v_psp<span class="op">=</span> A <span class="op">*</span> t <span class="op">*</span> np.exp(<span class="op">-</span>t<span class="op">/</span>t_peak)</span>
+<span id="cb14-11"><a href="neurotransmitter-release.html#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="neurotransmitter-release.html#cb14-12" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-13"><a href="neurotransmitter-release.html#cb14-13" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].plot(t, v_psp)</span>
+<span id="cb14-14"><a href="neurotransmitter-release.html#cb14-14" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb14-15"><a href="neurotransmitter-release.html#cb14-15" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;V&#39;</span>)</span>
+<span id="cb14-16"><a href="neurotransmitter-release.html#cb14-16" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="spikes-as-a-change-in-conductance" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Spikes as a change in conductance<a href="neurotransmitter-release.html#spikes-as-a-change-in-conductance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>This PSP timecourse can also be obtained by modelling the
+effect of an action potential on the ion conductivity of a
+receiving membrane potential as follows.</li>
+</ul>
+<p><span class="math display">\[
+\frac{d}{dt}g(t) = \big(-g(t) + A_{\text{psp}} \delta(t_{\text{spike}}) \big) / t_{\text{psp}}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(g(t)\)</span> is the conductance of the receiving membrane patch.</p></li>
+<li><p><span class="math inline">\(A_{\text{psp}}\)</span> is an amplitude parameter that determines
+how much each individual spike influences the conductance of
+the receiving neuron.</p></li>
+<li><p><span class="math inline">\(t_{\text{psp}}\)</span> is a time constant that determines how
+quickly the influence of spike on conductance fades away.</p></li>
+<li><p><span class="math inline">\(t_{\text{spike}}\)</span> is the time of the next spike and
+<span class="math inline">\(\delta()\)</span> is a delta function – it is one wherever <span class="math inline">\(t = t_{\text{spike}}\)</span> and zero everwhere else.</p></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="neurotransmitter-release.html#cb15-1" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb15-2"><a href="neurotransmitter-release.html#cb15-2" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb15-3"><a href="neurotransmitter-release.html#cb15-3" tabindex="-1"></a>spike[<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a href="neurotransmitter-release.html#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="neurotransmitter-release.html#cb15-5" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb15-6"><a href="neurotransmitter-release.html#cb15-6" tabindex="-1"></a>  dgdt <span class="op">=</span> (<span class="op">-</span>g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> A <span class="op">*</span> spike[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> t_peak</span>
+<span id="cb15-7"><a href="neurotransmitter-release.html#cb15-7" tabindex="-1"></a>  dt <span class="op">=</span> t[i] <span class="op">-</span> t[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb15-8"><a href="neurotransmitter-release.html#cb15-8" tabindex="-1"></a>  </span>
+<span id="cb15-9"><a href="neurotransmitter-release.html#cb15-9" tabindex="-1"></a>  g[i] <span class="op">=</span> g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb15-10"><a href="neurotransmitter-release.html#cb15-10" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="neurotransmitter-release.html#cb15-11" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-12"><a href="neurotransmitter-release.html#cb15-12" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].plot(t, g)</span>
+<span id="cb15-13"><a href="neurotransmitter-release.html#cb15-13" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb15-14"><a href="neurotransmitter-release.html#cb15-14" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;g&#39;</span>)</span>
+<span id="cb15-15"><a href="neurotransmitter-release.html#cb15-15" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
+<ul>
+<li>Notice that this model produces an instantaneous change in
+conductance. Therefore, this isn’t a particularly realistic
+model of conductance changes, but as we see next, it leads
+to PSPs that look pretty good.</li>
+</ul>
+</div>
+<div id="coupling-conductance-to-psp" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Coupling conductance to PSP<a href="neurotransmitter-release.html#coupling-conductance-to-psp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>We couple the above model of conductance change to a
+simple model of membrane potential with the following simple
+differential equations.</li>
+</ul>
+<p><span class="math display">\[
+\frac{d}{dt}v(t) = \big( g(t) (v(t) - E) - g_{\text{leak}} v(t) \big) / C \\
+\frac{d}{dt}g(t) = \big( -g(t) + A_{\text{psp}} \delta(t_{\text{spike}}) \big) / t_{\text{psp}}
+\]</span></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="neurotransmitter-release.html#cb16-1" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb16-2"><a href="neurotransmitter-release.html#cb16-2" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb16-3"><a href="neurotransmitter-release.html#cb16-3" tabindex="-1"></a>A <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-4"><a href="neurotransmitter-release.html#cb16-4" tabindex="-1"></a>t_peak <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb16-5"><a href="neurotransmitter-release.html#cb16-5" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb16-6"><a href="neurotransmitter-release.html#cb16-6" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb16-7"><a href="neurotransmitter-release.html#cb16-7" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="neurotransmitter-release.html#cb16-8" tabindex="-1"></a>v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb16-9"><a href="neurotransmitter-release.html#cb16-9" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb16-10"><a href="neurotransmitter-release.html#cb16-10" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb16-11"><a href="neurotransmitter-release.html#cb16-11" tabindex="-1"></a>spike[<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-12"><a href="neurotransmitter-release.html#cb16-12" tabindex="-1"></a>E <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb16-13"><a href="neurotransmitter-release.html#cb16-13" tabindex="-1"></a>g_leak <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-14"><a href="neurotransmitter-release.html#cb16-14" tabindex="-1"></a>C<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb16-15"><a href="neurotransmitter-release.html#cb16-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb16-16"><a href="neurotransmitter-release.html#cb16-16" tabindex="-1"></a>  dvdt <span class="op">=</span> (g[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span>(v[i<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>E) <span class="op">-</span> g_leak <span class="op">*</span> v[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb16-17"><a href="neurotransmitter-release.html#cb16-17" tabindex="-1"></a>  dgdt <span class="op">=</span> (<span class="op">-</span>g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> A <span class="op">*</span> spike[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> t_peak</span>
+<span id="cb16-18"><a href="neurotransmitter-release.html#cb16-18" tabindex="-1"></a>  dt <span class="op">=</span> t[i] <span class="op">-</span> t[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-19"><a href="neurotransmitter-release.html#cb16-19" tabindex="-1"></a>  </span>
+<span id="cb16-20"><a href="neurotransmitter-release.html#cb16-20" tabindex="-1"></a>  v[i] <span class="op">=</span> v[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb16-21"><a href="neurotransmitter-release.html#cb16-21" tabindex="-1"></a>  g[i] <span class="op">=</span> g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb16-22"><a href="neurotransmitter-release.html#cb16-22" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="neurotransmitter-release.html#cb16-23" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-24"><a href="neurotransmitter-release.html#cb16-24" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].plot(t, v)</span>
+<span id="cb16-25"><a href="neurotransmitter-release.html#cb16-25" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb16-26"><a href="neurotransmitter-release.html#cb16-26" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb16-27"><a href="neurotransmitter-release.html#cb16-27" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].plot(t, g)</span>
+<span id="cb16-28"><a href="neurotransmitter-release.html#cb16-28" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb16-29"><a href="neurotransmitter-release.html#cb16-29" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;g&#39;</span>)</span>
+<span id="cb16-30"><a href="neurotransmitter-release.html#cb16-30" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-31"><a href="neurotransmitter-release.html#cb16-31" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-21-5.png" width="672" /></p>
+</div>
+<div id="psps-superimpose" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> PSPs superimpose<a href="neurotransmitter-release.html#psps-superimpose" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>You can play around with the spike train frequency and
+number etc in the above to see how PSPs superimpose with
+multiple spikes. E.g., see below.</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="neurotransmitter-release.html#cb17-1" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb17-2"><a href="neurotransmitter-release.html#cb17-2" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb17-3"><a href="neurotransmitter-release.html#cb17-3" tabindex="-1"></a>A <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb17-4"><a href="neurotransmitter-release.html#cb17-4" tabindex="-1"></a>t_peak <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb17-5"><a href="neurotransmitter-release.html#cb17-5" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb17-6"><a href="neurotransmitter-release.html#cb17-6" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb17-7"><a href="neurotransmitter-release.html#cb17-7" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="neurotransmitter-release.html#cb17-8" tabindex="-1"></a>v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb17-9"><a href="neurotransmitter-release.html#cb17-9" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb17-10"><a href="neurotransmitter-release.html#cb17-10" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb17-11"><a href="neurotransmitter-release.html#cb17-11" tabindex="-1"></a>spike[<span class="dv">20</span>::<span class="dv">30</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb17-12"><a href="neurotransmitter-release.html#cb17-12" tabindex="-1"></a>E <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb17-13"><a href="neurotransmitter-release.html#cb17-13" tabindex="-1"></a>g_leak <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb17-14"><a href="neurotransmitter-release.html#cb17-14" tabindex="-1"></a>C<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb17-15"><a href="neurotransmitter-release.html#cb17-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb17-16"><a href="neurotransmitter-release.html#cb17-16" tabindex="-1"></a>  dvdt <span class="op">=</span> (g[i<span class="op">-</span><span class="dv">1</span>]<span class="op">*</span>(v[i<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>E) <span class="op">-</span> g_leak <span class="op">*</span> v[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb17-17"><a href="neurotransmitter-release.html#cb17-17" tabindex="-1"></a>  dgdt <span class="op">=</span> (<span class="op">-</span>g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> A <span class="op">*</span> spike[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> t_peak</span>
+<span id="cb17-18"><a href="neurotransmitter-release.html#cb17-18" tabindex="-1"></a>  dt <span class="op">=</span> t[i] <span class="op">-</span> t[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb17-19"><a href="neurotransmitter-release.html#cb17-19" tabindex="-1"></a>  </span>
+<span id="cb17-20"><a href="neurotransmitter-release.html#cb17-20" tabindex="-1"></a>  v[i] <span class="op">=</span> v[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb17-21"><a href="neurotransmitter-release.html#cb17-21" tabindex="-1"></a>  g[i] <span class="op">=</span> g[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb17-22"><a href="neurotransmitter-release.html#cb17-22" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="neurotransmitter-release.html#cb17-23" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-24"><a href="neurotransmitter-release.html#cb17-24" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].plot(t, v)</span>
+<span id="cb17-25"><a href="neurotransmitter-release.html#cb17-25" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb17-26"><a href="neurotransmitter-release.html#cb17-26" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb17-27"><a href="neurotransmitter-release.html#cb17-27" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].plot(t, g)</span>
+<span id="cb17-28"><a href="neurotransmitter-release.html#cb17-28" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb17-29"><a href="neurotransmitter-release.html#cb17-29" tabindex="-1"></a>ax[<span class="dv">1</span>,<span class="dv">0</span>].set_ylabel(<span class="st">&#39;g&#39;</span>)</span>
+<span id="cb17-30"><a href="neurotransmitter-release.html#cb17-30" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-31"><a href="neurotransmitter-release.html#cb17-31" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-22-7.png" width="672" /></p>
+<ul>
+<li>Note that you are not seeing action potentials from the
+above code. In fact, the above code doesn’t even have a
+mechanism to generate an action potential even if <span class="math inline">\(v\)</span> became
+very depolarised. Rather, we are seeing PSPs. In practice,
+enough spikes will cuase many superimposing PSPs and that
+will cause the receiving cell to fire. We turn to that next.</li>
+</ul>
+</div>
+<div id="psp-model-in-the-izhikevich-neuron" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> PSP model in the Izhikevich neuron<a href="neurotransmitter-release.html#psp-model-in-the-izhikevich-neuron" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>We can also easily embed this sort of modelling of PSPs
+into other neuron types. To build moderate to large
+networks, we will end up relying on Izhikevich neurons, so
+we look at that next.</p></li>
+<li><p>The differential equations for an Izhikevich neuron is
+given by the following:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+C \frac{d}{dt} v(t) &amp;= k(v(t) - v_r) (v(t) - v_t) - u(t) + I(t) \\
+\frac{d}{dt} u(t) &amp;= a \big(b(v(t) - v_r) - u(t)\big) \\
+\text{ if} &amp;\quad v(t) &gt; v_{\text{peak}} \\
+\text{ then} &amp;\quad v(t) \leftarrow c, \quad u(t) \leftarrow u(t) + d
+\end{align}
+\]</span></p>
+<ul>
+<li><p>Check back over previous lecture notes for a description
+of what each parameter does.</p></li>
+<li><p>The trickiest part is thinking about where to place
+<span class="math inline">\(g(t)\)</span>. The form of the Izhikevich neuron looks different
+enough from the leaky conductance model from above that it
+may isn’t immediately obvious what we should do.</p></li>
+<li><p>The key is to remember that since the <span class="math inline">\(I\)</span> term is the
+input current, and a change in conductance effectively leads
+to changes in input currents, the <span class="math inline">\(g\)</span> term is closely
+related to <span class="math inline">\(I\)</span>. Here, we take the simple approach of simply
+replacing <span class="math inline">\(I\)</span> with the <span class="math inline">\(g\)</span> term from an afferent neuron.</p></li>
+<li><p>An intuitive way of justifying this decision is to
+remember that we use <span class="math inline">\(I(t)\)</span> to model any external current
+input, and this is precisely what a spike is from the
+perspective of the receiving cell.</p></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="neurotransmitter-release.html#cb18-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="neurotransmitter-release.html#cb18-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb18-3"><a href="neurotransmitter-release.html#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="neurotransmitter-release.html#cb18-4" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb18-5"><a href="neurotransmitter-release.html#cb18-5" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb18-6"><a href="neurotransmitter-release.html#cb18-6" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb18-7"><a href="neurotransmitter-release.html#cb18-7" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb18-8"><a href="neurotransmitter-release.html#cb18-8" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="neurotransmitter-release.html#cb18-9" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb18-10"><a href="neurotransmitter-release.html#cb18-10" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">80</span></span>
+<span id="cb18-11"><a href="neurotransmitter-release.html#cb18-11" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">25</span></span>
+<span id="cb18-12"><a href="neurotransmitter-release.html#cb18-12" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb18-13"><a href="neurotransmitter-release.html#cb18-13" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb18-14"><a href="neurotransmitter-release.html#cb18-14" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb18-15"><a href="neurotransmitter-release.html#cb18-15" tabindex="-1"></a>b <span class="op">=</span> <span class="op">-</span><span class="dv">20</span></span>
+<span id="cb18-16"><a href="neurotransmitter-release.html#cb18-16" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">55</span></span>
+<span id="cb18-17"><a href="neurotransmitter-release.html#cb18-17" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb18-18"><a href="neurotransmitter-release.html#cb18-18" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="neurotransmitter-release.html#cb18-19" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb18-20"><a href="neurotransmitter-release.html#cb18-20" tabindex="-1"></a>spike[<span class="dv">200</span>] <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb18-21"><a href="neurotransmitter-release.html#cb18-21" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="neurotransmitter-release.html#cb18-22" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb18-23"><a href="neurotransmitter-release.html#cb18-23" tabindex="-1"></a>psp_amp <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb18-24"><a href="neurotransmitter-release.html#cb18-24" tabindex="-1"></a>psp_decay <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb18-25"><a href="neurotransmitter-release.html#cb18-25" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="neurotransmitter-release.html#cb18-26" tabindex="-1"></a>v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb18-27"><a href="neurotransmitter-release.html#cb18-27" tabindex="-1"></a>u <span class="op">=</span> np.zeros(n)</span>
+<span id="cb18-28"><a href="neurotransmitter-release.html#cb18-28" tabindex="-1"></a>v[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb18-29"><a href="neurotransmitter-release.html#cb18-29" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="neurotransmitter-release.html#cb18-30" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb18-31"><a href="neurotransmitter-release.html#cb18-31" tabindex="-1"></a>  </span>
+<span id="cb18-32"><a href="neurotransmitter-release.html#cb18-32" tabindex="-1"></a>    <span class="co"># model the current input from some afferent neuron</span></span>
+<span id="cb18-33"><a href="neurotransmitter-release.html#cb18-33" tabindex="-1"></a>    dgdt <span class="op">=</span> (<span class="op">-</span>g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb18-34"><a href="neurotransmitter-release.html#cb18-34" tabindex="-1"></a>  </span>
+<span id="cb18-35"><a href="neurotransmitter-release.html#cb18-35" tabindex="-1"></a>    dvdt <span class="op">=</span> (k <span class="op">*</span> (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span> (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> g[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb18-36"><a href="neurotransmitter-release.html#cb18-36" tabindex="-1"></a>    dudt <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb18-37"><a href="neurotransmitter-release.html#cb18-37" tabindex="-1"></a>    </span>
+<span id="cb18-38"><a href="neurotransmitter-release.html#cb18-38" tabindex="-1"></a>    dt <span class="op">=</span> t[i] <span class="op">-</span> t[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb18-39"><a href="neurotransmitter-release.html#cb18-39" tabindex="-1"></a></span>
+<span id="cb18-40"><a href="neurotransmitter-release.html#cb18-40" tabindex="-1"></a>    v[i] <span class="op">=</span> v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb18-41"><a href="neurotransmitter-release.html#cb18-41" tabindex="-1"></a>    u[i] <span class="op">=</span> u[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt <span class="op">*</span> dt</span>
+<span id="cb18-42"><a href="neurotransmitter-release.html#cb18-42" tabindex="-1"></a>    g[i] <span class="op">=</span> g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb18-43"><a href="neurotransmitter-release.html#cb18-43" tabindex="-1"></a></span>
+<span id="cb18-44"><a href="neurotransmitter-release.html#cb18-44" tabindex="-1"></a>    <span class="cf">if</span> v[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb18-45"><a href="neurotransmitter-release.html#cb18-45" tabindex="-1"></a>        v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb18-46"><a href="neurotransmitter-release.html#cb18-46" tabindex="-1"></a>        v[i] <span class="op">=</span> c</span>
+<span id="cb18-47"><a href="neurotransmitter-release.html#cb18-47" tabindex="-1"></a>        u[i] <span class="op">=</span> u[i] <span class="op">+</span> d</span>
+<span id="cb18-48"><a href="neurotransmitter-release.html#cb18-48" tabindex="-1"></a></span>
+<span id="cb18-49"><a href="neurotransmitter-release.html#cb18-49" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-50"><a href="neurotransmitter-release.html#cb18-50" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(t, v)</span>
+<span id="cb18-51"><a href="neurotransmitter-release.html#cb18-51" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">0</span>].plot(t, g)</span>
+<span id="cb18-52"><a href="neurotransmitter-release.html#cb18-52" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-53"><a href="neurotransmitter-release.html#cb18-53" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-23-9.png" width="672" /></p>
+</div>
+<div id="chaining-neurons-together" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Chaining neurons together<a href="neurotransmitter-release.html#chaining-neurons-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>We now build a simple spiking neural network that chains
+three excitatory neurons together in a straightforward
+manner: <span class="math inline">\(A \rightarrow B \rightarrow C\)</span></p></li>
+<li><p>The basic logic that we use here is pretty simple. There
+will be an external input (square pulse thing like we have
+used lots so far in this unit) that feeds into neuron <span class="math inline">\(A\)</span>,
+and then the neurotransmitter release assocaited with each
+neurons action potentials will induce EPSPs in the neuron
+that they project to.</p></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="neurotransmitter-release.html#cb19-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-2"><a href="neurotransmitter-release.html#cb19-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-3"><a href="neurotransmitter-release.html#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="neurotransmitter-release.html#cb19-4" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-5"><a href="neurotransmitter-release.html#cb19-5" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb19-6"><a href="neurotransmitter-release.html#cb19-6" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb19-7"><a href="neurotransmitter-release.html#cb19-7" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb19-8"><a href="neurotransmitter-release.html#cb19-8" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="neurotransmitter-release.html#cb19-9" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb19-10"><a href="neurotransmitter-release.html#cb19-10" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">80</span></span>
+<span id="cb19-11"><a href="neurotransmitter-release.html#cb19-11" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">25</span></span>
+<span id="cb19-12"><a href="neurotransmitter-release.html#cb19-12" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb19-13"><a href="neurotransmitter-release.html#cb19-13" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-14"><a href="neurotransmitter-release.html#cb19-14" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb19-15"><a href="neurotransmitter-release.html#cb19-15" tabindex="-1"></a>b <span class="op">=</span> <span class="op">-</span><span class="dv">20</span></span>
+<span id="cb19-16"><a href="neurotransmitter-release.html#cb19-16" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">55</span></span>
+<span id="cb19-17"><a href="neurotransmitter-release.html#cb19-17" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb19-18"><a href="neurotransmitter-release.html#cb19-18" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="neurotransmitter-release.html#cb19-19" tabindex="-1"></a>psp_amp <span class="op">=</span> <span class="fl">1e5</span></span>
+<span id="cb19-20"><a href="neurotransmitter-release.html#cb19-20" tabindex="-1"></a>psp_decay <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb19-21"><a href="neurotransmitter-release.html#cb19-21" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="neurotransmitter-release.html#cb19-22" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-23"><a href="neurotransmitter-release.html#cb19-23" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-24"><a href="neurotransmitter-release.html#cb19-24" tabindex="-1"></a>spike[<span class="dv">200</span>:<span class="dv">800</span>:<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-25"><a href="neurotransmitter-release.html#cb19-25" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="neurotransmitter-release.html#cb19-26" tabindex="-1"></a>v1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-27"><a href="neurotransmitter-release.html#cb19-27" tabindex="-1"></a>u1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-28"><a href="neurotransmitter-release.html#cb19-28" tabindex="-1"></a>g1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-29"><a href="neurotransmitter-release.html#cb19-29" tabindex="-1"></a>spike1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-30"><a href="neurotransmitter-release.html#cb19-30" tabindex="-1"></a>v1[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb19-31"><a href="neurotransmitter-release.html#cb19-31" tabindex="-1"></a></span>
+<span id="cb19-32"><a href="neurotransmitter-release.html#cb19-32" tabindex="-1"></a>v2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-33"><a href="neurotransmitter-release.html#cb19-33" tabindex="-1"></a>u2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-34"><a href="neurotransmitter-release.html#cb19-34" tabindex="-1"></a>g2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-35"><a href="neurotransmitter-release.html#cb19-35" tabindex="-1"></a>spike2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-36"><a href="neurotransmitter-release.html#cb19-36" tabindex="-1"></a>v2[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb19-37"><a href="neurotransmitter-release.html#cb19-37" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="neurotransmitter-release.html#cb19-38" tabindex="-1"></a>v3 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-39"><a href="neurotransmitter-release.html#cb19-39" tabindex="-1"></a>u3 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-40"><a href="neurotransmitter-release.html#cb19-40" tabindex="-1"></a>g3 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-41"><a href="neurotransmitter-release.html#cb19-41" tabindex="-1"></a>spike3 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb19-42"><a href="neurotransmitter-release.html#cb19-42" tabindex="-1"></a>v3[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb19-43"><a href="neurotransmitter-release.html#cb19-43" tabindex="-1"></a></span>
+<span id="cb19-44"><a href="neurotransmitter-release.html#cb19-44" tabindex="-1"></a>w_01 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb19-45"><a href="neurotransmitter-release.html#cb19-45" tabindex="-1"></a>w_12 <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb19-46"><a href="neurotransmitter-release.html#cb19-46" tabindex="-1"></a>w_23 <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb19-47"><a href="neurotransmitter-release.html#cb19-47" tabindex="-1"></a></span>
+<span id="cb19-48"><a href="neurotransmitter-release.html#cb19-48" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb19-49"><a href="neurotransmitter-release.html#cb19-49" tabindex="-1"></a></span>
+<span id="cb19-50"><a href="neurotransmitter-release.html#cb19-50" tabindex="-1"></a>    dt <span class="op">=</span> t[i] <span class="op">-</span> t[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb19-51"><a href="neurotransmitter-release.html#cb19-51" tabindex="-1"></a></span>
+<span id="cb19-52"><a href="neurotransmitter-release.html#cb19-52" tabindex="-1"></a>    <span class="co"># external input</span></span>
+<span id="cb19-53"><a href="neurotransmitter-release.html#cb19-53" tabindex="-1"></a>    dgdt <span class="op">=</span> (<span class="op">-</span>g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb19-54"><a href="neurotransmitter-release.html#cb19-54" tabindex="-1"></a>    g[i] <span class="op">=</span> g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb19-55"><a href="neurotransmitter-release.html#cb19-55" tabindex="-1"></a></span>
+<span id="cb19-56"><a href="neurotransmitter-release.html#cb19-56" tabindex="-1"></a>    <span class="co"># neuron 1</span></span>
+<span id="cb19-57"><a href="neurotransmitter-release.html#cb19-57" tabindex="-1"></a>    dvdt1 <span class="op">=</span> (k <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_01 <span class="op">*</span> g[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb19-58"><a href="neurotransmitter-release.html#cb19-58" tabindex="-1"></a>    dudt1 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb19-59"><a href="neurotransmitter-release.html#cb19-59" tabindex="-1"></a>    dgdt1 <span class="op">=</span> (<span class="op">-</span>g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike1[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb19-60"><a href="neurotransmitter-release.html#cb19-60" tabindex="-1"></a>    v1[i] <span class="op">=</span> v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt1 <span class="op">*</span> dt</span>
+<span id="cb19-61"><a href="neurotransmitter-release.html#cb19-61" tabindex="-1"></a>    u1[i] <span class="op">=</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt1 <span class="op">*</span> dt</span>
+<span id="cb19-62"><a href="neurotransmitter-release.html#cb19-62" tabindex="-1"></a>    g1[i] <span class="op">=</span> g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt1 <span class="op">*</span> dt</span>
+<span id="cb19-63"><a href="neurotransmitter-release.html#cb19-63" tabindex="-1"></a>    <span class="cf">if</span> v1[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb19-64"><a href="neurotransmitter-release.html#cb19-64" tabindex="-1"></a>        v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb19-65"><a href="neurotransmitter-release.html#cb19-65" tabindex="-1"></a>        v1[i] <span class="op">=</span> c</span>
+<span id="cb19-66"><a href="neurotransmitter-release.html#cb19-66" tabindex="-1"></a>        u1[i] <span class="op">=</span> u1[i] <span class="op">+</span> d</span>
+<span id="cb19-67"><a href="neurotransmitter-release.html#cb19-67" tabindex="-1"></a>        spike1[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-68"><a href="neurotransmitter-release.html#cb19-68" tabindex="-1"></a></span>
+<span id="cb19-69"><a href="neurotransmitter-release.html#cb19-69" tabindex="-1"></a>    <span class="co"># neuron 2</span></span>
+<span id="cb19-70"><a href="neurotransmitter-release.html#cb19-70" tabindex="-1"></a>    dvdt2 <span class="op">=</span> (k <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_12 <span class="op">*</span> g1[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb19-71"><a href="neurotransmitter-release.html#cb19-71" tabindex="-1"></a>    dudt2 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb19-72"><a href="neurotransmitter-release.html#cb19-72" tabindex="-1"></a>    dgdt2 <span class="op">=</span> (<span class="op">-</span>g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike2[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb19-73"><a href="neurotransmitter-release.html#cb19-73" tabindex="-1"></a>    v2[i] <span class="op">=</span> v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt2 <span class="op">*</span> dt</span>
+<span id="cb19-74"><a href="neurotransmitter-release.html#cb19-74" tabindex="-1"></a>    u2[i] <span class="op">=</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt2 <span class="op">*</span> dt</span>
+<span id="cb19-75"><a href="neurotransmitter-release.html#cb19-75" tabindex="-1"></a>    g2[i] <span class="op">=</span> g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt2 <span class="op">*</span> dt</span>
+<span id="cb19-76"><a href="neurotransmitter-release.html#cb19-76" tabindex="-1"></a>    <span class="cf">if</span> v2[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb19-77"><a href="neurotransmitter-release.html#cb19-77" tabindex="-1"></a>        v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb19-78"><a href="neurotransmitter-release.html#cb19-78" tabindex="-1"></a>        v2[i] <span class="op">=</span> c</span>
+<span id="cb19-79"><a href="neurotransmitter-release.html#cb19-79" tabindex="-1"></a>        u2[i] <span class="op">=</span> u2[i] <span class="op">+</span> d</span>
+<span id="cb19-80"><a href="neurotransmitter-release.html#cb19-80" tabindex="-1"></a>        spike2[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-81"><a href="neurotransmitter-release.html#cb19-81" tabindex="-1"></a></span>
+<span id="cb19-82"><a href="neurotransmitter-release.html#cb19-82" tabindex="-1"></a>    <span class="co"># neuron 3</span></span>
+<span id="cb19-83"><a href="neurotransmitter-release.html#cb19-83" tabindex="-1"></a>    dvdt3 <span class="op">=</span> (k <span class="op">*</span> (v3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span> (v3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_23 <span class="op">*</span> g2[i<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb19-84"><a href="neurotransmitter-release.html#cb19-84" tabindex="-1"></a>    dudt3 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u3[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb19-85"><a href="neurotransmitter-release.html#cb19-85" tabindex="-1"></a>    dgdt3 <span class="op">=</span> (<span class="op">-</span>g3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike3[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb19-86"><a href="neurotransmitter-release.html#cb19-86" tabindex="-1"></a>    v3[i] <span class="op">=</span> v3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt3 <span class="op">*</span> dt</span>
+<span id="cb19-87"><a href="neurotransmitter-release.html#cb19-87" tabindex="-1"></a>    u3[i] <span class="op">=</span> u3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt3 <span class="op">*</span> dt</span>
+<span id="cb19-88"><a href="neurotransmitter-release.html#cb19-88" tabindex="-1"></a>    g3[i] <span class="op">=</span> g3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt3 <span class="op">*</span> dt</span>
+<span id="cb19-89"><a href="neurotransmitter-release.html#cb19-89" tabindex="-1"></a>    <span class="cf">if</span> v3[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb19-90"><a href="neurotransmitter-release.html#cb19-90" tabindex="-1"></a>        v3[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb19-91"><a href="neurotransmitter-release.html#cb19-91" tabindex="-1"></a>        v3[i] <span class="op">=</span> c</span>
+<span id="cb19-92"><a href="neurotransmitter-release.html#cb19-92" tabindex="-1"></a>        u3[i] <span class="op">=</span> u3[i] <span class="op">+</span> d</span>
+<span id="cb19-93"><a href="neurotransmitter-release.html#cb19-93" tabindex="-1"></a>        spike3[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb19-94"><a href="neurotransmitter-release.html#cb19-94" tabindex="-1"></a></span>
+<span id="cb19-95"><a href="neurotransmitter-release.html#cb19-95" tabindex="-1"></a></span>
+<span id="cb19-96"><a href="neurotransmitter-release.html#cb19-96" tabindex="-1"></a></span>
+<span id="cb19-97"><a href="neurotransmitter-release.html#cb19-97" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, squeeze<span class="op">=</span><span class="va">False</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb19-98"><a href="neurotransmitter-release.html#cb19-98" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(t, g)</span>
+<span id="cb19-99"><a href="neurotransmitter-release.html#cb19-99" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">0</span>].plot(t, v1)</span>
+<span id="cb19-100"><a href="neurotransmitter-release.html#cb19-100" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].plot(t, g1)</span>
+<span id="cb19-101"><a href="neurotransmitter-release.html#cb19-101" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">1</span>].plot(t, v2)</span>
+<span id="cb19-102"><a href="neurotransmitter-release.html#cb19-102" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].plot(t, g2)</span>
+<span id="cb19-103"><a href="neurotransmitter-release.html#cb19-103" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">2</span>].plot(t, v3)</span>
+<span id="cb19-104"><a href="neurotransmitter-release.html#cb19-104" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">&#39;Neuron A&#39;</span>)</span>
+<span id="cb19-105"><a href="neurotransmitter-release.html#cb19-105" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">&#39;Neuron B&#39;</span>)</span>
+<span id="cb19-106"><a href="neurotransmitter-release.html#cb19-106" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_title(<span class="st">&#39;Neuron C&#39;</span>)</span>
+<span id="cb19-107"><a href="neurotransmitter-release.html#cb19-107" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;time&#39;</span>)</span>
+<span id="cb19-108"><a href="neurotransmitter-release.html#cb19-108" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_xlabel(<span class="st">&#39;time&#39;</span>)</span>
+<span id="cb19-109"><a href="neurotransmitter-release.html#cb19-109" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_xlabel(<span class="st">&#39;time&#39;</span>)</span>
+<span id="cb19-110"><a href="neurotransmitter-release.html#cb19-110" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;Membrane Potential&#39;</span>)</span>
+<span id="cb19-111"><a href="neurotransmitter-release.html#cb19-111" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">1</span>].set_ylabel(<span class="st">&#39;Membrane Potential&#39;</span>)</span>
+<span id="cb19-112"><a href="neurotransmitter-release.html#cb19-112" tabindex="-1"></a>ax[<span class="dv">1</span>, <span class="dv">2</span>].set_ylabel(<span class="st">&#39;Membrane Potential&#39;</span>)</span>
+<span id="cb19-113"><a href="neurotransmitter-release.html#cb19-113" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;Neurotransmitter Output&#39;</span>)</span>
+<span id="cb19-114"><a href="neurotransmitter-release.html#cb19-114" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_ylabel(<span class="st">&#39;Neurotransmitter Output&#39;</span>)</span>
+<span id="cb19-115"><a href="neurotransmitter-release.html#cb19-115" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_ylabel(<span class="st">&#39;Neurotransmitter Output&#39;</span>)</span>
+<span id="cb19-116"><a href="neurotransmitter-release.html#cb19-116" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-117"><a href="neurotransmitter-release.html#cb19-117" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-24-11.png" width="960" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hodgkin-huxley-neuron-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="synpatic-plasticity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"depth": 2
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

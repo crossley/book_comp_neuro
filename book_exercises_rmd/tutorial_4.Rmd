@@ -1,0 +1,34 @@
+---
+title: "Tutorial 4"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: false
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    # code_folding: show
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, collapse=T)
+```
+
+## Learning objectives
+* TBD
+
+* NOTE: Ended up being a lot of calculus etc review
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_4_solutions.html)
+
+## Work on problem set 2
+* [Problem set 2](homework_2.html)

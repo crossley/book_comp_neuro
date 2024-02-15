@@ -1,0 +1,865 @@
+```{r, include=FALSE}
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+# Reinforcement Learning
+
+# Reinforcement learning rule
+
+* Strengthen synapses responsible for behaviour that lead to
+a better-than-expected outcome.
+
+* Weaken synapses responsible for behaviour that lead to a
+worse-than-expected outcome.
+
+* Do not change synapses at all if the outcome was fully
+expected.
+
+* Whether or not an outcome was expected or not is captured
+by the **prediction error** which is usually denoted by
+$\delta$.
+
+* A simple RL learning rule can be obtained by modifying the
+simple Hebbian rule as follows:
+
+$$
+\begin{align}
+w_{ij}(n+1) &= w_{ij}(n) + \alpha A_j(n) A_i(n) \delta(n) \\
+\end{align}
+$$
+
+* Outcomes are usually put in terms of **reward** which is
+denoted below by $r$.
+
+* To compute a predicted error, we simply need to know what
+reward we **obtained** -- $r_{\text{obtained}}$ -- and what
+reward we **predicted** $r_{\text{predicted}}$. The
+prediction error is just the difference between these two
+things.
+
+$$
+\begin{align}
+\delta = r_{\text{obtained}} - r_{\text{predicted}}
+\end{align}
+$$
+
+* $r_{\text{obtained}}$ is specific to the agents behaviour
+and the environment it is acting within. We will play around
+with the various ways this can be structured a bit later.
+
+$$
+\begin{align}
+r_{\text{obtained}} = \text{to be determined by the experiment}
+\end{align}
+$$
+
+* $r_{\text{predicted}}$ is something the agent learns --
+i.e., it is the agent's estimate of the reward that will be
+obtained.
+
+* A good estimate of $r_{\text{obtained}}$ is the sample
+mean of all previously obtained rewards.
+
+$$
+\begin{align}
+r_{\text{predicted}} = \frac{1}{n} \sum_1^n r_{\text{obtained}}
+\end{align}
+$$
+
+* The sample mean can be computed iteratively with the following:
+
+$$
+\begin{align}
+r_{\text{predicted}}(t) = r_{\text{predicted}}(t-1) + \gamma \delta 
+\end{align}
+$$
+
+
+# Example 1
+
+* We will simulate a two neuron network in which neuron 1
+projects to neuron 2, the first neuron is driven by an
+external input, and the connection weight between neuron 1
+and neuron 2 is subject to reinforcement learning.
+
+* We will use the following `python` code based on the
+previous lecture.
+
+* The key additions to the code from previous lecture are
+mostly found in the `update_weight_rl()` function.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+
+def init_arrays():
+
+    r_predicted = np.zeros(n_trials)
+    r_obtained = np.zeros(n_trials)
+    delta = np.zeros(n_trials)
+
+    r_obtained[:n_trials // 4] = 1
+    r_obtained[(2 * n_trials // 4):(3 * n_trials // 4)] = 1
+
+    v1 = np.zeros(n)
+    u1 = np.zeros(n)
+    g1 = np.zeros(n)
+    spike1 = np.zeros(n)
+    v1[0] = vr
+
+    v2 = np.zeros(n)
+    u2 = np.zeros(n)
+    g2 = np.zeros(n)
+    spike2 = np.zeros(n)
+    v2[0] = vr
+
+    w_01 = 0.4 * np.ones(n_trials)
+    w_12 = 0.4 * np.ones(n_trials)
+
+    g_record = np.zeros((n_trials, n))
+    v1_record = np.zeros((n_trials, n))
+    g1_record = np.zeros((n_trials, n))
+    v2_record = np.zeros((n_trials, n))
+    g2_record = np.zeros((n_trials, n))
+
+    return {
+        'r_predicted': r_predicted,
+        'r_obtained': r_obtained,
+        'delta': delta,
+        'v1': v1,
+        'u1': u1,
+        'g1': g1,
+        'spike1': spike1,
+        'v2': v2,
+        'u2': u2,
+        'g2': g2,
+        'spike2': spike2,
+        'w_01': w_01,
+        'w_12': w_12,
+        'g_record': g_record,
+        'v1_record': v1_record,
+        'g1_record': g1_record,
+        'v2_record': v2_record,
+        'g2_record': g2_record
+    }
+
+
+def plot_results():
+    fig = plt.figure(figsize=(8, 8))
+    gs = gridspec.GridSpec(5, 2)
+
+    ax00 = fig.add_subplot(gs[0, 0])
+    ax10 = fig.add_subplot(gs[1, 0])
+    ax20 = fig.add_subplot(gs[2, 0])
+    ax01 = fig.add_subplot(gs[0, 1])
+    ax11 = fig.add_subplot(gs[1, 1])
+    ax21 = fig.add_subplot(gs[2, 1])
+    ax3 = fig.add_subplot(gs[3, :])
+    ax4 = fig.add_subplot(gs[4, :])
+
+    ax1 = ax00
+    ax2 = ax00.twinx()
+    ax2.plot(t, g_record[0], 'C0', label='external g')
+    ax2.legend(loc='lower right')
+    ax1.set_title('Trial 1')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax10
+    ax2 = ax10.twinx()
+    ax1.plot(t, v1_record[0], 'C0', label='v1')
+    ax2.plot(t, g1_record[0], 'C1', label='g1')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax20
+    ax2 = ax20.twinx()
+    ax1.plot(t, v2_record[0], 'C0', label='v2')
+    ax2.plot(t, g2_record[0], 'C1', label='g2')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax01
+    ax2 = ax01.twinx()
+    ax2.plot(t, g_record[0], 'C0', label='external g')
+    ax2.legend(loc='lower right')
+    ax1.set_title('Trial n')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax11
+    ax2 = ax11.twinx()
+    ax1.plot(t, v1_record[-2], 'C0', label='v1')
+    ax2.plot(t, g1_record[-2], 'C1', label='g1')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax1 = ax21
+    ax2 = ax21.twinx()
+    ax1.plot(t, v2_record[-2], 'C0', label='v2')
+    ax2.plot(t, g2_record[-2], 'C1', label='g2')
+    ax1.legend(loc='upper right')
+    ax2.legend(loc='lower right')
+    ax1.set_xlabel('time (t)')
+
+    ax3.plot(np.arange(0, n_trials, 1), r_obtained, label='r_obtained')
+    ax3.plot(np.arange(0, n_trials, 1), r_predicted, label='r_predicted')
+    ax3.plot(np.arange(0, n_trials, 1), delta, label='delta')
+    ax3.set_xlabel('Trial')
+    ax3.set_ylabel('')
+    ax3.legend()
+
+    ax4.plot(np.arange(0, n_trials, 1), w_12)
+    ax4.set_xlabel('Trial')
+    ax4.set_ylabel('Synaptic Weight (w)')
+
+    plt.tight_layout()
+    plt.show()
+
+
+def simulate_network(update_weight_func):
+    global trl, r_obtained, r_predicted
+
+    for j in range(n_trials - 1):
+        trl = j
+
+        for i in range(1, n):
+
+            dt = t[i] - t[i - 1]
+
+            # external input
+            dgdt = (-g[i - 1] + psp_amp * spike[i - 1]) / psp_decay
+            g[i] = g[i - 1] + dgdt * dt
+
+            # neuron 1
+            dvdt1 = (k * (v1[i - 1] - vr) *
+                     (v1[i - 1] - vt) - u1[i - 1] + w_01[trl] * g[i - 1]) / C
+            dudt1 = a * (b * (v1[i - 1] - vr) - u1[i - 1])
+            dgdt1 = (-g1[i - 1] + psp_amp * spike1[i - 1]) / psp_decay
+            v1[i] = v1[i - 1] + dvdt1 * dt
+            u1[i] = u1[i - 1] + dudt1 * dt
+            g1[i] = g1[i - 1] + dgdt1 * dt
+            if v1[i] >= vpeak:
+                v1[i - 1] = vpeak
+                v1[i] = c
+                u1[i] = u1[i] + d
+                spike1[i] = 1
+
+            # neuron 2
+            dvdt2 = (k * (v2[i - 1] - vr) *
+                     (v2[i - 1] - vt) - u2[i - 1] + w_12[trl] * g1[i - 1]) / C
+            dudt2 = a * (b * (v2[i - 1] - vr) - u2[i - 1])
+            dgdt2 = (-g2[i - 1] + psp_amp * spike2[i - 1]) / psp_decay
+            v2[i] = v2[i - 1] + dvdt2 * dt
+            u2[i] = u2[i - 1] + dudt2 * dt
+            g2[i] = g2[i - 1] + dgdt2 * dt
+            if v2[i] >= vpeak:
+                v2[i - 1] = vpeak
+                v2[i] = c
+                u2[i] = u2[i] + d
+                spike2[i] = 1
+
+        # update synaptic weights
+        delta_w = update_weight_func()
+        w_12[trl + 1] = w_12[trl] + delta_w
+
+        # store trial info
+        g_record[trl, :] = g
+        v1_record[trl, :] = v1
+        g1_record[trl, :] = g1
+        v2_record[trl, :] = v2
+        g2_record[trl, :] = g2
+
+    plot_results()
+
+
+def update_weight_rl():
+    global trl, r_obtained, r_predicted
+
+    delta[trl] = r_obtained[trl] - r_predicted[trl]
+    r_predicted[trl + 1] = r_predicted[trl] + gamma * delta[trl]
+
+    pre = g1.sum()
+    post = g2.sum()
+
+    delta_w = alpha * pre * post * delta[trl]
+
+    return delta_w
+
+
+n_trials = 100
+trl = 0
+
+tau = 0.1
+T = 100
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+C = 50
+vr = -80
+vt = -25
+vpeak = 40
+k = 1
+a = 0.01
+b = -20
+c = -55
+d = 150
+
+psp_amp = 1e5
+psp_decay = 10
+
+g = np.zeros(n)
+spike = np.zeros(n)
+spike[200:800:20] = 1
+
+alpha = 3e-14
+beta = 3e-14
+gamma = 0.1
+
+array_dict = init_arrays()
+
+r_predicted = array_dict['r_predicted']
+r_obtained = array_dict['r_obtained']
+delta = array_dict['delta']
+v1 = array_dict['v1']
+u1 = array_dict['u1']
+g1 = array_dict['g1']
+spike1 = array_dict['spike1']
+v2 = array_dict['v2']
+u2 = array_dict['u2']
+g2 = array_dict['g2']
+spike2 = array_dict['spike2']
+w_01 = array_dict['w_01']
+w_12 = array_dict['w_12']
+g_record = array_dict['g_record']
+v1_record = array_dict['v1_record']
+g1_record = array_dict['g1_record']
+v2_record = array_dict['v2_record']
+g2_record = array_dict['g2_record']
+
+update_weight_func = update_weight_rl
+simulate_network(update_weight_func)
+```
+
+# Example 2
+
+* In the previous example, we simply assumed that the aggent
+received a reward with magnitude 1 on the first 1/4 and 3/4
+of all trials.
+
+* Therefore, whether or not the agent received a reward was
+independent of what the agent actually did.
+
+* This means that the previous example was an instance of
+**classical conditioning** -- think Pavlov's dog.
+
+* Here, we will simulate a scenario where whether or not the
+agent receives a reward depends on the action that it takes
+-- i.e., we will examine an instance of **instrumental
+conditioning**.
+
+* We will only need to update the `simulate_network`
+function by specifying how activity in the network should be
+mapped to actions.
+
+* Our approach will be to assume that the network emits a
+response -- e.g., presses a lever like a rat in an
+instrumental conditioning chamber -- completely randomly.
+
+```{python}
+def simulate_network_inst(update_weight_func):
+    global trl, r_obtained, r_predicted
+
+    for j in range(n_trials - 1):
+        trl = j
+
+        for i in range(1, n):
+
+            dt = t[i] - t[i - 1]
+
+            # external input
+            dgdt = (-g[i - 1] + psp_amp * spike[i - 1]) / psp_decay
+            g[i] = g[i - 1] + dgdt * dt
+
+            # neuron 1
+            dvdt1 = (k * (v1[i - 1] - vr) *
+                     (v1[i - 1] - vt) - u1[i - 1] + w_01[trl] * g[i - 1]) / C
+            dudt1 = a * (b * (v1[i - 1] - vr) - u1[i - 1])
+            dgdt1 = (-g1[i - 1] + psp_amp * spike1[i - 1]) / psp_decay
+            v1[i] = v1[i - 1] + dvdt1 * dt
+            u1[i] = u1[i - 1] + dudt1 * dt
+            g1[i] = g1[i - 1] + dgdt1 * dt
+            if v1[i] >= vpeak:
+                v1[i - 1] = vpeak
+                v1[i] = c
+                u1[i] = u1[i] + d
+                spike1[i] = 1
+
+            # neuron 2
+            dvdt2 = (k * (v2[i - 1] - vr) *
+                     (v2[i - 1] - vt) - u2[i - 1] + w_12[trl] * g1[i - 1]) / C
+            dudt2 = a * (b * (v2[i - 1] - vr) - u2[i - 1])
+            dgdt2 = (-g2[i - 1] + psp_amp * spike2[i - 1]) / psp_decay
+            v2[i] = v2[i - 1] + dvdt2 * dt
+            u2[i] = u2[i - 1] + dudt2 * dt
+            g2[i] = g2[i - 1] + dgdt2 * dt
+            if v2[i] >= vpeak:
+                v2[i - 1] = vpeak
+                v2[i] = c
+                u2[i] = u2[i] + d
+                spike2[i] = 1
+                
+        # press lever / earn reward on a random 25% of all trials
+        if np.random.uniform(0, 1) > 0.25:
+            r_obtained[trl] = 1
+
+        # update synaptic weights
+        delta_w = update_weight_func()
+        w_12[trl + 1] = w_12[trl] + delta_w
+
+        # store trial info
+        g_record[trl, :] = g
+        v1_record[trl, :] = v1
+        g1_record[trl, :] = g1
+        v2_record[trl, :] = v2
+        g2_record[trl, :] = g2
+        
+    plot_results()
+    
+        
+n_trials = 100
+trl = 0
+
+tau = 0.1
+T = 100
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+C = 50
+vr = -80
+vt = -25
+vpeak = 40
+k = 1
+a = 0.01
+b = -20
+c = -55
+d = 150
+
+psp_amp = 1e5
+psp_decay = 10
+
+g = np.zeros(n)
+spike = np.zeros(n)
+spike[200:800:20] = 1
+
+alpha = 3e-14
+beta = 3e-14
+gamma = 0.1
+
+array_dict = init_arrays()
+
+r_predicted = array_dict['r_predicted']
+# NOTE: redefine r_obtained to be all zeros, so that the
+# network simulation can populate it on the fly
+# r_obtained = array_dict['r_obtained']
+r_obtained = np.zeros(n_trials)
+delta = array_dict['delta']
+v1 = array_dict['v1']
+u1 = array_dict['u1']
+g1 = array_dict['g1']
+spike1 = array_dict['spike1']
+v2 = array_dict['v2']
+u2 = array_dict['u2']
+g2 = array_dict['g2']
+spike2 = array_dict['spike2']
+w_01 = array_dict['w_01']
+w_12 = array_dict['w_12']
+g_record = array_dict['g_record']
+v1_record = array_dict['v1_record']
+g1_record = array_dict['g1_record']
+v2_record = array_dict['v2_record']
+g2_record = array_dict['g2_record']
+
+update_weight_func = update_weight_rl
+simulate_network_inst(update_weight_func)
+```
+
+# Example 3
+
+* In the previous example, we programmed the model to make
+responses / earn rewards completely randomly.
+
+* Next, lets give the model some more agency by allowing it
+to make responses / earn rewards whenever the output of
+neuron 2 crosses a threshold.
+
+```{python}
+def simulate_network_inst_2(update_weight_func):
+    global trl, r_obtained, r_predicted
+
+    for j in range(n_trials - 1):
+        trl = j
+
+        for i in range(1, n):
+
+            dt = t[i] - t[i - 1]
+
+            # external input
+            dgdt = (-g[i - 1] + psp_amp * spike[i - 1]) / psp_decay
+            g[i] = g[i - 1] + dgdt * dt
+
+            # neuron 1
+            dvdt1 = (k * (v1[i - 1] - vr) *
+                     (v1[i - 1] - vt) - u1[i - 1] + w_01[trl] * g[i - 1]) / C
+            dudt1 = a * (b * (v1[i - 1] - vr) - u1[i - 1])
+            dgdt1 = (-g1[i - 1] + psp_amp * spike1[i - 1]) / psp_decay
+            v1[i] = v1[i - 1] + dvdt1 * dt
+            u1[i] = u1[i - 1] + dudt1 * dt
+            g1[i] = g1[i - 1] + dgdt1 * dt
+            if v1[i] >= vpeak:
+                v1[i - 1] = vpeak
+                v1[i] = c
+                u1[i] = u1[i] + d
+                spike1[i] = 1
+
+            # neuron 2
+            dvdt2 = (k * (v2[i - 1] - vr) *
+                     (v2[i - 1] - vt) - u2[i - 1] + w_12[trl] * g1[i - 1]) / C
+            dudt2 = a * (b * (v2[i - 1] - vr) - u2[i - 1])
+            dgdt2 = (-g2[i - 1] + psp_amp * spike2[i - 1]) / psp_decay
+            v2[i] = v2[i - 1] + dvdt2 * dt
+            u2[i] = u2[i - 1] + dudt2 * dt
+            g2[i] = g2[i - 1] + dgdt2 * dt
+            if v2[i] >= vpeak:
+                v2[i - 1] = vpeak
+                v2[i] = c
+                u2[i] = u2[i] + d
+                spike2[i] = 1
+                
+        # press lever / earn reward on a random 25% of all trials
+        if np.random.uniform(0, 1) > 0.25:
+            r_obtained[trl] = 1
+          
+        # also press the lever / earn reward if neuron 2 is
+        # sufficiently active
+        if g2.sum() > resp_thresh:
+            r_obtained[trl] = 1
+
+        # update synaptic weights
+        delta_w = update_weight_func()
+        w_12[trl + 1] = w_12[trl] + delta_w
+
+        # store trial info
+        g_record[trl, :] = g
+        v1_record[trl, :] = v1
+        g1_record[trl, :] = g1
+        v2_record[trl, :] = v2
+        g2_record[trl, :] = g2
+        
+    plot_results()
+    
+        
+n_trials = 100
+trl = 0
+
+tau = 0.1
+T = 100
+t = np.arange(0, T, tau)
+n = t.shape[0]
+
+C = 50
+vr = -80
+vt = -25
+vpeak = 40
+k = 1
+a = 0.01
+b = -20
+c = -55
+d = 150
+
+psp_amp = 1e5
+psp_decay = 10
+
+g = np.zeros(n)
+spike = np.zeros(n)
+spike[200:800:20] = 1
+
+alpha = 3e-14
+beta = 3e-14
+gamma = 0.1
+
+resp_thresh = 4e7
+
+array_dict = init_arrays()
+
+r_predicted = array_dict['r_predicted']
+# NOTE: redefine r_obtained to be all zeros, so that the
+# network simulation can populate it on the fly
+# r_obtained = array_dict['r_obtained']
+r_obtained = np.zeros(n_trials)
+delta = array_dict['delta']
+v1 = array_dict['v1']
+u1 = array_dict['u1']
+g1 = array_dict['g1']
+spike1 = array_dict['spike1']
+v2 = array_dict['v2']
+u2 = array_dict['u2']
+g2 = array_dict['g2']
+spike2 = array_dict['spike2']
+w_01 = array_dict['w_01']
+w_12 = array_dict['w_12']
+g_record = array_dict['g_record']
+v1_record = array_dict['v1_record']
+g1_record = array_dict['g1_record']
+v2_record = array_dict['v2_record']
+g2_record = array_dict['g2_record']
+
+update_weight_func = update_weight_rl
+simulate_network_inst_2(update_weight_func)
+```
+
+<!-- # Learning with the direct pathway -->
+
+<!-- * The direct pathway through the basal ganglia is:  -->
+<!--   * CTX $\rightarrow$ D1 $\rightarrow$ GPi $\rightarrow$ Thal $\rightarrow$ CTX -->
+
+<!-- * Dopamine-dependent synaptic plasticity occurs at CTX $\rightarrow$ D1 synapses -->
+
+<!-- ```{python} -->
+<!-- import numpy as np -->
+<!-- import matplotlib.pyplot as plt -->
+
+<!-- tau = 0.1 -->
+<!-- T = 200 -->
+<!-- t = np.arange(0, T, tau) -->
+<!-- n_steps = t.shape[0] -->
+<!-- n_trials = 1 -->
+
+<!-- # Cells: CTX, D1, D2, GPi, GPe, Thal, STN -->
+<!-- # CTX -> D1 -> GPi -> Thal -> CTX -->
+<!-- # CTX -> D2 -> GPe -> GPi -> Thal -> CTX -->
+<!-- # CTX -> STN -> GPi -->
+<!-- # STN <-> GPe -->
+
+<!-- # # striatal projection neuron -->
+<!-- # C = 50; vr = -80; vt = -25; vpeak = 40; -->
+<!-- # a = 0.01; b = -20; c = -55; d = 150; k = 1; -->
+
+<!-- # # regular spiking neuron -->
+<!-- # C = 100; vr = -60; vt = -40; vpeak = 35; -->
+<!-- # a = 0.03; b = -2; c = -50; d = 100; k = 0.7; -->
+
+<!-- iz_params = np.array([ -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # viusal ctx (rs) 0 -->
+<!--     [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d1 (spn) 1 -->
+<!--     [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d2 (spn) 2 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpi (rs) 3 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpe (rs) 4 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # thal (rs) 5 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # stn (rs) 6 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7]  # motor ctx (rs) 7 -->
+<!-- ]) -->
+
+<!-- # NOTE: baseline firing -->
+<!-- E_mu = np.array([0, 0, 0, 300, 300, 300, 0, 50]) -->
+<!-- E_sd = np.array([0, 0, 0, 0, 0, 0, 0, 100]) -->
+
+<!-- n_cells = iz_params.shape[0] -->
+
+<!-- # response of each spike on post synaptic membrane v -->
+<!-- psp_amp = 1e3 -->
+<!-- psp_decay = 100 -->
+
+<!-- # allocate memory for each neuron -->
+<!-- v = np.zeros((n_cells, n_steps)) -->
+<!-- u = np.zeros((n_cells, n_steps)) -->
+<!-- g = np.zeros((n_cells, n_steps)) -->
+<!-- spike = np.zeros((n_cells, n_steps)) -->
+<!-- v[:, 0] = iz_params[:, 1] + np.random.rand(n_cells) * 100 -->
+
+<!-- # connection weight matrix -->
+<!-- w = np.zeros((n_cells, n_cells)) -->
+
+<!-- # direct pathway -->
+<!-- w[0, 1] = 100  # NOTE: start this off small to allow for learning -->
+<!-- w[1, 3] = -1 * 100 -->
+
+<!-- # indirect pathway -->
+<!-- # w[0, 2] = 1 * 100 -->
+<!-- # w[2, 4] = -1 * 100 -->
+<!-- # w[4, 3] = -1 * 25 -->
+
+<!-- # hyperdirect pathway -->
+<!-- # w[0, 6] = 1 * 50 * 0 -->
+<!-- # w[6, 3] = 1 -->
+
+<!-- # stn-gpe feedback -->
+<!-- # w[6, 4] = 1 -->
+<!-- # w[4, 6] = -1 * 50 -->
+
+<!-- # gpi-thal -->
+<!-- w[3, 5] = -1 * 100 -->
+
+<!-- # thal-motor -->
+<!-- w[5, 7] = 100 -->
+
+<!-- # fb from thal back to input ctx -->
+<!-- # w[5, 0] = 1 -->
+
+<!-- # input into cells from other cells -->
+<!-- I_net = np.zeros((n_cells, n_steps)) -->
+
+<!-- # define input signal (artificial input into ctx) -->
+<!-- I_in = np.zeros(n_steps) -->
+<!-- I_in[5000:] = 5e1 -->
+
+<!-- # NOTE: response threshold -->
+<!-- resp_thresh = 25 -->
+
+<!-- # NOTE: predicted reward -->
+<!-- pr = 0 -->
+
+<!-- # NOTE: records -->
+<!-- w_rec = np.zeros(n_trials) -->
+<!-- resp_rec = np.zeros(n_trials) -->
+<!-- pr_rec = np.zeros(n_trials) -->
+
+<!-- # NOTE: iterate over trials -->
+<!-- for trl in range(n_trials): -->
+
+<!--     # NOTE: initialise response to zero -->
+<!--     resp = 0 -->
+
+<!--     for i in range(1, n_steps): -->
+
+<!--         dt = t[i] - t[i - 1] -->
+
+<!--         I_net = np.zeros((n_cells, n_steps)) -->
+<!--         for jj in range(n_cells): -->
+<!--             for kk in range(n_cells): -->
+<!--                 if jj != kk: -->
+<!--                     I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1] -->
+<!--                 if jj == 0: -->
+<!--                     I_net[jj, i - 1] += I_in[i - 1] -->
+
+<!--             C = iz_params[jj, 0] -->
+<!--             vr = iz_params[jj, 1] -->
+<!--             vt = iz_params[jj, 2] -->
+<!--             vpeak = iz_params[jj, 3] -->
+<!--             a = iz_params[jj, 4] -->
+<!--             b = iz_params[jj, 5] -->
+<!--             c = iz_params[jj, 6] -->
+<!--             d = iz_params[jj, 7] -->
+<!--             k = iz_params[jj, 8] -->
+
+<!--             # NOTE: The np.random.normal() below is new -->
+<!--             dvdt = (k * (v[jj, i - 1] - vr) * -->
+<!--                     (v[jj, i - 1] - vt) - u[jj, i - 1] + I_net[jj, i - 1] + -->
+<!--                     np.random.normal(E_mu[jj], E_sd[jj])) / C -->
+<!--             dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1]) -->
+<!--             dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay -->
+
+<!--             v[jj, i] = v[jj, i - 1] + dvdt * dt -->
+<!--             u[jj, i] = u[jj, i - 1] + dudt * dt -->
+<!--             g[jj, i] = g[jj, i - 1] + dgdt * dt -->
+
+<!--             if v[jj, i] >= vpeak: -->
+<!--                 v[jj, i - 1] = vpeak -->
+<!--                 v[jj, i] = c -->
+<!--                 u[jj, i] = u[jj, i] + d -->
+<!--                 spike[jj, i] = 1 -->
+
+<!--         # NOTE: respond if motor unit crosses resp_thresh -->
+<!--         # NOTE: 5000 is Ugly hack to cut out the annoying initial spikes -->
+<!--         if (g[7, i] > resp_thresh) and i > 5000: -->
+<!--             resp = 1 -->
+<!--             break -->
+
+<!--     # NOTE: force exploratory responses (e.g., epsilon greedy) -->
+<!--     if np.random.uniform() > 0.8: -->
+<!--         resp = 1 -->
+
+<!--     # NOTE: compute rewards and prediction errors -->
+<!--     if resp == 1: -->
+<!--         r = 1 -->
+<!--     else: -->
+<!--         r = 0 -->
+
+<!--     rpe = r - pr -->
+<!--     pr += 0.1 * rpe # NOTE: this learning is a free parameter -->
+
+<!--     # NOTE: update weight (learning rate is another free parameter) -->
+<!--     pre = g[0, :].sum() -->
+<!--     post = g[1, :].sum() -->
+<!--     w[0, 1] += 0.1 * pre * post * rpe -->
+
+<!--     # NOTE: keep records -->
+<!--     w_rec[trl] = w[0, 1] -->
+<!--     resp_rec[trl] = resp -->
+<!--     pr_rec[trl] = pr -->
+
+
+<!-- fig, ax = plt.subplots(1, 3, squeeze=False) -->
+<!-- ax[0, 0].plot(pr_rec) -->
+<!-- ax[0, 1].plot(w_rec) -->
+<!-- ax[0, 2].plot(resp_rec) -->
+<!-- plt.show() -->
+
+
+<!-- fig, ax = plt.subplots(3, 5, squeeze=False) -->
+<!-- # ctx -->
+<!-- ax[1, 0].set_title('ctx') -->
+<!-- ax1 = ax[1, 0] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[0, :], 'C0') -->
+<!-- ax2.plot(t, g[0, :], 'C1') -->
+<!-- # stn -->
+<!-- ax[0, 1].set_title('stn') -->
+<!-- ax1 = ax[0, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[6, :], 'C0')  # stn -->
+<!-- ax2.plot(t, g[6, :], 'C1')  # stn -->
+<!-- # d1 -->
+<!-- ax[1, 1].set_title('d1') -->
+<!-- ax1 = ax[1, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[1, :], 'C0')  # d1 -->
+<!-- ax2.plot(t, g[1, :], 'C1')  # d1 -->
+<!-- # d2 -->
+<!-- ax[2, 1].set_title('d2') -->
+<!-- ax1 = ax[2, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[2, :], 'C0')  # d2 -->
+<!-- ax2.plot(t, g[2, :], 'C1')  # d2 -->
+<!-- # gpi -->
+<!-- ax[1, 2].set_title('gpi') -->
+<!-- ax1 = ax[1, 2] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[3, :], 'C0')  # gpi -->
+<!-- ax2.plot(t, g[3, :], 'C1')  # gpi -->
+<!-- # gpe -->
+<!-- ax[2, 2].set_title('gpe') -->
+<!-- ax1 = ax[2, 2] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[4, :], 'C0')  # gpe -->
+<!-- ax2.plot(t, g[4, :], 'C1')  # gpe -->
+<!-- # thal -->
+<!-- ax[1, 3].set_title('thal') -->
+<!-- ax1 = ax[1, 3] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[5, :], 'C0')  # thal -->
+<!-- ax2.plot(t, g[5, :], 'C1')  # thal -->
+<!-- # motor -->
+<!-- ax[1, 4].set_title('motor') -->
+<!-- ax1 = ax[1, 4] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[7, :], 'C0')  # motor -->
+<!-- ax2.plot(t, g[7, :], 'C1')  # motor -->
+<!-- # plt.tight_layout() -->
+<!-- plt.show() -->
+<!-- ``` -->
+

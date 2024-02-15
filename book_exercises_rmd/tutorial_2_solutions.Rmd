@@ -1,0 +1,459 @@
+---
+title: "Tutorial 2 Solutions"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python message=FALSE, echo=T}
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+* Create a `numpy.ndarray` with shape `(3,)` and set its
+  elements to `1`, `2`, and `3`, in that order.
+  
+```{python message=FALSE, echo=T}
+ans = np.array([1, 2, 3])
+```
+
+* Create a `numpy.ndarray` with shape `(3, 1)` and set its
+  elements to `1`, `2`, and `3`, in that order.
+  
+```{python message=FALSE, echo=T}
+ans = np.array([[1, 2, 3]]).T
+```
+
+* Create a `numpy.ndarray` with shape `(3, 2)` and set the
+  elements indexed by `[:, 0]` to `1`, `2`, and `3`, and those
+  indexed by `[:, 1]` to `4`, `5`, `6` in that order.
+
+```{python message=FALSE, echo=T}
+ans = np.array([[1, 2, 3], [4, 5, 6]]).T
+```
+
+* Create a `numpy.ndarray` with shape `(4, 4)` and set every
+  element to `0` with data type `int`.
+
+```{python message=FALSE, echo=T}
+ans = np.zeros((4, 4), dtype=int)
+```
+
+* Create a `numpy.ndarray` with shape `(4, 4)` and set every
+  element to `1` data type `float`.
+  
+```{python message=FALSE, echo=T}
+ans = np.ones((4, 4), dtype=float)
+```
+
+* Create a `numpy.ndarray` that contains a sequence of `6`
+  evenly spaced numbers starting with the `float` number
+  `1.2` and ending with the `float` number `7.5`.
+  
+```{python message=FALSE, echo=T}
+ans = np.linspace(1.2, 7.5, 6)
+```
+
+* Create a `numpy.ndarray` that contains the sequence of
+  numbers starting with the `int` number `1` and ending with
+  the `int` number `7` with every `2` increments included.
+  
+```{python message=FALSE, echo=T}
+ans = np.arange(1, 7, 2)
+```
+
+* Follow the instructions in the following code chunk to
+  define `x` and `y`.
+
+```{python message=FALSE, echo=T}
+tmp = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]])
+# array([[ 1,  2,  3],
+#        [ 4,  5,  6],
+#        [ 7,  8,  9],
+#        [10, 11, 12]])
+
+# without using np.array(), create a new array that prints
+# as follows:
+# x = ???
+# array([[ 1,  4,  7, 10],
+#        [ 2,  5,  8, 11],
+#        [ 3,  6,  9, 12]])
+
+# without using np.array(), create a new array that prints
+# as follows:
+# y = ???
+# array([[ 1,  2,  3,  4],
+#        [ 5,  6,  7,  8],
+#        [ 9, 10, 11, 12]])
+
+x = tmp.T
+y = np.reshape(tmp, (3, 4))
+```
+
+* For `x` and `y` defined in the following code chunk,
+  compute their element-wise difference.
+  
+```{python message=FALSE, echo=T}
+x = np.array([[1, 2, 3], [4, 5, 6]])
+y = np.array([[5, 4, 3], [2, 1, 0]])
+ans = x - y
+```
+
+* Compute the matrix product of `x` and `y.T`.
+
+```{python message=FALSE, echo=T}
+ans = np.dot(x, y.T)
+```
+
+* Use the function `np.max()` to compute the maximum value
+  in the array `x`.
+  
+```{python message=FALSE, echo=T}
+ans = x.max()
+```
+
+* Use the `numpy.ndarray` method `max()` to return the
+  maximum values along the first dimension in the array `y`.
+  
+```{python message=FALSE, echo=T}
+ans = x.max(axis=1)
+```
+
+* Compute the element-wise square root of the following
+  array `np.array([4, 33, 9])`. 
+  
+```{python message=FALSE, echo=T}
+ans = np.sqrt(np.array([4, 33, 9]))
+```
+
+* Define `x` and `y` as shown in the following code chunk.
+
+```{python message=FALSE, echo=T}
+x = np.random.randn(3, 4, 2)
+y = np.ones(x.shape)
+```
+
+* Use slicing or indexing to return the first 2 elements of
+  `x` in dimension `1`, which should result in an array
+  with shape equal to `(2, 4, 2)`.
+  
+```{python message=FALSE, echo=T}
+ans= x[:2, :]
+```
+
+* Use slicing or indexing to return the first element in
+  `x` in dimension `1`, the second element in dimension
+  `2`, and every element in dimension `3`. Your result
+  should be an array with shape equal to `(2, )`.
+  
+```{python message=FALSE, echo=T}
+ans= x[0, 1, :]
+```
+
+* Concatenate `x` and `y` along the second dimension.
+
+```{python message=FALSE, echo=T}
+ans= np.concatenate((x, y), 1)
+```
+
+* Make a deep copy of `x`, add `10` to every element.
+
+```{python message=FALSE, echo=T}
+ans= np.array(x) + 10
+```
+
+* Make a deep copy of `x`, set every element in the first
+  dimension to zero.
+  
+```{python message=FALSE, echo=T}
+ans[0, :, :] = 0
+```
+
+* Make a deep copy of `x`, use boolean indexing to set every
+  element of `x` that is less than `0.5` to zero.
+  
+```{python message=FALSE, echo=T}
+ans = np.array(x)
+ans[ans < 0.5] = 0
+```
+
+* Create a 2D NumPy array of shape (3, 3) with random
+  integers between 0 and 9.
+  
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=(3, 3))
+print(arr)
+```
+
+* Create a 1D NumPy array of size 10 with all elements equal
+  to 5.
+
+```{python message=FALSE, echo=T}
+arr = np.ones(10, dtype=int) * 5
+print(arr)
+```
+
+* Create a 2D NumPy array of shape (4, 4) with elements on
+  the main diagonal equal to 1 and all other elements equal
+  to 0.
+
+```{python message=FALSE, echo=T}
+arr = np.eye(4, dtype=int)
+print(arr)
+```
+
+* Create a 1D NumPy array of size 5 with random integers
+  between 0 and 9, then replace all odd numbers with -1.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=5)
+arr[arr % 2 == 1] = -1
+print(arr)
+```
+
+* Create a 2D NumPy array of shape (3, 3) with random floats
+  between 0 and 1, then normalize the array by dividing each
+  element by the sum of all elements.
+
+```{python message=FALSE, echo=T}
+arr = np.random.random((3, 3))
+arr_normalized = arr / arr.sum()
+print(arr_normalized)
+```
+
+* Create a 1D NumPy array of size 10 with random integers
+  between 0 and 9, then sort the array in descending order.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=10)
+arr_sorted = np.sort(arr)[::-1]
+print(arr_sorted)
+```
+
+* Create a 2D NumPy array of shape (4, 4) with random
+  integers between 0 and 9, then calculate the mean of each
+  row.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=(4, 4))
+arr_row_mean = np.mean(arr, axis=1)
+print(arr_row_mean)
+```
+
+* Create a 1D NumPy array of size 5 with random integers
+  between 0 and 9, then calculate the cumulative sum of the
+  array.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=5)
+arr_cumsum = np.cumsum(arr)
+print(arr_cumsum)
+```
+
+* Create a 1D NumPy array of size 10 with random integers
+between 0 and 9, then replace all even numbers with an odd
+number.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=10)
+mask = arr % 2 == 0
+arr[mask] += 1
+print(arr)
+```
+
+* Create a 2D NumPy array of shape (5, 5) with random
+  integers between 0 and 9, then replace the diagonal
+  elements with the average of all elements.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=(5, 5))
+mask = np.eye(5, dtype=bool)
+arr[mask] = arr.mean()
+print(arr)
+```
+
+* Create a 2D NumPy array of shape (4, 4) with random
+  integers between 0 and 9, then find the location of the
+  maximum value in each row.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=(4, 4))
+max_indices = np.argmax(arr, axis=1)
+print(max_indices)
+```
+
+* Create a 1D NumPy array of size 20 with random integers
+  between 0 and 9, then find the top 5 most frequent values
+  in the array.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=20)
+unique, counts = np.unique(arr, return_counts=True)
+top_indices = np.argsort(counts)[-5:]
+top_values = unique[top_indices][::-1]
+print(top_values)
+```
+
+* Create a 2D NumPy array of shape (3, 3) with random floats
+  between 0 and 1, then find the row with the smallest sum.
+
+```{python message=FALSE, echo=T}
+arr = np.random.random((3, 3))
+row_sums = np.sum(arr, axis=1)
+min_index = np.argmin(row_sums)
+print(arr[min_index])
+```
+
+* Create a 1D NumPy array of size 10 with random integers
+  between 0 and 9, then split the array into 2 smaller
+  arrays such that the first array contains the even numbers
+  and the second array contains the odd numbers.
+
+```{python message=FALSE, echo=T}
+arr = np.random.randint(0, 10, size=10)
+even = arr[arr % 2 == 0]
+odd = arr[arr % 2 == 1]
+print(even, odd)
+```
+
+* Create a line plot of the function y = x^2 from 0 to 10
+  with axis labels.
+
+```{python message=FALSE, echo=T}
+x = np.linspace(0, 10, 100)
+y = x**2
+plt.plot(x, y)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+```
+
+* Create a scatter plot of 50 random 2D points with
+  different colors and sizes.
+
+```{python message=FALSE, echo=T}
+x = np.random.normal(size=50)
+y = np.random.normal(size=50)
+colors = np.random.rand(50)
+sizes = np.random.rand(50) * 100
+plt.scatter(x, y, c=colors, s=sizes)
+plt.show()
+```
+
+* Create a bar chart of the number of apples, oranges, and
+  bananas sold in a week.
+
+```{python message=FALSE, echo=T}
+fruits = ['Apples', 'Oranges', 'Bananas']
+sales = [10, 8, 15]
+plt.bar(fruits, sales)
+plt.xlabel('Fruit')
+plt.ylabel('Number of Sales')
+plt.show()
+```
+
+* Create a pie chart of the percentage of time spent on
+  different activities in a day.
+
+```{python message=FALSE, echo=T}
+activities = ['Sleep', 'Work', 'Study', 'Exercise', 'Leisure']
+times = [8, 8, 4, 1, 3]
+plt.pie(times, labels=activities, autopct='%1.1f%%')
+plt.show()
+```
+
+* Create a histogram of 1000 normally distributed random
+  numbers with 10 bins.
+
+```{python message=FALSE, echo=T}
+data = np.random.normal(size=1000)
+plt.hist(data, bins=10)
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+* Create a line plot of the sine and cosine functions from 0
+  to 2$\pi$ with a legend and axis labels.
+
+```{python message=FALSE, echo=T}
+x = np.linspace(0, 2*np.pi, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+plt.plot(x, y1, label='sin(x)')
+plt.plot(x, y2, label='cos(x)')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.show()
+```
+
+* Create a scatter plot of 1000 random 2D points with
+  different colors and sizes based on their distance from
+  the origin.
+
+```{python message=FALSE, echo=T}
+x = np.random.normal(size=1000)
+y = np.random.normal(size=1000)
+distance = np.sqrt(x**2 + y**2)
+colors = distance
+sizes = distance * 50
+plt.scatter(x, y, c=colors, s=sizes, cmap='coolwarm')
+plt.colorbar()
+plt.show()
+```
+
+* Create a stacked bar plot of the number of gold, silver,
+  and bronze medals won by the top 5 countries in the 2016
+  Summer Olympics.
+
+```{python message=FALSE, echo=T}
+countries = ['USA', 'GBR', 'CHN', 'RUS', 'GER']
+gold = [46, 27, 26, 19, 17]
+silver = [37, 23, 18, 18, 10]
+bronze = [38, 17, 26, 19, 15]
+fig, ax = plt.subplots()
+ax.bar(countries, gold, label='Gold')
+ax.bar(countries, silver, bottom=gold, label='Silver')
+ax.bar(countries, bronze, bottom=np.array(gold)+np.array(silver), label='Bronze')
+ax.set_xlabel('Country')
+ax.set_ylabel('Medals')
+ax.legend()
+plt.show()
+```
+
+* Create a heatmap of the correlation matrix between 5
+  variables with annotated values and axis labels.
+
+```{python message=FALSE, echo=T}
+np.random.seed(42)
+data = np.random.normal(size=(5, 100))
+corr = np.corrcoef(data)
+fig, ax = plt.subplots()
+im = ax.imshow(corr, cmap='coolwarm')
+cbar = ax.figure.colorbar(im, ax=ax)
+for i in range(5):
+    for j in range(5):
+        text = ax.text(j, i, f'{corr[i,j]:.2f}', ha='center', va='center', color='black')
+ax.set_xticks(np.arange(5))
+ax.set_yticks(np.arange(5))
+ax.set_xticklabels(['Var 1', 'Var 2', 'Var 3', 'Var 4', 'Var 5'])
+ax.set_yticklabels(['Var 1', 'Var 2', 'Var 3', 'Var 4', 'Var 5'])
+plt.show()
+```

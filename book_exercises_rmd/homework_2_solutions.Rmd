@@ -1,0 +1,609 @@
+---
+title: "Homework 2"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python echo=T, include=T}
+import numpy as np
+import matplotlib.pyplot as plt
+from copy import deepcopy
+
+
+def simulate_hh(params, I=None):
+
+    tau = params['tau']
+    vr = params['vr']
+    C = params['C']
+    g_na = params['g_na']
+    g_k = params['g_k']
+    g_leak = params['g_leak']
+    E_na = params['E_na'] + vr
+    E_k = params['E_k'] + vr
+    E_leak = params['E_leak'] + vr
+
+    if I is None:
+      T = 15
+      t = np.arange(0, T, tau)
+      I = [5] * t.shape[0]
+    else:
+      t = np.arange(0, I.shape[0] // tau, tau)
+      t = t[:I.shape[0]]
+      T = t[-1]
+      
+    h = np.zeros(t.shape)
+    m = np.zeros(t.shape)
+    n = np.zeros(t.shape)
+    v = np.zeros(t.shape)
+    
+    v[0] = vr
+    h[0] = alpha_func_h(v[0], vr) / (alpha_func_h(v[0], vr) + beta_func_h(v[0], vr))
+    m[0] = alpha_func_m(v[0], vr) / (alpha_func_m(v[0], vr) + beta_func_m(v[0], vr))
+    n[0] = alpha_func_n(v[0], vr) / (alpha_func_n(v[0], vr) + beta_func_n(v[0], vr))
+    
+    for i in range(1, t.shape[0]):
+
+        I_na = g_na * h[i - 1] * m[i - 1]**3 * (v[i - 1] - E_na)
+        I_k = g_k * n[i - 1]**4 * (v[i - 1] - E_k)
+        I_leak = g_leak * (v[i - 1] - E_leak)
+
+        dvdt = (I[i - 1] - (I_na + I_k + I_leak)) / C
+
+        dhdt = alpha_func_h(v[i - 1], vr) * (1 - h[i - 1]) - beta_func_h( v[i - 1], vr) * h[i - 1]
+        dmdt = alpha_func_m(v[i - 1], vr) * (1 - m[i - 1]) - beta_func_m( v[i - 1], vr) * m[i - 1]
+        dndt = alpha_func_n(v[i - 1], vr) * (1 - n[i - 1]) - beta_func_n( v[i - 1], vr) * n[i - 1]
+
+        # delta t
+        dt = t[i] - t[i - 1]
+
+        # Euler's update
+        v[i] = v[i - 1] + dvdt * dt
+        h[i] = h[i - 1] + dhdt * dt
+        m[i] = m[i - 1] + dmdt * dt
+        n[i] = n[i - 1] + dndt * dt
+
+    return t, v, h, m, n
+
+
+def alpha_func_h(v, vr):
+    y = 0.07 * np.exp((vr - v) / 20)
+    return y
+
+
+def alpha_func_m(v, vr):
+    y = (2.5 - 0.1 * (v - vr)) / (np.exp(2.5 - 0.1 * (v - vr)) - 1)
+    return y
+
+
+def alpha_func_n(v, vr):
+    y = (0.1 - 0.01 * (v - vr)) / (np.exp(1.0 - 0.1 * (v - vr)) - 1)
+    return y
+
+
+def beta_func_h(v, vr):
+    y = 1 / (1 + np.exp(3 - 0.1 * (v - vr)))
+    return y
+
+
+def beta_func_m(v, vr):
+    y = 4 * np.exp((vr - v) / 18)
+    return y
+
+
+def beta_func_n(v, vr):
+    y = 0.125 * np.exp((vr - v) / 80)
+    return y
+
+
+def plot_res(param_name):
+
+    fig, ax, = plt.subplots(2, 3, squeeze=False, figsize=(12, 6))
+
+    ax[0, 0].plot(t1, v1, '.')
+    ax[0, 1].plot(t2, v2, '.')
+    ax[0, 2].plot(t3, v3, '.')
+    
+    ax[1, 0].plot(t1, n1, '-', label='n (K activation)')
+    ax[1, 1].plot(t2, n2, '-', label='n (K activation)')
+    ax[1, 2].plot(t3, n3, '-', label='n (K activation)')
+
+    ax[1, 0].plot(t1, m1, '-', label='m (Na activation)')
+    ax[1, 1].plot(t2, m2, '-', label='m (Na activation)')
+    ax[1, 2].plot(t3, m3, '-', label='m (Na activation)')
+    
+    ax[1, 0].plot(t1, h1, '-', label='h (Na inactivation)')
+    ax[1, 1].plot(t2, h2, '-', label='h (Na inactivation)')
+    ax[1, 2].plot(t3, h3, '-', label='h (Na inactivation)')
+
+    [x.set_xlabel('t') for x in ax.flatten()]
+    [x.set_ylabel('v') for x in ax.flatten()[:3]]
+    [x.set_ylabel('conductance') for x in ax.flatten()[3:]]
+    title_list = ['A', 'B', 'C']
+    [x.set_title(title_list[i]) for i, x in enumerate(ax.flatten()[0:3])]
+    [x.legend(loc='upper right') for x in ax.flatten()[3:]]
+    plt.tight_layout()
+    plt.show()
+```
+
+```{python echo=T, include=T}
+# default params
+params_base = {
+    'tau': 0.01,
+    'vr': -65,
+    'C': 1,
+    'g_na': 120,
+    'g_k': 36,
+    'g_leak': 0.3,
+    'E_na': 115,
+    'E_k': -12,
+    'E_leak': 10.6
+}
+```
+
+## Learning objectives
+* Cultivate and demonstrate a deep understanding of the HH
+  neuron model.
+  
+## General instructions
+* This entire problem set deals exclusively with the HH
+  model, so use the code we covered in lectures and tutorials
+  as the basis for your work.
+
+## 1. Activation gates and conductances
+
+* Recreate the following figure: 
+
+```{python echo=T, include=T}
+g_k = params_base['g_k']
+g_na = params_base['g_na']
+t, v, h, m, n = simulate_hh(params_base)
+
+fig, ax, = plt.subplots(1, 2, squeeze=False, figsize=(12, 4))
+
+ax1 = ax[0, 0]
+ax1.plot(t, v, '-k', linewidth=2, label='V')
+ax1.set_ylabel('v')
+ax1.set_xlabel('t')
+ax2 = ax1.twinx()
+ax2.plot(t, n, '--', label='n (K activation)')
+ax2.plot(t, m, '--', label='m (Na activation)')
+ax2.plot(t, h, '--', label='h (Na inactivation)')
+ax2.set_ylabel('P(gate open)')
+ax2.set_xlabel('t')
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+ax1 = ax[0, 1]
+ax1.plot(t, v, '-k', linewidth=2, label='V')
+ax1.set_ylabel('v')
+ax1.set_xlabel('t')
+ax2 = ax1.twinx()
+ax2.plot(t, g_k * n**4, '--', label='K')
+ax2.plot(t, g_na * m**3 * h, '--', label='Na')
+ax2.set_ylabel('conductance')
+ax2.set_xlabel('t')
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper right')
+
+plt.tight_layout()
+plt.show()
+```
+
+## 2. Activation gate functions
+* The following figure shows the equilibrium function of the
+gating variables. 
+
+  1. Recreate this figure.
+  2. Which gating variable corresponds to which colour?
+  Place a legend in your figure indicating this.
+
+```{python echo=T, include=T}
+import warnings
+warnings.filterwarnings('ignore')
+vr = params_base['vr']
+x = np.arange(-200, 200, 1)
+yn = alpha_func_n(x, vr) / (alpha_func_n(x, vr) + beta_func_n(x, vr))
+ym = alpha_func_m(x, vr) / (alpha_func_m(x, vr) + beta_func_m(x, vr))
+yh = alpha_func_h(x, vr) / (alpha_func_h(x, vr) + beta_func_h(x, vr))
+plt.plot(x, yn)
+plt.plot(x, ym)
+plt.plot(x, yh)
+plt.xlabel('mV')
+plt.ylabel('P(open)')
+plt.show()
+```
+
+## 3. Understand the parameters of HH
+
+* In all of the following subsections and figures, a
+constant current was injected into a HH neuron that lasted
+from the beginning to the end of the simulation.
+
+* The top row of panels in each of these figures corresponds
+to the simulated membrane potential.
+
+* The bottom row of panels in each of these figures
+corresponds to the simulated activation and inactivation
+gate probabilities.
+
+* Each column corresponds to the results from a simulation
+with a different value of the parameter of interest
+(specified in the subsection heading).
+
+* **Please recreate all of the following plots**
+
+### `tau`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['tau'] = 0.05
+params_2['tau'] = 0.01
+params_3['tau'] = 0.005
+
+t1, v1, h1, m1, n1 = simulate_hh(params_1)
+t2, v2, h2, m2, n2 = simulate_hh(params_2)
+t3, v3, h3, m3, n3 = simulate_hh(params_3)
+
+plot_res('tau')
+```
+
+###  `vr`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['vr'] = -60
+params_2['vr'] = -40
+params_3['vr'] = -20
+
+t1, v1, h1, m1, n1 = simulate_hh(params_2)
+t2, v2, h2, m2, n2 = simulate_hh(params_1)
+t3, v3, h3, m3, n3 = simulate_hh(params_3)
+
+plot_res('vr')
+```
+
+### `C`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['C'] = 1.0
+params_2['C'] = 5.0
+params_3['C'] = 10.0
+
+t1, v1, h1, m1, n1 = simulate_hh(params_3)
+t2, v2, h2, m2, n2 = simulate_hh(params_1)
+t3, v3, h3, m3, n3 = simulate_hh(params_2)
+
+plot_res('C')
+```
+
+### `g_na`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['g_na'] = 20
+params_2['g_na'] = 120
+params_3['g_na'] = 220
+
+t1, v1, h1, m1, n1 = simulate_hh(params_2)
+t2, v2, h2, m2, n2 = simulate_hh(params_3)
+t3, v3, h3, m3, n3 = simulate_hh(params_1)
+
+plot_res('g_na')
+```
+
+### `g_k`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['g_k'] = 6
+params_2['g_k'] = 36
+params_3['g_k'] = 66
+
+t1, v1, h1, m1, n1 = simulate_hh(params_1)
+t2, v2, h2, m2, n2 = simulate_hh(params_2)
+t3, v3, h3, m3, n3 = simulate_hh(params_3)
+
+plot_res('g_k')
+```
+
+### `g_leak`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['g_leak'] = 0.001
+params_2['g_leak'] = 0.3
+params_3['g_leak'] = 10.0
+
+t1, v1, h1, m1, n1 = simulate_hh(params_2)
+t2, v2, h2, m2, n2 = simulate_hh(params_3)
+t3, v3, h3, m3, n3 = simulate_hh(params_1)
+
+plot_res('g_leak')
+```
+
+### `E_na`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['E_na'] = 10
+params_2['E_na'] = 115
+params_3['E_na'] = 300
+
+t1, v1, h1, m1, n1 = simulate_hh(params_1)
+t2, v2, h2, m2, n2 = simulate_hh(params_3)
+t3, v3, h3, m3, n3 = simulate_hh(params_2)
+
+plot_res('E_na')
+```
+
+### `E_k`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['E_k'] = -50
+params_2['E_k'] = -12
+params_3['E_k'] = 50
+
+t1, v1, h1, m1, n1 = simulate_hh(params_3)
+t2, v2, h2, m2, n2 = simulate_hh(params_1)
+t3, v3, h3, m3, n3 = simulate_hh(params_2)
+
+plot_res('E_k')
+```
+
+### `E_leak`
+```{python echo=T, include=T}
+params_1 = deepcopy(params_base)
+params_2 = deepcopy(params_base)
+params_3 = deepcopy(params_base)
+
+params_1['E_leak'] = -50
+params_2['E_leak'] = -6
+params_3['E_leak'] = 50
+
+t1, v1, h1, m1, n1 = simulate_hh(params_3)
+t2, v2, h2, m2, n2 = simulate_hh(params_2)
+t3, v3, h3, m3, n3 = simulate_hh(params_1)
+
+plot_res('E_leak')
+```
+
+## 4. Response to current injection
+* Explore the response of an HH neuron to different current
+injections. In particular, try to replicate the plot below.
+Each simulation is run for 150 ms with a current pulse of 50
+ms duration applied in the middle of the simulated time
+interval. The magnitude of the current pulse is different
+for different rows.
+
+```{python echo=T, include=T}
+params_base = {
+    'tau': 0.01,
+    'vr': -65,
+    'C': 1,
+    'g_na': 120,
+    'g_k': 36,
+    'g_leak': 0.3,
+    'E_na': 115,
+    'E_k': -12,
+    'E_leak': 10.6
+}
+
+g_k = params_base['g_k']
+g_na = params_base['g_na']
+tau = params_base['tau']
+
+T = 150
+t = np.arange(0, T+1, tau)
+I = np.array([1] * t.shape[0])
+I[t < 50] = 0
+I[t > 100] = 0
+
+I_1 = I * 1
+I_2 = I * 5
+I_3 = I * 15
+
+t1, v1, h1, m1, n1 = simulate_hh(params_base, I=I_1)
+t2, v2, h2, m2, n2 = simulate_hh(params_base, I=I_2)
+t3, v3, h3, m3, n3 = simulate_hh(params_base, I=I_3)
+
+fig, ax = plt.subplots(3, 3, squeeze=False, figsize=(12, 10))
+
+ax[0, 0].plot(t1, v1, '-k')
+ax[0, 0].set_ylabel('v')
+ax[0, 0].set_xlabel('t')
+
+ax[0, 1].plot(t1, n1, '--', label='n (K activation)')
+ax[0, 1].plot(t1, m1, '--', label='m (Na activation)')
+ax[0, 1].plot(t1, h1, '--', label='h (Na inactivation)')
+ax[0, 1].set_ylabel('P(gate open)')
+ax[0, 1].set_xlabel('t')
+ax[0, 1].legend(loc='upper right')
+
+ax[0, 2].plot(t1, g_k * n1**4, '--', label='K')
+ax[0, 2].plot(t1, g_na * m1**3 * h1, '--', label='Na')
+ax[0, 2].set_ylabel('conductance')
+ax[0, 2].set_xlabel('t')
+ax[0, 2].legend(loc='upper right')
+
+ax[1, 0].plot(t2, v2, '-k')
+ax[1, 0].set_ylabel('v')
+ax[1, 0].set_xlabel('t')
+
+ax[1, 1].plot(t2, n2, '--', label='n (K activation)')
+ax[1, 1].plot(t2, m2, '--', label='m (Na activation)')
+ax[1, 1].plot(t2, h2, '--', label='h (Na inactivation)')
+ax[1, 1].set_ylabel('P(gate open)')
+ax[1, 1].set_xlabel('t')
+ax[1, 1].legend(loc='upper right')
+
+ax[1, 2].plot(t2, g_k * n2**4, '--', label='K')
+ax[1, 2].plot(t2, g_na * m2**3 * h2, '--', label='Na')
+ax[1, 2].set_ylabel('conductance')
+ax[1, 2].set_xlabel('t')
+ax[1, 2].legend(loc='upper right')
+
+ax[2, 0].plot(t3, v3, '-k')
+ax[2, 0].set_ylabel('v')
+ax[2, 0].set_xlabel('t')
+
+ax[2, 1].plot(t3, n3, '--', label='n (K activation)')
+ax[2, 1].plot(t3, m3, '--', label='m (Na activation)')
+ax[2, 1].plot(t3, h3, '--', label='h (Na inactivation)')
+ax[2, 1].set_ylabel('P(gate open)')
+ax[2, 1].set_xlabel('t')
+ax[2, 1].legend(loc='upper right')
+
+ax[2, 2].plot(t3, g_k * n3**4, '--', label='K')
+ax[2, 2].plot(t3, g_na * m3**3 * h3, '--', label='Na')
+ax[2, 2].set_ylabel('conductance')
+ax[2, 2].set_xlabel('t')
+ax[2, 2].legend(loc='upper right')
+
+# for i in range(3):
+#   ax[i, 0].set_ylim([-80, 40])
+#   ax[i, 1].set_ylim([0, 1])
+#   ax[i, 2].set_ylim([0, 100])
+
+plt.tight_layout()
+plt.show()
+```
+
+* What's going on in the second row? How is the current
+pulse sufficient to initially drive an action potential but
+not sufficient to drive a train of action potentials? Can
+you change a parameter (not of the input current but of the
+HH neuron itself) to change this behaviour into a train of
+action potentials? If so, do it and show your results in a
+figure.
+
+```{python echo=T, include=T}
+params_base = {
+    'tau': 0.01,
+    'vr': -65,
+    'C': 1,
+    'g_na': 120,
+    'g_k': 36,
+    'g_leak': 0.3,
+    'E_na': 115,
+    'E_k': -12,
+    'E_leak': 10.6
+}
+
+# NOTE: You can do it with either of these. Probably more as well.
+# params_base['g_k'] = 25
+# params_base['g_na'] = 150
+
+g_k = params_base['g_k']
+g_na = params_base['g_na']
+tau = params_base['tau']
+
+T = 150
+t = np.arange(0, T+1, tau)
+I = np.array([1] * t.shape[0])
+I[t < 50] = 0
+I[t > 100] = 0
+
+I_1 = I * 1
+I_2 = I * 5
+I_3 = I * 15
+
+t1, v1, h1, m1, n1 = simulate_hh(params_base, I=I_1)
+t2, v2, h2, m2, n2 = simulate_hh(params_base, I=I_2)
+t3, v3, h3, m3, n3 = simulate_hh(params_base, I=I_3)
+
+fig, ax = plt.subplots(3, 3, squeeze=False, figsize=(12, 10))
+
+ax[0, 0].plot(t1, v1, '-k')
+ax[0, 0].set_ylabel('v')
+ax[0, 0].set_xlabel('t')
+
+ax[0, 1].plot(t1, n1, '--', label='n (K activation)')
+ax[0, 1].plot(t1, m1, '--', label='m (Na activation)')
+ax[0, 1].plot(t1, h1, '--', label='h (Na inactivation)')
+ax[0, 1].set_ylabel('P(gate open)')
+ax[0, 1].set_xlabel('t')
+ax[0, 1].legend(loc='upper right')
+
+ax[0, 2].plot(t1, g_k * n1**4, '--', label='K')
+ax[0, 2].plot(t1, g_na * m1**3 * h1, '--', label='Na')
+ax[0, 2].set_ylabel('conductance')
+ax[0, 2].set_xlabel('t')
+ax[0, 2].legend(loc='upper right')
+
+ax[1, 0].plot(t2, v2, '-k')
+ax[1, 0].set_ylabel('v')
+ax[1, 0].set_xlabel('t')
+
+ax[1, 1].plot(t2, n2, '--', label='n (K activation)')
+ax[1, 1].plot(t2, m2, '--', label='m (Na activation)')
+ax[1, 1].plot(t2, h2, '--', label='h (Na inactivation)')
+ax[1, 1].set_ylabel('P(gate open)')
+ax[1, 1].set_xlabel('t')
+ax[1, 1].legend(loc='upper right')
+
+ax[1, 2].plot(t2, g_k * n2**4, '--', label='K')
+ax[1, 2].plot(t2, g_na * m2**3 * h2, '--', label='Na')
+ax[1, 2].set_ylabel('conductance')
+ax[1, 2].set_xlabel('t')
+ax[1, 2].legend(loc='upper right')
+
+ax[2, 0].plot(t3, v3, '-k')
+ax[2, 0].set_ylabel('v')
+ax[2, 0].set_xlabel('t')
+
+ax[2, 1].plot(t3, n3, '--', label='n (K activation)')
+ax[2, 1].plot(t3, m3, '--', label='m (Na activation)')
+ax[2, 1].plot(t3, h3, '--', label='h (Na inactivation)')
+ax[2, 1].set_ylabel('P(gate open)')
+ax[2, 1].set_xlabel('t')
+ax[2, 1].legend(loc='upper right')
+
+ax[2, 2].plot(t3, g_k * n3**4, '--', label='K')
+ax[2, 2].plot(t3, g_na * m3**3 * h3, '--', label='Na')
+ax[2, 2].set_ylabel('conductance')
+ax[2, 2].set_xlabel('t')
+ax[2, 2].legend(loc='upper right')
+
+# for i in range(3):
+#   ax[i, 0].set_ylim([-80, 40])
+#   ax[i, 1].set_ylim([0, 1])
+#   ax[i, 2].set_ylim([0, 100])
+
+plt.tight_layout()
+plt.show()
+```

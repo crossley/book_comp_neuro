@@ -1,0 +1,67 @@
+---
+title: "Tutorial 9"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* TBD
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_9_solutions.html)
+
+### 1. 
+Build a small network made up of three **excitatory**
+Izhikevich neurons of any type such that the connectivity
+pattern is as follows:
+
+* $A \rightarrow B$
+* $A \rightarrow C$
+
+Show that injecting a square pulse of positive current of
+sufficient magnitude into $A$ can drive action potentials in
+$B$ and $C$.
+
+
+### 2.
+Build a small network made up of two Izhikevich neurons of 
+any type such that the connectivity pattern is as follows:
+
+* $A \rightarrow B$
+* $B \rightarrow A$
+
+Let A excite B but B inhibit A.
+
+Show that injecting a square pulse of positive current of
+sufficient magnitude into $A$ can drive action potentials in
+$B$ which leads to inhibition in $A$. Try to find parameters
+that allow the system to reach equilibrium before the end of
+the simulation.
+
+### 3. 
+Build a small network of 20 **inhibitory** Izhikevich
+neurons of any type such that the connectivity pattern is
+**weakly fully interconnected**. This just means that
+everything should be connected to everything else but with
+small random connection weights. Explore how this network
+responds to positive current injections provided to all
+neurons in the network simultaneously.

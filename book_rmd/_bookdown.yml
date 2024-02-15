@@ -1,0 +1,19 @@
+book_filename: "bookdown_files"
+output_dir: "../"
+new_session: no
+rmd_files: [
+  "index.Rmd",
+  "intro_book.Rmd",
+  "intro_numpy.Rmd",
+  "intro_calculus.Rmd",
+  "intro_dynamical.Rmd",
+  "neuron_basic.Rmd",
+  "neuron_hh.Rmd",
+  "neurotransmitter_release.Rmd",
+  "synaptic_plasticity.Rmd",
+  "synaptic_plasticity_rl.Rmd",
+  "tdrl.Rmd",
+  "tdrl_2.Rmd",
+  "supervised_learning.Rmd",
+  "supervised_learning_2.Rmd"
+]

@@ -1,0 +1,89 @@
+---
+title: "Tutorial 3"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: false
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    # code_folding: show
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* TBD
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_3_solutions.html)
+
+```{python message=FALSE, echo=T}
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+### 1
+#### a
+* Define `x` and `y` as shown in the following code chunk.
+```{python message=FALSE, echo=T}
+np.random.seed(0)
+x = np.random.normal(0, 1, 100)
+y = np.random.normal(2, 5, 100)
+```
+
+* Use `matplotlib` to make and display the following figure.
+```{python message=FALSE, echo=F, include=T}
+plt.scatter(x, y)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+```
+
+#### b
+* Define `t`, `sint`, and `cost` as shown in the following
+code chunk.
+```{python message=FALSE, echo=T}
+t = np.linspace(-np.pi, np.pi, 100)
+sint = np.sin(t)
+cost = np.cos(t)
+```
+
+* Use `matplotlib` to make and display the following figure.
+```{python message=FALSE, echo=F, include=T}
+plt.plot(t, sint, label='f(t)=sin(t)')
+plt.plot(t, cost, label='f(t)=cos(t)')
+plt.xlabel('t')
+plt.ylabel('f(t)')
+plt.legend()
+plt.show()
+```
+
+#### c
+* Define `xx` as shown in the following code chunk.
+```{python message=FALSE, echo=T}
+np.random.seed(0)
+xx = np.random.normal(0, 1, (100, 100))
+```
+
+* Use `matplotlib` to make and display the following figure.
+```{python message=FALSE, echo=F, include=T}
+plt.imshow(xx)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+```
+
+## Work on problem set 1
+* [Problem set 1](homework_1.html)

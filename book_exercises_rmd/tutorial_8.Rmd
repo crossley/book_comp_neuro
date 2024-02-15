@@ -1,0 +1,93 @@
+---
+title: "Tutorial 8"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: false
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    # code_folding: show
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, collapse=T)
+```
+
+## Learning objectives
+* TBD
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_8_solutions.html)
+
+* All Q and pg references are for Izhikevich (2006):
+
+  Izhikevich, E. M. (2006). Dynamical Systems in
+  Neuroscience: The Geometry of Excitability and Bursting. The
+  MIT Press.
+  
+  https://www.izhikevich.org/publications/dsn.pdf
+
+### 1. Q11 pg 322
+All membrane potential responses in the following figure
+were obtained using an Izhikevich model neuron. Experiment
+with the model and reproduce the figure.
+
+<img src="./img/izn_neurons.png">
+
+*Electronic version of this figure and reproduction
+permissions are freely available at www.izhikevich.com*
+
+
+### 2. Q3 pg 321
+Show that when $b > 0$ the period of oscillations in the
+quadratic integrate-and-fire model is:
+
+$$
+T = \frac{1}{\sqrt{b}} 
+\bigg( 
+    \text{atan}(\frac{v_{\text{peak}}}{\sqrt{b}}) 
+   -\text{atan}(\frac{v_{\text{reset}}}{\sqrt{b}})
+\bigg)
+$$
+
+### 3. Q4 pg 322
+Show that when $b < 0$ and $v_\text{reset} > \sqrt{|b|}$ the
+period of oscillations in the quadratic integrate-and-fire
+model with $v_{peak} = 1$ is:
+
+$$
+T = \frac{1}{2 \sqrt{|b|}} 
+\bigg( 
+    \text{ln}(\frac{1 - \sqrt{|b|}}{1 + \sqrt{|b|}}) 
+   -\text{ln}(\frac{v_{\text{reset}} - \sqrt{|b|}}{v_{\text{reset}} + \sqrt{|b|}})
+\bigg)
+$$
+
+### 4. Q9 pg 322
+When is the following model equivalent to the
+integrate-and-fire model?
+$$
+\frac{dv}{dt} = I - v - u \\
+\frac{du}{dt} = a (b v - u) \\
+\text{if } v = 1, \text{then } v \leftarrow 0, u \leftarrow u + d
+$$
+
+Create any non-trivial input (e.g., use something like a
+square pulse of current that is strong enough to elicit
+interesting spiking behaviour from the model), and pass that
+input to both the above model and also to an integrate and
+fire neuron. We ought to be able to demonstrate that they
+respond to this input in the same way, provided some
+constraints are met.
+
+### Work on problem set 3
+* [Problem set 3](homework_3.html)

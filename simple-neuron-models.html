@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Simple neuron models | Introduction to Computational Neuroscience</title>
+  <meta name="description" content="6 Simple neuron models | Introduction to Computational Neuroscience" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Simple neuron models | Introduction to Computational Neuroscience" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Simple neuron models | Introduction to Computational Neuroscience" />
+  
+  
+  
+
+<meta name="author" content="Matthew J. Crossley" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro-to-dynamical-systems.html"/>
+<link rel="next" href="hodgkin-huxley-neuron-model.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html"><i class="fa fa-check"></i><b>2</b> Introduction to the book</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-computational-neuroscience"><i class="fa fa-check"></i><b>2.1</b> What is computational neuroscience?</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#marrs-levels"><i class="fa fa-check"></i><b>2.2</b> Marr’s levels</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-computers"><i class="fa fa-check"></i><b>2.3</b> Why computers?</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-the-real-value-gained"><i class="fa fa-check"></i><b>2.4</b> What is the real value gained?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-python"><i class="fa fa-check"></i><b>2.5</b> Why Python</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#getting-started-with-python"><i class="fa fa-check"></i><b>2.6</b> Getting started with Python</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#learning-python"><i class="fa fa-check"></i><b>2.7</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html"><i class="fa fa-check"></i><b>3</b> Numpy and Matplotlib</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html#learning-python-1"><i class="fa fa-check"></i><b>3.1</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="intro-to-calculus.html"><a href="intro-to-calculus.html"><i class="fa fa-check"></i><b>4</b> Intro to calculus</a></li>
+<li class="chapter" data-level="5" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html"><i class="fa fa-check"></i><b>5</b> Intro to dynamical systems</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#differential-equations"><i class="fa fa-check"></i><b>5.1</b> Differential equations</a></li>
+<li class="chapter" data-level="5.2" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#eulers-method"><i class="fa fa-check"></i><b>5.2</b> Euler’s method</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html"><i class="fa fa-check"></i><b>6</b> Simple neuron models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#review-of-hh"><i class="fa fa-check"></i><b>6.1</b> Review of HH</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#leaky-integrate-and-fire"><i class="fa fa-check"></i><b>6.2</b> Leaky integrate and fire</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#quadratic-integrate-and-fire"><i class="fa fa-check"></i><b>6.3</b> Quadratic integrate and fire</a></li>
+<li class="chapter" data-level="6.4" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#izhikevich-neuron"><i class="fa fa-check"></i><b>6.4</b> Izhikevich Neuron</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html"><i class="fa fa-check"></i><b>7</b> Hodgkin-Huxley neuron model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_1"><i class="fa fa-check"></i><b>7.1</b> neuron_func_1</a></li>
+<li class="chapter" data-level="7.2" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_2"><i class="fa fa-check"></i><b>7.2</b> neuron_func_2</a></li>
+<li class="chapter" data-level="7.3" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_3"><i class="fa fa-check"></i><b>7.3</b> neuron_func_3</a></li>
+<li class="chapter" data-level="7.4" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_4"><i class="fa fa-check"></i><b>7.4</b> neuron_func_4</a></li>
+<li class="chapter" data-level="7.5" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_5"><i class="fa fa-check"></i><b>7.5</b> neuron_func_5</a></li>
+<li class="chapter" data-level="7.6" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_6"><i class="fa fa-check"></i><b>7.6</b> neuron_func_6</a></li>
+<li class="chapter" data-level="7.7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_7"><i class="fa fa-check"></i><b>7.7</b> neuron_func_7</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html"><i class="fa fa-check"></i><b>8</b> Neurotransmitter release</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#synaptics-responses"><i class="fa fa-check"></i><b>8.1</b> Synaptics responses</a></li>
+<li class="chapter" data-level="8.2" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#spikes-as-a-change-in-conductance"><i class="fa fa-check"></i><b>8.2</b> Spikes as a change in conductance</a></li>
+<li class="chapter" data-level="8.3" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#coupling-conductance-to-psp"><i class="fa fa-check"></i><b>8.3</b> Coupling conductance to PSP</a></li>
+<li class="chapter" data-level="8.4" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psps-superimpose"><i class="fa fa-check"></i><b>8.4</b> PSPs superimpose</a></li>
+<li class="chapter" data-level="8.5" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psp-model-in-the-izhikevich-neuron"><i class="fa fa-check"></i><b>8.5</b> PSP model in the Izhikevich neuron</a></li>
+<li class="chapter" data-level="8.6" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#chaining-neurons-together"><i class="fa fa-check"></i><b>8.6</b> Chaining neurons together</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html"><i class="fa fa-check"></i><b>9</b> Synpatic Plasticity</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#python-helper-functions"><i class="fa fa-check"></i><b>9.1</b> Python helper functions</a></li>
+<li class="chapter" data-level="9.2" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-1"><i class="fa fa-check"></i><b>9.2</b> Hebbian Learning 1</a></li>
+<li class="chapter" data-level="9.3" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-2"><i class="fa fa-check"></i><b>9.3</b> Hebbian Learning 2</a></li>
+<li class="chapter" data-level="9.4" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-3"><i class="fa fa-check"></i><b>9.4</b> Hebbian Learning 3</a></li>
+<li class="chapter" data-level="9.5" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-stdp"><i class="fa fa-check"></i><b>9.5</b> Hebbian STDP</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reinforcement-learning.html"><a href="reinforcement-learning.html"><i class="fa fa-check"></i><b>10</b> Reinforcement Learning</a></li>
+<li class="chapter" data-level="11" data-path="reinforcement-learning-rule.html"><a href="reinforcement-learning-rule.html"><i class="fa fa-check"></i><b>11</b> Reinforcement learning rule</a></li>
+<li class="chapter" data-level="12" data-path="example-1.html"><a href="example-1.html"><i class="fa fa-check"></i><b>12</b> Example 1</a></li>
+<li class="chapter" data-level="13" data-path="example-2.html"><a href="example-2.html"><i class="fa fa-check"></i><b>13</b> Example 2</a></li>
+<li class="chapter" data-level="14" data-path="example-3.html"><a href="example-3.html"><i class="fa fa-check"></i><b>14</b> Example 3</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="example-3.html"><a href="example-3.html#reinforcement-learning-framework"><i class="fa fa-check"></i><b>14.1</b> Reinforcement learning framework</a></li>
+<li class="chapter" data-level="14.2" data-path="example-3.html"><a href="example-3.html#estimating-the-state-value-function"><i class="fa fa-check"></i><b>14.2</b> Estimating the state-value function</a></li>
+<li class="chapter" data-level="14.3" data-path="example-3.html"><a href="example-3.html#temporal-difference-td-learning"><i class="fa fa-check"></i><b>14.3</b> Temporal difference (TD) learning</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="example-3.html"><a href="example-3.html#td-rl-model-of-classical-conditioning"><i class="fa fa-check"></i><b>14.3.1</b> TD RL model of classical conditioning</a></li>
+<li class="chapter" data-level="14.3.2" data-path="example-3.html"><a href="example-3.html#td-rl-as-the-learning-signal-in-a-spiking-network"><i class="fa fa-check"></i><b>14.3.2</b> TD RL as the learning signal in a spiking network</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="example-3.html"><a href="example-3.html#td0-for-estimating-v_pi"><i class="fa fa-check"></i><b>14.4</b> TD(0) for estimating <span class="math inline">\(v_{\pi}\)</span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="example-3.html"><a href="example-3.html#td-in-a-simple-2-arm-bandit-task"><i class="fa fa-check"></i><b>14.4.1</b> TD in a simple 2-arm bandit task</a></li>
+<li class="chapter" data-level="14.4.2" data-path="example-3.html"><a href="example-3.html#action-selection-policy"><i class="fa fa-check"></i><b>14.4.2</b> Action selection policy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="example-3.html"><a href="example-3.html#sarsa-for-estimating-q"><i class="fa fa-check"></i><b>14.5</b> SARSA for estimating <span class="math inline">\(Q\)</span></a></li>
+<li class="chapter" data-level="14.6" data-path="example-3.html"><a href="example-3.html#q-learning-for-estimating-pi"><i class="fa fa-check"></i><b>14.6</b> Q-learning for estimating <span class="math inline">\(\pi\)</span></a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.6.1</b> Q-learning applied to instrumental conditioning</a></li>
+<li class="chapter" data-level="14.6.2" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning-2"><i class="fa fa-check"></i><b>14.6.2</b> Q-learning applied to instrumental conditioning 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="example-3.html"><a href="example-3.html#dyna-q-model-based-rl"><i class="fa fa-check"></i><b>14.7</b> Dyna-Q: Model-based RL</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="example-3.html"><a href="example-3.html#dyna-q-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.7.1</b> Dyna-Q applied to instrumental conditioning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>15</b> supervised learning</a></li>
+<li class="chapter" data-level="16" data-path="supervised-learning-1.html"><a href="supervised-learning-1.html"><i class="fa fa-check"></i><b>16</b> Supervised Learning</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Computational Neuroscience</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simple-neuron-models" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Simple neuron models<a href="simple-neuron-models.html#simple-neuron-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="review-of-hh" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Review of HH<a href="simple-neuron-models.html#review-of-hh" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+C \frac{d}{dt}V = I - \overline{g}_{K} n^4 (V - E_{K})
+                    - \overline{g}_{Na} m^3 h (V - E_{Na})
+                    - \overline{g}_{L} (V - E_{L})\\
+\frac{d}{dt}n = (n_{\infty}(V) - n) / \tau(V) \\
+\frac{d}{dt}m = (m_{\infty}(V) - m) / \tau(V) \\
+\frac{d}{dt}h = (h_{\infty}(V) - h) / \tau(V) \\
+\]</span></p>
+<ul>
+<li><p>HH model is an example of a conductance-based model</p></li>
+<li><p>One advantage of conductance-based models is that their
+parameters have well-defined biophysical meanings.</p></li>
+<li><p>However, this does not mean that measuring the true value
+of these parameters is easy. Rather, it is often difficult
+and noisy.</p></li>
+<li><p>Furthermore, it is difficult to ensure the model will
+behave like a real neuron outside the stimulation protocols
+used to measure model parameters.</p></li>
+</ul>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="leaky-integrate-and-fire" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Leaky integrate and fire<a href="simple-neuron-models.html#leaky-integrate-and-fire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\frac{d}{dt} v(t) = b - v(t) \\
+\text{if } v(t) = 1, \text{then } v(t) \leftarrow 0
+\]</span></p>
+<ul>
+<li><p>Linearly adds up inputs until the membrane potential
+crosses a threshold, at which point a spike is triggered,
+and the membrane potential is reset.</p></li>
+<li><p>Spikes are all-or-none assumed to be identical in size and
+duration.</p></li>
+<li><p>Spikes aren’t actually part of the stimulation. They are
+just hand drawn in when threshold is crossed.</p></li>
+<li><p>There can be something of a refractory period if the reset
+potential is set to hyperpolarize the membrane potential.</p></li>
+<li><p>The amplitude of an input is linearly encoded into the
+frequency of spiking. This is called <strong>Class 1
+excitability</strong>.</p></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="simple-neuron-models.html#cb2-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="simple-neuron-models.html#cb2-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="simple-neuron-models.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="simple-neuron-models.html#cb2-4" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">90</span></span>
+<span id="cb2-5"><a href="simple-neuron-models.html#cb2-5" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb2-6"><a href="simple-neuron-models.html#cb2-6" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb2-7"><a href="simple-neuron-models.html#cb2-7" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb2-8"><a href="simple-neuron-models.html#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="simple-neuron-models.html#cb2-9" tabindex="-1"></a>v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb2-10"><a href="simple-neuron-models.html#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="simple-neuron-models.html#cb2-11" tabindex="-1"></a>b <span class="op">=</span> np.concatenate(([<span class="fl">0.0</span>] <span class="op">*</span> (t.shape[<span class="dv">0</span>] <span class="op">//</span> <span class="dv">3</span>),</span>
+<span id="cb2-12"><a href="simple-neuron-models.html#cb2-12" tabindex="-1"></a>                    [<span class="fl">1.001</span>] <span class="op">*</span> (t.shape[<span class="dv">0</span>] <span class="op">//</span> <span class="dv">3</span>),</span>
+<span id="cb2-13"><a href="simple-neuron-models.html#cb2-13" tabindex="-1"></a>                    [<span class="fl">0.0</span>] <span class="op">*</span> (t.shape[<span class="dv">0</span>] <span class="op">//</span> <span class="dv">3</span>)))</span>
+<span id="cb2-14"><a href="simple-neuron-models.html#cb2-14" tabindex="-1"></a>                    </span>
+<span id="cb2-15"><a href="simple-neuron-models.html#cb2-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb2-16"><a href="simple-neuron-models.html#cb2-16" tabindex="-1"></a>  </span>
+<span id="cb2-17"><a href="simple-neuron-models.html#cb2-17" tabindex="-1"></a>  dvdt <span class="op">=</span> b[i<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> v[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-18"><a href="simple-neuron-models.html#cb2-18" tabindex="-1"></a>  dt <span class="op">=</span> t[i] <span class="op">-</span> t[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-19"><a href="simple-neuron-models.html#cb2-19" tabindex="-1"></a>  </span>
+<span id="cb2-20"><a href="simple-neuron-models.html#cb2-20" tabindex="-1"></a>  v[i] <span class="op">=</span> v[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb2-21"><a href="simple-neuron-models.html#cb2-21" tabindex="-1"></a>  </span>
+<span id="cb2-22"><a href="simple-neuron-models.html#cb2-22" tabindex="-1"></a>  <span class="cf">if</span> v[i] <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-23"><a href="simple-neuron-models.html#cb2-23" tabindex="-1"></a>    v[i] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-24"><a href="simple-neuron-models.html#cb2-24" tabindex="-1"></a>    </span>
+<span id="cb2-25"><a href="simple-neuron-models.html#cb2-25" tabindex="-1"></a>fig, ax, <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-26"><a href="simple-neuron-models.html#cb2-26" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(t, v)</span>
+<span id="cb2-27"><a href="simple-neuron-models.html#cb2-27" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb2-28"><a href="simple-neuron-models.html#cb2-28" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb2-29"><a href="simple-neuron-models.html#cb2-29" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-5-3.png" width="672" /></p>
+</div>
+<div id="quadratic-integrate-and-fire" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Quadratic integrate and fire<a href="simple-neuron-models.html#quadratic-integrate-and-fire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\frac{d}{dt} v(t) = b + v^2(t) \\
+\text{if } v(t) = v_{\text{peak}},
+\text{then } v(t) \leftarrow v_{\text{reset}}
+\]</span></p>
+<ul>
+<li><p>It is the simplest truly spiking model. That is, they are
+the simplest of models in which the upstroke of an action
+potential is generated by the differential equations
+themselves.</p></li>
+<li><p>It basically does all of the things the leaky integrate
+and fire neuron does but way better and with none of the
+weird issues stemming from hand drawing spikes.</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="simple-neuron-models.html#cb3-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="simple-neuron-models.html#cb3-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="simple-neuron-models.html#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="simple-neuron-models.html#cb3-4" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">90</span></span>
+<span id="cb3-5"><a href="simple-neuron-models.html#cb3-5" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb3-6"><a href="simple-neuron-models.html#cb3-6" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb3-7"><a href="simple-neuron-models.html#cb3-7" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb3-8"><a href="simple-neuron-models.html#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="simple-neuron-models.html#cb3-9" tabindex="-1"></a>v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb3-10"><a href="simple-neuron-models.html#cb3-10" tabindex="-1"></a>vreset <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-11"><a href="simple-neuron-models.html#cb3-11" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-12"><a href="simple-neuron-models.html#cb3-12" tabindex="-1"></a>v[<span class="dv">0</span>] <span class="op">=</span> vreset</span>
+<span id="cb3-13"><a href="simple-neuron-models.html#cb3-13" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="simple-neuron-models.html#cb3-14" tabindex="-1"></a>b <span class="op">=</span> np.concatenate(([<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">//</span> <span class="dv">3</span>),</span>
+<span id="cb3-15"><a href="simple-neuron-models.html#cb3-15" tabindex="-1"></a>                    [<span class="fl">0.02</span>] <span class="op">*</span> (n <span class="op">//</span> <span class="dv">3</span>),</span>
+<span id="cb3-16"><a href="simple-neuron-models.html#cb3-16" tabindex="-1"></a>                    [<span class="fl">0.0</span>] <span class="op">*</span> (n <span class="op">//</span> <span class="dv">3</span>)))</span>
+<span id="cb3-17"><a href="simple-neuron-models.html#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="simple-neuron-models.html#cb3-18" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, t.shape[<span class="dv">0</span>]):</span>
+<span id="cb3-19"><a href="simple-neuron-models.html#cb3-19" tabindex="-1"></a>  </span>
+<span id="cb3-20"><a href="simple-neuron-models.html#cb3-20" tabindex="-1"></a>  dvdt <span class="op">=</span> b[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> v[i<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb3-21"><a href="simple-neuron-models.html#cb3-21" tabindex="-1"></a>  dt <span class="op">=</span> t[i] <span class="op">-</span> t[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb3-22"><a href="simple-neuron-models.html#cb3-22" tabindex="-1"></a>  </span>
+<span id="cb3-23"><a href="simple-neuron-models.html#cb3-23" tabindex="-1"></a>  v[i] <span class="op">=</span> v[i<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb3-24"><a href="simple-neuron-models.html#cb3-24" tabindex="-1"></a>  </span>
+<span id="cb3-25"><a href="simple-neuron-models.html#cb3-25" tabindex="-1"></a>  <span class="cf">if</span> v[i] <span class="op">&gt;</span> vpeak:</span>
+<span id="cb3-26"><a href="simple-neuron-models.html#cb3-26" tabindex="-1"></a>    v[i] <span class="op">=</span> vreset</span>
+<span id="cb3-27"><a href="simple-neuron-models.html#cb3-27" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="simple-neuron-models.html#cb3-28" tabindex="-1"></a>fig, ax, <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-29"><a href="simple-neuron-models.html#cb3-29" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(t, v)</span>
+<span id="cb3-30"><a href="simple-neuron-models.html#cb3-30" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb3-31"><a href="simple-neuron-models.html#cb3-31" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb3-32"><a href="simple-neuron-models.html#cb3-32" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-6-5.png" width="672" /></p>
+</div>
+<div id="izhikevich-neuron" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Izhikevich Neuron<a href="simple-neuron-models.html#izhikevich-neuron" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\begin{align}
+C \frac{d}{dt} v(t) &amp;= k(v(t) - v_r) (v(t) - v_t) - u(t) + I(t) \\
+\frac{d}{dt} u(t) &amp;= a \big(b(v(t) - v_r) - u(t)\big) \\
+\text{ if} &amp;\quad v(t) &gt; v_{\text{peak}} \\
+\text{ then} &amp;\quad v(t) \leftarrow c, \quad u(t) \leftarrow u(t) + d
+\end{align}
+\]</span></p>
+<ul>
+<li><p>System of two coupled differential equations comprised of
+a fast voltage variable <span class="math inline">\(v\)</span> and a slow recovery variable
+<span class="math inline">\(u\)</span>.</p></li>
+<li><p>All slow currents that <em>modulate</em> spike generation are
+combined in the variable <span class="math inline">\(u\)</span> (e.g., the activation of the
+K<span class="math inline">\(^+\)</span> current or inactivation of the Na<span class="math inline">\(^+\)</span> current or their
+combination).</p></li>
+<li><p>Main advantage over quadratic integrate-and-fire is that
+it can capture a wide variety of spiking behaviour (e.g.,
+bursting, chattering, etc.) as well as interesting
+subthreshold dynamics leading to spikes.</p></li>
+<li><p>The parameters <span class="math inline">\(k\)</span> and <span class="math inline">\(b\)</span> can be found when one knows the
+neuron’s rheobase and input resistance. The rheobase is
+roughly the minimal amplitude of continuous current that
+causes the membrane potential to reach the depolarization
+threshold.</p></li>
+<li><p>The sign of <span class="math inline">\(b\)</span> determines whether <span class="math inline">\(u\)</span> is an amplifying
+(<span class="math inline">\(b &lt; 0\)</span>) or a resonant (<span class="math inline">\(b &gt; 0\)</span>) variable. In the latter
+case, the neuron sags in response to hyperpolarized pulses
+of current, peaks in response to depolarized subthreshold
+pulses, and produces rebound (postinhibitory) responses.</p></li>
+<li><p>The parameter <span class="math inline">\(a\)</span> is the recovery time constant.</p></li>
+<li><p>The spike cutoff value is <span class="math inline">\(v_{\text{peak}}\)</span>, and the
+voltage reset value is <span class="math inline">\(c\)</span>.</p></li>
+<li><p>The parameter <span class="math inline">\(d\)</span> describes the total amount of outward
+minus inward currents activated during the spike and
+affecting the after-spike behaviour.</p></li>
+<li><p>To examine the wide array of behaviours this model can
+generate without re-writing many lines of code, it will be
+helpful to use the following function:</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="simple-neuron-models.html#cb4-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="simple-neuron-models.html#cb4-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="simple-neuron-models.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="simple-neuron-models.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="simple-neuron-models.html#cb4-5" tabindex="-1"></a><span class="kw">def</span> izn(shape_params, spike_params, t_params, I):</span>
+<span id="cb4-6"><a href="simple-neuron-models.html#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="simple-neuron-models.html#cb4-7" tabindex="-1"></a>    (a, b, c, d, k, C) <span class="op">=</span> shape_params</span>
+<span id="cb4-8"><a href="simple-neuron-models.html#cb4-8" tabindex="-1"></a>    (vr, vt, vpeak) <span class="op">=</span> spike_params</span>
+<span id="cb4-9"><a href="simple-neuron-models.html#cb4-9" tabindex="-1"></a>    (T, tau, t, n) <span class="op">=</span> t_params</span>
+<span id="cb4-10"><a href="simple-neuron-models.html#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="simple-neuron-models.html#cb4-11" tabindex="-1"></a>    u <span class="op">=</span> np.zeros(n)</span>
+<span id="cb4-12"><a href="simple-neuron-models.html#cb4-12" tabindex="-1"></a>    v <span class="op">=</span> np.zeros(n)</span>
+<span id="cb4-13"><a href="simple-neuron-models.html#cb4-13" tabindex="-1"></a>    v[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb4-14"><a href="simple-neuron-models.html#cb4-14" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="simple-neuron-models.html#cb4-15" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb4-16"><a href="simple-neuron-models.html#cb4-16" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="simple-neuron-models.html#cb4-17" tabindex="-1"></a>        dvdt <span class="op">=</span> (k <span class="op">*</span> (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span></span>
+<span id="cb4-18"><a href="simple-neuron-models.html#cb4-18" tabindex="-1"></a>                (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> I[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb4-19"><a href="simple-neuron-models.html#cb4-19" tabindex="-1"></a>        dudt <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb4-20"><a href="simple-neuron-models.html#cb4-20" tabindex="-1"></a>        dt <span class="op">=</span> t[i] <span class="op">-</span> t[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb4-21"><a href="simple-neuron-models.html#cb4-21" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="simple-neuron-models.html#cb4-22" tabindex="-1"></a>        v[i] <span class="op">=</span> v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt <span class="op">*</span> dt</span>
+<span id="cb4-23"><a href="simple-neuron-models.html#cb4-23" tabindex="-1"></a>        u[i] <span class="op">=</span> u[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt <span class="op">*</span> dt</span>
+<span id="cb4-24"><a href="simple-neuron-models.html#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="simple-neuron-models.html#cb4-25" tabindex="-1"></a>        <span class="cf">if</span> v[i] <span class="op">&gt;</span> vpeak:</span>
+<span id="cb4-26"><a href="simple-neuron-models.html#cb4-26" tabindex="-1"></a>            v[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb4-27"><a href="simple-neuron-models.html#cb4-27" tabindex="-1"></a>            v[i] <span class="op">=</span> c</span>
+<span id="cb4-28"><a href="simple-neuron-models.html#cb4-28" tabindex="-1"></a>            u[i] <span class="op">=</span> u[i] <span class="op">+</span> d</span>
+<span id="cb4-29"><a href="simple-neuron-models.html#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="simple-neuron-models.html#cb4-30" tabindex="-1"></a>    <span class="cf">return</span> v, u</span></code></pre></div>
+<ul>
+<li>We can now control what type of neuron behaviour we get
+simply by setting the shape and spike parameters as follows.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="simple-neuron-models.html#cb5-1" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb5-2"><a href="simple-neuron-models.html#cb5-2" tabindex="-1"></a>tau <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="simple-neuron-models.html#cb5-3" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb5-4"><a href="simple-neuron-models.html#cb5-4" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="simple-neuron-models.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="simple-neuron-models.html#cb5-6" tabindex="-1"></a>I <span class="op">=</span> np.zeros(n)</span>
+<span id="cb5-7"><a href="simple-neuron-models.html#cb5-7" tabindex="-1"></a>I[n <span class="op">//</span> <span class="dv">3</span>:(<span class="dv">2</span> <span class="op">*</span> n <span class="op">//</span> <span class="dv">3</span>)] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-8"><a href="simple-neuron-models.html#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="simple-neuron-models.html#cb5-9" tabindex="-1"></a><span class="co"># Regular Spiking</span></span>
+<span id="cb5-10"><a href="simple-neuron-models.html#cb5-10" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-11"><a href="simple-neuron-models.html#cb5-11" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">60</span></span>
+<span id="cb5-12"><a href="simple-neuron-models.html#cb5-12" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">40</span></span>
+<span id="cb5-13"><a href="simple-neuron-models.html#cb5-13" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">35</span></span>
+<span id="cb5-14"><a href="simple-neuron-models.html#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="simple-neuron-models.html#cb5-15" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.03</span></span>
+<span id="cb5-16"><a href="simple-neuron-models.html#cb5-16" tabindex="-1"></a>b <span class="op">=</span> <span class="op">-</span><span class="dv">2</span></span>
+<span id="cb5-17"><a href="simple-neuron-models.html#cb5-17" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">50</span></span>
+<span id="cb5-18"><a href="simple-neuron-models.html#cb5-18" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-19"><a href="simple-neuron-models.html#cb5-19" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">0.7</span></span>
+<span id="cb5-20"><a href="simple-neuron-models.html#cb5-20" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="simple-neuron-models.html#cb5-21" tabindex="-1"></a>spike_params_regular_spiking <span class="op">=</span> (vr, vt, vpeak)</span>
+<span id="cb5-22"><a href="simple-neuron-models.html#cb5-22" tabindex="-1"></a>shape_params_regular_spiking <span class="op">=</span> (a, b, c, d, k, C)</span>
+<span id="cb5-23"><a href="simple-neuron-models.html#cb5-23" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="simple-neuron-models.html#cb5-24" tabindex="-1"></a><span class="co"># bursting</span></span>
+<span id="cb5-25"><a href="simple-neuron-models.html#cb5-25" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-26"><a href="simple-neuron-models.html#cb5-26" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">75</span></span>
+<span id="cb5-27"><a href="simple-neuron-models.html#cb5-27" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">45</span></span>
+<span id="cb5-28"><a href="simple-neuron-models.html#cb5-28" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb5-29"><a href="simple-neuron-models.html#cb5-29" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="simple-neuron-models.html#cb5-30" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb5-31"><a href="simple-neuron-models.html#cb5-31" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb5-32"><a href="simple-neuron-models.html#cb5-32" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">56</span></span>
+<span id="cb5-33"><a href="simple-neuron-models.html#cb5-33" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">130</span></span>
+<span id="cb5-34"><a href="simple-neuron-models.html#cb5-34" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">1.2</span></span>
+<span id="cb5-35"><a href="simple-neuron-models.html#cb5-35" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="simple-neuron-models.html#cb5-36" tabindex="-1"></a>spike_params_bursting <span class="op">=</span> (vr, vt, vpeak)</span>
+<span id="cb5-37"><a href="simple-neuron-models.html#cb5-37" tabindex="-1"></a>shape_params_bursting <span class="op">=</span> (a, b, c, d, k, C)</span>
+<span id="cb5-38"><a href="simple-neuron-models.html#cb5-38" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="simple-neuron-models.html#cb5-39" tabindex="-1"></a><span class="co"># chattering</span></span>
+<span id="cb5-40"><a href="simple-neuron-models.html#cb5-40" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb5-41"><a href="simple-neuron-models.html#cb5-41" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">60</span></span>
+<span id="cb5-42"><a href="simple-neuron-models.html#cb5-42" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">40</span></span>
+<span id="cb5-43"><a href="simple-neuron-models.html#cb5-43" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb5-44"><a href="simple-neuron-models.html#cb5-44" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="simple-neuron-models.html#cb5-45" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.03</span></span>
+<span id="cb5-46"><a href="simple-neuron-models.html#cb5-46" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-47"><a href="simple-neuron-models.html#cb5-47" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">40</span></span>
+<span id="cb5-48"><a href="simple-neuron-models.html#cb5-48" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb5-49"><a href="simple-neuron-models.html#cb5-49" tabindex="-1"></a>k <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb5-50"><a href="simple-neuron-models.html#cb5-50" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="simple-neuron-models.html#cb5-51" tabindex="-1"></a>spike_params_chattering <span class="op">=</span> (vr, vt, vpeak)</span>
+<span id="cb5-52"><a href="simple-neuron-models.html#cb5-52" tabindex="-1"></a>shape_params_chattering <span class="op">=</span> (a, b, c, d, k, C)</span>
+<span id="cb5-53"><a href="simple-neuron-models.html#cb5-53" tabindex="-1"></a>t_params <span class="op">=</span> (T, tau, t, n)</span>
+<span id="cb5-54"><a href="simple-neuron-models.html#cb5-54" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="simple-neuron-models.html#cb5-55" tabindex="-1"></a>v_regular_spiking, u_regular_spiking <span class="op">=</span> izn(shape_params_regular_spiking, </span>
+<span id="cb5-56"><a href="simple-neuron-models.html#cb5-56" tabindex="-1"></a>                                           spike_params_regular_spiking, </span>
+<span id="cb5-57"><a href="simple-neuron-models.html#cb5-57" tabindex="-1"></a>                                           t_params, </span>
+<span id="cb5-58"><a href="simple-neuron-models.html#cb5-58" tabindex="-1"></a>                                           I <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb5-59"><a href="simple-neuron-models.html#cb5-59" tabindex="-1"></a>                                           </span>
+<span id="cb5-60"><a href="simple-neuron-models.html#cb5-60" tabindex="-1"></a>v_bursting, u_bursting <span class="op">=</span> izn(shape_params_bursting, </span>
+<span id="cb5-61"><a href="simple-neuron-models.html#cb5-61" tabindex="-1"></a>                             spike_params_bursting, </span>
+<span id="cb5-62"><a href="simple-neuron-models.html#cb5-62" tabindex="-1"></a>                             t_params, </span>
+<span id="cb5-63"><a href="simple-neuron-models.html#cb5-63" tabindex="-1"></a>                             I <span class="op">*</span> <span class="dv">500</span>)</span>
+<span id="cb5-64"><a href="simple-neuron-models.html#cb5-64" tabindex="-1"></a>                                           </span>
+<span id="cb5-65"><a href="simple-neuron-models.html#cb5-65" tabindex="-1"></a>v_chattering, u_chattering <span class="op">=</span> izn(shape_params_chattering, </span>
+<span id="cb5-66"><a href="simple-neuron-models.html#cb5-66" tabindex="-1"></a>                                 spike_params_chattering, </span>
+<span id="cb5-67"><a href="simple-neuron-models.html#cb5-67" tabindex="-1"></a>                                 t_params, </span>
+<span id="cb5-68"><a href="simple-neuron-models.html#cb5-68" tabindex="-1"></a>                                 I <span class="op">*</span> <span class="dv">200</span>)</span>
+<span id="cb5-69"><a href="simple-neuron-models.html#cb5-69" tabindex="-1"></a></span>
+<span id="cb5-70"><a href="simple-neuron-models.html#cb5-70" tabindex="-1"></a>fig, ax, <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">10</span>))</span>
+<span id="cb5-71"><a href="simple-neuron-models.html#cb5-71" tabindex="-1"></a>ax <span class="op">=</span> ax.T</span>
+<span id="cb5-72"><a href="simple-neuron-models.html#cb5-72" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(t, v_regular_spiking)</span>
+<span id="cb5-73"><a href="simple-neuron-models.html#cb5-73" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].plot(t, v_bursting)</span>
+<span id="cb5-74"><a href="simple-neuron-models.html#cb5-74" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].plot(t, v_chattering)</span>
+<span id="cb5-75"><a href="simple-neuron-models.html#cb5-75" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_title(<span class="st">&#39;Regular Spiking&#39;</span>)</span>
+<span id="cb5-76"><a href="simple-neuron-models.html#cb5-76" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb5-77"><a href="simple-neuron-models.html#cb5-77" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb5-78"><a href="simple-neuron-models.html#cb5-78" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_title(<span class="st">&#39;Bursting&#39;</span>)</span>
+<span id="cb5-79"><a href="simple-neuron-models.html#cb5-79" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb5-80"><a href="simple-neuron-models.html#cb5-80" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">1</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb5-81"><a href="simple-neuron-models.html#cb5-81" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_title(<span class="st">&#39;Chattering&#39;</span>)</span>
+<span id="cb5-82"><a href="simple-neuron-models.html#cb5-82" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_xlabel(<span class="st">&#39;t&#39;</span>)</span>
+<span id="cb5-83"><a href="simple-neuron-models.html#cb5-83" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">2</span>].set_ylabel(<span class="st">&#39;v&#39;</span>)</span>
+<span id="cb5-84"><a href="simple-neuron-models.html#cb5-84" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-8-7.png" width="1536" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro-to-dynamical-systems.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hodgkin-huxley-neuron-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"depth": 2
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

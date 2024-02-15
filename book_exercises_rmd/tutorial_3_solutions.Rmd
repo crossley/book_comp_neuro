@@ -1,0 +1,53 @@
+---
+title: "Tutorial 3 Solutions"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+```{python message=FALSE, echo=T}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 4.
+np.random.seed(0)
+x = np.random.normal(0, 1, 100)
+y = np.random.normal(2, 5, 100)
+plt.scatter(x, y)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+
+t = np.linspace(-np.pi, np.pi, 100)
+sint = np.sin(t)
+cost = np.cos(t)
+plt.plot(t, sint, label='f(t)=sin(t)')
+plt.plot(t, cost, label='f(t)=cos(t)')
+plt.xlabel('t')
+plt.ylabel('f(t)')
+plt.legend()
+plt.show()
+
+np.random.seed(0)
+xx = np.random.normal(0, 1, (100, 100))
+plt.imshow(xx)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+```

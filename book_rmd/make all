@@ -1,0 +1,13 @@
+---
+title: "Introduction to Computational Neuroscience"
+author: "Matthew J. Crossley"
+date: "`r Sys.Date()`"
+output:
+  bookdown::gitbook:
+    css: style.css
+    split_by: chapter
+    config:
+      toc:
+        depth: 2
+        collapse: section
+---

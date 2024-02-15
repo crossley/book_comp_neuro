@@ -1,0 +1,58 @@
+---
+title: "Tutorial 5"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: false
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    # code_folding: show
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, collapse=T)
+```
+
+## Learning objectives
+* TBD
+
+* NOTE: Ended up being a lot of calculus review + conductance
+  models intro on the white board.
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_5_solutions.html)
+
+### 1
+Consider the following dynamical system:
+$$
+\frac{d}{dt}V(t) = I - g(V(t) - E)
+$$
+
+Show that when $I=0$ this system has an equilibrium point at
+$V(t) = 0$.
+
+### 2
+Set $I > 0$ for all time steps within the middle third of
+your simulation and use Euler's method to find the resulting
+$V(T)$.
+
+### 3
+Consider the following dynamical system:
+$$
+\frac{d}{dt}V(t) = I + g(V(t) - E)
+$$
+
+How does this system compare to the system you investigated
+in earlier problems?
+
+## Work on problem set 2
+* [Problem set 2](homework_2.html)

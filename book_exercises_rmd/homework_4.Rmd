@@ -1,0 +1,60 @@
+---
+title: "Homework 4"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* Cultivate and demonstrate a deep understanding of how to build 
+biologically plausible models of brain networks using Izhikevich
+neurons.
+
+* Learn how to imbue these networks with synaptic plasticity.
+  
+## General instructions
+
+### 1. 
+Extend the examples given in lecture such that rewards are
+given for every response for trials 1 to 100, absent no
+matter the response for trials 101 to 200, and present again
+for trials 201 to 300. Make the same plot as used in lecture
+or some very similar plot to illustrate what happens to the
+synaptic weight between neuron 1 and neuron 2 in this
+example. Repeat this simulation 10 times and compute the average
+response rate and the average synaptic weight over simulations. 
+Finally, show that the rate of learning during the first 100 trials
+is the same as the rate of adaptation during the last 100 trials.
+
+```{python echo=T, include=T, eval=F}
+# Your code structure should probably look something like this
+for sim in range(n_simulations):
+  for trl in range(n_trials):
+    for i in range(1, n_steps):
+
+      # perform step-wise operations
+
+    # perform trl-wise operations
+
+  # perform simulation-wise operations
+
+# compute average response and weight over simulations
+
+# plot first 100 and last 100 overlaid on the same plot
+```

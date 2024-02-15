@@ -1,0 +1,144 @@
+# Introduction to the book
+
+## What is computational neuroscience?
+
+* Computational neuroscience is just using computers to
+study brains.
+
+* What counts as *brains* has come to refer to pretty much
+anything across a very wide range of levels. E.g.,
+
+  * Biochemical and electrical signal transduction and
+  prorogation within individual cell compartments.
+  
+  * Intracellular signalling cascades.
+  
+  * Whole cell action potential spiking properties.
+  
+  * Collection of neurons as dynamical systems.
+  
+  * Local field potential, hemodynamic response, cortical
+  oscillatory patterns.
+  
+  * Behaviour (e.g., decision making, action selection and
+  execution).
+  
+* Using computers to study purely neural systems -- without
+concern for behaviour -- is pretty fairly called
+*computational neuroscience*.
+
+* Using computers to study behaviour -- without concern for
+neural systems -- would fall more naturally under the banner
+of *cognitive modelling*.
+
+* Using computers to study how the brain drives behaviour --
+i.e., explicitly caring about both neural and cognitive
+domains and trying to link them  -- is sometimes given
+special names like *computational cognitive neuroscience*.
+
+
+## Marr's levels
+
+* **Computational**: A specification of what a system does
+and why it does it.
+
+* **Algorithmic**: A specification of how it does what it
+does (i.e., what process is followed).
+
+* **implementational**: A specification of how the system is
+implemented in the brain.
+
+* In my opinion, few models cleanly reside at a single one
+of these levels and many probably are best classified
+between levels. Even so, the conceptual divisions they get
+us thinking about are useful to have on hand.
+
+
+## Why computers?
+
+* Mathematics is at the heart of computational neuroscience.
+
+* The goal is to write down equations that formally describe
+the process through which the phenomena of interest are
+hypothesised to emerge.
+
+* The need for computers arises when the mathematics that
+you write down is complicated and difficult to evaluate.
+
+* Computational approaches give us tools to deal with these
+difficult mathematical situations. Well, some of them at
+least.
+
+
+## What is the real value gained? 
+
+* Have you ever stuggled or argued with yourelf or others
+about what a certain hypothesis predicts in a particular
+experiment?
+
+* Mathematical precision makes science happy. It eliminates
+ambiguity and thereby makes mathematical models more
+falsifiable.
+
+* In practice, the word *more* in the last sentence above
+can do an awful lot of work. Coming up with experiments that
+are strong tests of any model, even mathematically precise
+models, can be very difficult.
+
+* Even so, there is no question that mathematics and
+computers help... and sometimes they help a whole lot.
+
+
+## Why Python
+* It is a real programming language
+* It is mature
+* It is widely embraced in psychology and neuroscience
+* It is widely embraced inside and outside academia 
+* It is widely used in the machine learning community
+* It is relatively easy to learn
+
+
+## Getting started with Python
+
+* I recommend getting started with
+[Google Colab](https://colab.research.google.com/?utm_source=scs-index).
+
+* If you dislike the web notebook interface, then you might try
+[Anaconda](https://www.anaconda.com/products/individual).
+
+* Anaconda will provide the IDE
+[Spyder](https://www.spyder-ide.org) which isn't a bad place
+to work with Python.
+
+* Ultimately, there are many Python programming tools to
+choose from. Use what you like.
+
+
+## Learning Python
+
+* Just like with other programming languages you have been
+exposed to, the base functionality of Python is extended by
+external libraries. We will make heavy use of the following
+libraries:
+
+* [Python](https://www.python.org)
+
+  * [Learn the basics](https://realpython.com/python-first-steps/)
+  
+  * [Learn the basics 2](https://docs.python.org/3/tutorial/index.html)
+  
+    This one isn't as beginner friendly. It's just here for those of you
+    with more programming experience that want to advance your skills and 
+    understand the language at a deeper level.
+
+* [Numpy](https://numpy.org)
+
+  * [Learn Numpy](https://numpy.org/learn/)
+  
+  This will be the focus of week 2
+
+* [Matplotlib](https://matplotlib.org/stable/index.html)
+
+  * [Learn Matplotlib](https://matplotlib.org/stable/tutorials/index.html)
+  
+  This will be the focus of weeks 2 and 3

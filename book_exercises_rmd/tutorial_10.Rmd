@@ -1,0 +1,135 @@
+---
+title: "Tutorial 10"
+author: "Author: Matthew J. Crossley"
+date: "Last update: `r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+        collapsed: true
+        smooth_scroll: true
+    toc_depth: 3
+    fig_caption: yes
+    number_sections: false
+    theme: cosmo
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+use_python('/Users/mq20185996/miniconda3/bin/python')
+```
+
+## Learning objectives
+* TBD
+
+## Practice problems
+* It's a good idea to work through these on your own, but if
+you get very stuck, solutions can be found
+[here](tutorial_10_solutions.html)
+
+### 1. 
+Build a small network made up of three **excitatory**
+Izhikevich neurons of any type such that the connectivity
+pattern is as follows:
+
+* $A \rightarrow B$
+* $A \rightarrow C$
+
+Implement Hebbian learning between the connection weights
+$w_{AB}$ and $w_{AC}$ but ensure that these weights never
+drop below zero and do not grow without bound to infinity.
+Also ensure that the weight change is independent of the
+timing of pre- and postsynaptic spikes.
+
+Find parameter settings that cause $w_{AB}$ to grow across
+trials and $w_{AC}$ to weaken across trials.  Demonstrate
+this by simulating this network for a minimum of 10 trials
+and make a figure showing the spiking activity in all
+neurons on the first trial and on the last trial. Please
+also show the evolution of the connections weights across
+trials.
+
+
+### 2.
+Repeat exercise 1 but this time use STDP Hebbian learning.
+
+
+### 3.
+Compare the performance of the two Hebbian learning rules
+from exercise 1 and 2 above when noise is added to the
+simulation. To do this, add zero-mean random numbers to the
+baseline firing rate terms that are large and variable
+enough to see variability in the spike rate of all neurons
+in the network.
+
+Simulate the network using four conditions:
+
+* low noise non-STDP Hebbian learning
+* low noise STDP Hebbian learning
+* high noise non-STDP Hebbian learning
+* high noise STDP Hebbian learning
+
+Comment on the robustness of STDP and non-STDP Hebbian
+plastiicty to noise.
+
+* You may find the following code snippets helpful in
+organising your code for this problem.
+
+```{python, echo=T, eval=F}
+#...
+#...
+#...
+#...
+
+dvdt1 = (k * (v1[i - 1] - vr) * (v1[i - 1] - vt) - 
+              u1[i - 1] + 
+              w_01[trl] * g[i - 1] +
+              np.random.normal(baseline, jitter) ) / C
+
+#...
+#...
+#...
+#...
+
+baseline = 1e3
+
+# low noise stdp
+jitter = 1e3
+update_weight_func = update_weight_stdp
+simulate_network(update_weight_func)
+
+# low noise non-stdp
+jitter = 1e3
+update_weight_func = update_weight_3
+simulate_network(update_weight_func)
+
+# high noise stdp
+jitter = 5e3
+update_weight_func = update_weight_stdp
+simulate_network(update_weight_func)
+
+# high noise non-stdp
+jitter = 5e3
+update_weight_func = update_weight_3
+simulate_network(update_weight_func)
+```
+
+### 4. 
+Build a small network of 20 **inhibitory** Izhikevich
+neurons of any type such that the connectivity pattern is
+**weakly fully interconnected** (see the homework from last
+week). Implement either non-STDP Hebbian or STDP Hebbian
+learning at every synapse in the model. Whichever form of
+Hebbian learning you choose, ensure that the connection
+weights do not drop below zero or grow without bound to
+infinity. Examine the connectivity pattern of the network
+before and after at least 10 trials of training. A good way
+to do this is to construct a $20 \times 20$ matrix (i.e.,
+`np.ndarray`) in which element $[i, j]$ contains the
+connection weight between neuron $i$ and neuron $j$, and
+then visualise this matrix using `plt.imshow()` once for the
+trial 1 connectivity pattern and then again after $n>10$
+trials have been simulated. Can you get interesting changes
+in this pattern?

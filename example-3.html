@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Example 3 | Introduction to Computational Neuroscience</title>
+  <meta name="description" content="14 Example 3 | Introduction to Computational Neuroscience" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14 Example 3 | Introduction to Computational Neuroscience" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14 Example 3 | Introduction to Computational Neuroscience" />
+  
+  
+  
+
+<meta name="author" content="Matthew J. Crossley" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="example-2.html"/>
+<link rel="next" href="supervised-learning.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to the book</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html"><i class="fa fa-check"></i><b>2</b> Introduction to the book</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-computational-neuroscience"><i class="fa fa-check"></i><b>2.1</b> What is computational neuroscience?</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#marrs-levels"><i class="fa fa-check"></i><b>2.2</b> Marr’s levels</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-computers"><i class="fa fa-check"></i><b>2.3</b> Why computers?</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#what-is-the-real-value-gained"><i class="fa fa-check"></i><b>2.4</b> What is the real value gained?</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#why-python"><i class="fa fa-check"></i><b>2.5</b> Why Python</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#getting-started-with-python"><i class="fa fa-check"></i><b>2.6</b> Getting started with Python</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-the-book-1.html"><a href="introduction-to-the-book-1.html#learning-python"><i class="fa fa-check"></i><b>2.7</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html"><i class="fa fa-check"></i><b>3</b> Numpy and Matplotlib</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="numpy-and-matplotlib.html"><a href="numpy-and-matplotlib.html#learning-python-1"><i class="fa fa-check"></i><b>3.1</b> Learning Python</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="intro-to-calculus.html"><a href="intro-to-calculus.html"><i class="fa fa-check"></i><b>4</b> Intro to calculus</a></li>
+<li class="chapter" data-level="5" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html"><i class="fa fa-check"></i><b>5</b> Intro to dynamical systems</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#differential-equations"><i class="fa fa-check"></i><b>5.1</b> Differential equations</a></li>
+<li class="chapter" data-level="5.2" data-path="intro-to-dynamical-systems.html"><a href="intro-to-dynamical-systems.html#eulers-method"><i class="fa fa-check"></i><b>5.2</b> Euler’s method</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html"><i class="fa fa-check"></i><b>6</b> Simple neuron models</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#review-of-hh"><i class="fa fa-check"></i><b>6.1</b> Review of HH</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#leaky-integrate-and-fire"><i class="fa fa-check"></i><b>6.2</b> Leaky integrate and fire</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#quadratic-integrate-and-fire"><i class="fa fa-check"></i><b>6.3</b> Quadratic integrate and fire</a></li>
+<li class="chapter" data-level="6.4" data-path="simple-neuron-models.html"><a href="simple-neuron-models.html#izhikevich-neuron"><i class="fa fa-check"></i><b>6.4</b> Izhikevich Neuron</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html"><i class="fa fa-check"></i><b>7</b> Hodgkin-Huxley neuron model</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_1"><i class="fa fa-check"></i><b>7.1</b> neuron_func_1</a></li>
+<li class="chapter" data-level="7.2" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_2"><i class="fa fa-check"></i><b>7.2</b> neuron_func_2</a></li>
+<li class="chapter" data-level="7.3" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_3"><i class="fa fa-check"></i><b>7.3</b> neuron_func_3</a></li>
+<li class="chapter" data-level="7.4" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_4"><i class="fa fa-check"></i><b>7.4</b> neuron_func_4</a></li>
+<li class="chapter" data-level="7.5" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_5"><i class="fa fa-check"></i><b>7.5</b> neuron_func_5</a></li>
+<li class="chapter" data-level="7.6" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_6"><i class="fa fa-check"></i><b>7.6</b> neuron_func_6</a></li>
+<li class="chapter" data-level="7.7" data-path="hodgkin-huxley-neuron-model.html"><a href="hodgkin-huxley-neuron-model.html#neuron_func_7"><i class="fa fa-check"></i><b>7.7</b> neuron_func_7</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html"><i class="fa fa-check"></i><b>8</b> Neurotransmitter release</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#synaptics-responses"><i class="fa fa-check"></i><b>8.1</b> Synaptics responses</a></li>
+<li class="chapter" data-level="8.2" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#spikes-as-a-change-in-conductance"><i class="fa fa-check"></i><b>8.2</b> Spikes as a change in conductance</a></li>
+<li class="chapter" data-level="8.3" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#coupling-conductance-to-psp"><i class="fa fa-check"></i><b>8.3</b> Coupling conductance to PSP</a></li>
+<li class="chapter" data-level="8.4" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psps-superimpose"><i class="fa fa-check"></i><b>8.4</b> PSPs superimpose</a></li>
+<li class="chapter" data-level="8.5" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#psp-model-in-the-izhikevich-neuron"><i class="fa fa-check"></i><b>8.5</b> PSP model in the Izhikevich neuron</a></li>
+<li class="chapter" data-level="8.6" data-path="neurotransmitter-release.html"><a href="neurotransmitter-release.html#chaining-neurons-together"><i class="fa fa-check"></i><b>8.6</b> Chaining neurons together</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html"><i class="fa fa-check"></i><b>9</b> Synpatic Plasticity</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#python-helper-functions"><i class="fa fa-check"></i><b>9.1</b> Python helper functions</a></li>
+<li class="chapter" data-level="9.2" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-1"><i class="fa fa-check"></i><b>9.2</b> Hebbian Learning 1</a></li>
+<li class="chapter" data-level="9.3" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-2"><i class="fa fa-check"></i><b>9.3</b> Hebbian Learning 2</a></li>
+<li class="chapter" data-level="9.4" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-learning-3"><i class="fa fa-check"></i><b>9.4</b> Hebbian Learning 3</a></li>
+<li class="chapter" data-level="9.5" data-path="synpatic-plasticity.html"><a href="synpatic-plasticity.html#hebbian-stdp"><i class="fa fa-check"></i><b>9.5</b> Hebbian STDP</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="reinforcement-learning.html"><a href="reinforcement-learning.html"><i class="fa fa-check"></i><b>10</b> Reinforcement Learning</a></li>
+<li class="chapter" data-level="11" data-path="reinforcement-learning-rule.html"><a href="reinforcement-learning-rule.html"><i class="fa fa-check"></i><b>11</b> Reinforcement learning rule</a></li>
+<li class="chapter" data-level="12" data-path="example-1.html"><a href="example-1.html"><i class="fa fa-check"></i><b>12</b> Example 1</a></li>
+<li class="chapter" data-level="13" data-path="example-2.html"><a href="example-2.html"><i class="fa fa-check"></i><b>13</b> Example 2</a></li>
+<li class="chapter" data-level="14" data-path="example-3.html"><a href="example-3.html"><i class="fa fa-check"></i><b>14</b> Example 3</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="example-3.html"><a href="example-3.html#reinforcement-learning-framework"><i class="fa fa-check"></i><b>14.1</b> Reinforcement learning framework</a></li>
+<li class="chapter" data-level="14.2" data-path="example-3.html"><a href="example-3.html#estimating-the-state-value-function"><i class="fa fa-check"></i><b>14.2</b> Estimating the state-value function</a></li>
+<li class="chapter" data-level="14.3" data-path="example-3.html"><a href="example-3.html#temporal-difference-td-learning"><i class="fa fa-check"></i><b>14.3</b> Temporal difference (TD) learning</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="example-3.html"><a href="example-3.html#td-rl-model-of-classical-conditioning"><i class="fa fa-check"></i><b>14.3.1</b> TD RL model of classical conditioning</a></li>
+<li class="chapter" data-level="14.3.2" data-path="example-3.html"><a href="example-3.html#td-rl-as-the-learning-signal-in-a-spiking-network"><i class="fa fa-check"></i><b>14.3.2</b> TD RL as the learning signal in a spiking network</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="example-3.html"><a href="example-3.html#td0-for-estimating-v_pi"><i class="fa fa-check"></i><b>14.4</b> TD(0) for estimating <span class="math inline">\(v_{\pi}\)</span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="example-3.html"><a href="example-3.html#td-in-a-simple-2-arm-bandit-task"><i class="fa fa-check"></i><b>14.4.1</b> TD in a simple 2-arm bandit task</a></li>
+<li class="chapter" data-level="14.4.2" data-path="example-3.html"><a href="example-3.html#action-selection-policy"><i class="fa fa-check"></i><b>14.4.2</b> Action selection policy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="example-3.html"><a href="example-3.html#sarsa-for-estimating-q"><i class="fa fa-check"></i><b>14.5</b> SARSA for estimating <span class="math inline">\(Q\)</span></a></li>
+<li class="chapter" data-level="14.6" data-path="example-3.html"><a href="example-3.html#q-learning-for-estimating-pi"><i class="fa fa-check"></i><b>14.6</b> Q-learning for estimating <span class="math inline">\(\pi\)</span></a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.6.1</b> Q-learning applied to instrumental conditioning</a></li>
+<li class="chapter" data-level="14.6.2" data-path="example-3.html"><a href="example-3.html#q-learning-applied-to-instrumental-conditioning-2"><i class="fa fa-check"></i><b>14.6.2</b> Q-learning applied to instrumental conditioning 2</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="example-3.html"><a href="example-3.html#dyna-q-model-based-rl"><i class="fa fa-check"></i><b>14.7</b> Dyna-Q: Model-based RL</a>
+<ul>
+<li class="chapter" data-level="14.7.1" data-path="example-3.html"><a href="example-3.html#dyna-q-applied-to-instrumental-conditioning"><i class="fa fa-check"></i><b>14.7.1</b> Dyna-Q applied to instrumental conditioning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="supervised-learning.html"><a href="supervised-learning.html"><i class="fa fa-check"></i><b>15</b> supervised learning</a></li>
+<li class="chapter" data-level="16" data-path="supervised-learning-1.html"><a href="supervised-learning-1.html"><i class="fa fa-check"></i><b>16</b> Supervised Learning</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Computational Neuroscience</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="example-3" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">14</span> Example 3<a href="example-3.html#example-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li><p>In the previous example, we programmed the model to make
+responses / earn rewards completely randomly.</p></li>
+<li><p>Next, lets give the model some more agency by allowing it
+to make responses / earn rewards whenever the output of
+neuron 2 crosses a threshold.</p></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="example-3.html#cb32-1" tabindex="-1"></a><span class="kw">def</span> simulate_network_inst_2(update_weight_func):</span>
+<span id="cb32-2"><a href="example-3.html#cb32-2" tabindex="-1"></a>    <span class="kw">global</span> trl, r_obtained, r_predicted</span>
+<span id="cb32-3"><a href="example-3.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="example-3.html#cb32-4" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_trials <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb32-5"><a href="example-3.html#cb32-5" tabindex="-1"></a>        trl <span class="op">=</span> j</span>
+<span id="cb32-6"><a href="example-3.html#cb32-6" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="example-3.html#cb32-7" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n):</span>
+<span id="cb32-8"><a href="example-3.html#cb32-8" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="example-3.html#cb32-9" tabindex="-1"></a>            dt <span class="op">=</span> t[i] <span class="op">-</span> t[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb32-10"><a href="example-3.html#cb32-10" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="example-3.html#cb32-11" tabindex="-1"></a>            <span class="co"># external input</span></span>
+<span id="cb32-12"><a href="example-3.html#cb32-12" tabindex="-1"></a>            dgdt <span class="op">=</span> (<span class="op">-</span>g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb32-13"><a href="example-3.html#cb32-13" tabindex="-1"></a>            g[i] <span class="op">=</span> g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb32-14"><a href="example-3.html#cb32-14" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="example-3.html#cb32-15" tabindex="-1"></a>            <span class="co"># neuron 1</span></span>
+<span id="cb32-16"><a href="example-3.html#cb32-16" tabindex="-1"></a>            dvdt1 <span class="op">=</span> (k <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span></span>
+<span id="cb32-17"><a href="example-3.html#cb32-17" tabindex="-1"></a>                     (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_01[trl] <span class="op">*</span> g[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb32-18"><a href="example-3.html#cb32-18" tabindex="-1"></a>            dudt1 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb32-19"><a href="example-3.html#cb32-19" tabindex="-1"></a>            dgdt1 <span class="op">=</span> (<span class="op">-</span>g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike1[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb32-20"><a href="example-3.html#cb32-20" tabindex="-1"></a>            v1[i] <span class="op">=</span> v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt1 <span class="op">*</span> dt</span>
+<span id="cb32-21"><a href="example-3.html#cb32-21" tabindex="-1"></a>            u1[i] <span class="op">=</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt1 <span class="op">*</span> dt</span>
+<span id="cb32-22"><a href="example-3.html#cb32-22" tabindex="-1"></a>            g1[i] <span class="op">=</span> g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt1 <span class="op">*</span> dt</span>
+<span id="cb32-23"><a href="example-3.html#cb32-23" tabindex="-1"></a>            <span class="cf">if</span> v1[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb32-24"><a href="example-3.html#cb32-24" tabindex="-1"></a>                v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb32-25"><a href="example-3.html#cb32-25" tabindex="-1"></a>                v1[i] <span class="op">=</span> c</span>
+<span id="cb32-26"><a href="example-3.html#cb32-26" tabindex="-1"></a>                u1[i] <span class="op">=</span> u1[i] <span class="op">+</span> d</span>
+<span id="cb32-27"><a href="example-3.html#cb32-27" tabindex="-1"></a>                spike1[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-28"><a href="example-3.html#cb32-28" tabindex="-1"></a></span>
+<span id="cb32-29"><a href="example-3.html#cb32-29" tabindex="-1"></a>            <span class="co"># neuron 2</span></span>
+<span id="cb32-30"><a href="example-3.html#cb32-30" tabindex="-1"></a>            dvdt2 <span class="op">=</span> (k <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span></span>
+<span id="cb32-31"><a href="example-3.html#cb32-31" tabindex="-1"></a>                     (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_12[trl] <span class="op">*</span> g1[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb32-32"><a href="example-3.html#cb32-32" tabindex="-1"></a>            dudt2 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb32-33"><a href="example-3.html#cb32-33" tabindex="-1"></a>            dgdt2 <span class="op">=</span> (<span class="op">-</span>g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike2[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb32-34"><a href="example-3.html#cb32-34" tabindex="-1"></a>            v2[i] <span class="op">=</span> v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt2 <span class="op">*</span> dt</span>
+<span id="cb32-35"><a href="example-3.html#cb32-35" tabindex="-1"></a>            u2[i] <span class="op">=</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt2 <span class="op">*</span> dt</span>
+<span id="cb32-36"><a href="example-3.html#cb32-36" tabindex="-1"></a>            g2[i] <span class="op">=</span> g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt2 <span class="op">*</span> dt</span>
+<span id="cb32-37"><a href="example-3.html#cb32-37" tabindex="-1"></a>            <span class="cf">if</span> v2[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb32-38"><a href="example-3.html#cb32-38" tabindex="-1"></a>                v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb32-39"><a href="example-3.html#cb32-39" tabindex="-1"></a>                v2[i] <span class="op">=</span> c</span>
+<span id="cb32-40"><a href="example-3.html#cb32-40" tabindex="-1"></a>                u2[i] <span class="op">=</span> u2[i] <span class="op">+</span> d</span>
+<span id="cb32-41"><a href="example-3.html#cb32-41" tabindex="-1"></a>                spike2[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-42"><a href="example-3.html#cb32-42" tabindex="-1"></a>                </span>
+<span id="cb32-43"><a href="example-3.html#cb32-43" tabindex="-1"></a>        <span class="co"># press lever / earn reward on a random 25% of all trials</span></span>
+<span id="cb32-44"><a href="example-3.html#cb32-44" tabindex="-1"></a>        <span class="cf">if</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">&gt;</span> <span class="fl">0.25</span>:</span>
+<span id="cb32-45"><a href="example-3.html#cb32-45" tabindex="-1"></a>            r_obtained[trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-46"><a href="example-3.html#cb32-46" tabindex="-1"></a>          </span>
+<span id="cb32-47"><a href="example-3.html#cb32-47" tabindex="-1"></a>        <span class="co"># also press the lever / earn reward if neuron 2 is</span></span>
+<span id="cb32-48"><a href="example-3.html#cb32-48" tabindex="-1"></a>        <span class="co"># sufficiently active</span></span>
+<span id="cb32-49"><a href="example-3.html#cb32-49" tabindex="-1"></a>        <span class="cf">if</span> g2.<span class="bu">sum</span>() <span class="op">&gt;</span> resp_thresh:</span>
+<span id="cb32-50"><a href="example-3.html#cb32-50" tabindex="-1"></a>            r_obtained[trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-51"><a href="example-3.html#cb32-51" tabindex="-1"></a></span>
+<span id="cb32-52"><a href="example-3.html#cb32-52" tabindex="-1"></a>        <span class="co"># update synaptic weights</span></span>
+<span id="cb32-53"><a href="example-3.html#cb32-53" tabindex="-1"></a>        delta_w <span class="op">=</span> update_weight_func()</span>
+<span id="cb32-54"><a href="example-3.html#cb32-54" tabindex="-1"></a>        w_12[trl <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> w_12[trl] <span class="op">+</span> delta_w</span>
+<span id="cb32-55"><a href="example-3.html#cb32-55" tabindex="-1"></a></span>
+<span id="cb32-56"><a href="example-3.html#cb32-56" tabindex="-1"></a>        <span class="co"># store trial info</span></span>
+<span id="cb32-57"><a href="example-3.html#cb32-57" tabindex="-1"></a>        g_record[trl, :] <span class="op">=</span> g</span>
+<span id="cb32-58"><a href="example-3.html#cb32-58" tabindex="-1"></a>        v1_record[trl, :] <span class="op">=</span> v1</span>
+<span id="cb32-59"><a href="example-3.html#cb32-59" tabindex="-1"></a>        g1_record[trl, :] <span class="op">=</span> g1</span>
+<span id="cb32-60"><a href="example-3.html#cb32-60" tabindex="-1"></a>        v2_record[trl, :] <span class="op">=</span> v2</span>
+<span id="cb32-61"><a href="example-3.html#cb32-61" tabindex="-1"></a>        g2_record[trl, :] <span class="op">=</span> g2</span>
+<span id="cb32-62"><a href="example-3.html#cb32-62" tabindex="-1"></a>        </span>
+<span id="cb32-63"><a href="example-3.html#cb32-63" tabindex="-1"></a>    plot_results()</span>
+<span id="cb32-64"><a href="example-3.html#cb32-64" tabindex="-1"></a>    </span>
+<span id="cb32-65"><a href="example-3.html#cb32-65" tabindex="-1"></a>        </span>
+<span id="cb32-66"><a href="example-3.html#cb32-66" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb32-67"><a href="example-3.html#cb32-67" tabindex="-1"></a>trl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-68"><a href="example-3.html#cb32-68" tabindex="-1"></a></span>
+<span id="cb32-69"><a href="example-3.html#cb32-69" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb32-70"><a href="example-3.html#cb32-70" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb32-71"><a href="example-3.html#cb32-71" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb32-72"><a href="example-3.html#cb32-72" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb32-73"><a href="example-3.html#cb32-73" tabindex="-1"></a></span>
+<span id="cb32-74"><a href="example-3.html#cb32-74" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb32-75"><a href="example-3.html#cb32-75" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">80</span></span>
+<span id="cb32-76"><a href="example-3.html#cb32-76" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">25</span></span>
+<span id="cb32-77"><a href="example-3.html#cb32-77" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb32-78"><a href="example-3.html#cb32-78" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-79"><a href="example-3.html#cb32-79" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb32-80"><a href="example-3.html#cb32-80" tabindex="-1"></a>b <span class="op">=</span> <span class="op">-</span><span class="dv">20</span></span>
+<span id="cb32-81"><a href="example-3.html#cb32-81" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">55</span></span>
+<span id="cb32-82"><a href="example-3.html#cb32-82" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb32-83"><a href="example-3.html#cb32-83" tabindex="-1"></a></span>
+<span id="cb32-84"><a href="example-3.html#cb32-84" tabindex="-1"></a>psp_amp <span class="op">=</span> <span class="fl">1e5</span></span>
+<span id="cb32-85"><a href="example-3.html#cb32-85" tabindex="-1"></a>psp_decay <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb32-86"><a href="example-3.html#cb32-86" tabindex="-1"></a></span>
+<span id="cb32-87"><a href="example-3.html#cb32-87" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb32-88"><a href="example-3.html#cb32-88" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb32-89"><a href="example-3.html#cb32-89" tabindex="-1"></a>spike[<span class="dv">200</span>:<span class="dv">800</span>:<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb32-90"><a href="example-3.html#cb32-90" tabindex="-1"></a></span>
+<span id="cb32-91"><a href="example-3.html#cb32-91" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">3e-14</span></span>
+<span id="cb32-92"><a href="example-3.html#cb32-92" tabindex="-1"></a>beta <span class="op">=</span> <span class="fl">3e-14</span></span>
+<span id="cb32-93"><a href="example-3.html#cb32-93" tabindex="-1"></a>gamma <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb32-94"><a href="example-3.html#cb32-94" tabindex="-1"></a></span>
+<span id="cb32-95"><a href="example-3.html#cb32-95" tabindex="-1"></a>resp_thresh <span class="op">=</span> <span class="fl">4e7</span></span>
+<span id="cb32-96"><a href="example-3.html#cb32-96" tabindex="-1"></a></span>
+<span id="cb32-97"><a href="example-3.html#cb32-97" tabindex="-1"></a>array_dict <span class="op">=</span> init_arrays()</span>
+<span id="cb32-98"><a href="example-3.html#cb32-98" tabindex="-1"></a></span>
+<span id="cb32-99"><a href="example-3.html#cb32-99" tabindex="-1"></a>r_predicted <span class="op">=</span> array_dict[<span class="st">&#39;r_predicted&#39;</span>]</span>
+<span id="cb32-100"><a href="example-3.html#cb32-100" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: redefine r_obtained to be all zeros, so that the</span></span>
+<span id="cb32-101"><a href="example-3.html#cb32-101" tabindex="-1"></a><span class="co"># network simulation can populate it on the fly</span></span>
+<span id="cb32-102"><a href="example-3.html#cb32-102" tabindex="-1"></a><span class="co"># r_obtained = array_dict[&#39;r_obtained&#39;]</span></span>
+<span id="cb32-103"><a href="example-3.html#cb32-103" tabindex="-1"></a>r_obtained <span class="op">=</span> np.zeros(n_trials)</span>
+<span id="cb32-104"><a href="example-3.html#cb32-104" tabindex="-1"></a>delta <span class="op">=</span> array_dict[<span class="st">&#39;delta&#39;</span>]</span>
+<span id="cb32-105"><a href="example-3.html#cb32-105" tabindex="-1"></a>v1 <span class="op">=</span> array_dict[<span class="st">&#39;v1&#39;</span>]</span>
+<span id="cb32-106"><a href="example-3.html#cb32-106" tabindex="-1"></a>u1 <span class="op">=</span> array_dict[<span class="st">&#39;u1&#39;</span>]</span>
+<span id="cb32-107"><a href="example-3.html#cb32-107" tabindex="-1"></a>g1 <span class="op">=</span> array_dict[<span class="st">&#39;g1&#39;</span>]</span>
+<span id="cb32-108"><a href="example-3.html#cb32-108" tabindex="-1"></a>spike1 <span class="op">=</span> array_dict[<span class="st">&#39;spike1&#39;</span>]</span>
+<span id="cb32-109"><a href="example-3.html#cb32-109" tabindex="-1"></a>v2 <span class="op">=</span> array_dict[<span class="st">&#39;v2&#39;</span>]</span>
+<span id="cb32-110"><a href="example-3.html#cb32-110" tabindex="-1"></a>u2 <span class="op">=</span> array_dict[<span class="st">&#39;u2&#39;</span>]</span>
+<span id="cb32-111"><a href="example-3.html#cb32-111" tabindex="-1"></a>g2 <span class="op">=</span> array_dict[<span class="st">&#39;g2&#39;</span>]</span>
+<span id="cb32-112"><a href="example-3.html#cb32-112" tabindex="-1"></a>spike2 <span class="op">=</span> array_dict[<span class="st">&#39;spike2&#39;</span>]</span>
+<span id="cb32-113"><a href="example-3.html#cb32-113" tabindex="-1"></a>w_01 <span class="op">=</span> array_dict[<span class="st">&#39;w_01&#39;</span>]</span>
+<span id="cb32-114"><a href="example-3.html#cb32-114" tabindex="-1"></a>w_12 <span class="op">=</span> array_dict[<span class="st">&#39;w_12&#39;</span>]</span>
+<span id="cb32-115"><a href="example-3.html#cb32-115" tabindex="-1"></a>g_record <span class="op">=</span> array_dict[<span class="st">&#39;g_record&#39;</span>]</span>
+<span id="cb32-116"><a href="example-3.html#cb32-116" tabindex="-1"></a>v1_record <span class="op">=</span> array_dict[<span class="st">&#39;v1_record&#39;</span>]</span>
+<span id="cb32-117"><a href="example-3.html#cb32-117" tabindex="-1"></a>g1_record <span class="op">=</span> array_dict[<span class="st">&#39;g1_record&#39;</span>]</span>
+<span id="cb32-118"><a href="example-3.html#cb32-118" tabindex="-1"></a>v2_record <span class="op">=</span> array_dict[<span class="st">&#39;v2_record&#39;</span>]</span>
+<span id="cb32-119"><a href="example-3.html#cb32-119" tabindex="-1"></a>g2_record <span class="op">=</span> array_dict[<span class="st">&#39;g2_record&#39;</span>]</span>
+<span id="cb32-120"><a href="example-3.html#cb32-120" tabindex="-1"></a></span>
+<span id="cb32-121"><a href="example-3.html#cb32-121" tabindex="-1"></a>update_weight_func <span class="op">=</span> update_weight_rl</span>
+<span id="cb32-122"><a href="example-3.html#cb32-122" tabindex="-1"></a>simulate_network_inst_2(update_weight_func)</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-38-5.png" width="768" /></p>
+<!-- # Learning with the direct pathway -->
+<!-- * The direct pathway through the basal ganglia is:  -->
+<!--   * CTX $\rightarrow$ D1 $\rightarrow$ GPi $\rightarrow$ Thal $\rightarrow$ CTX -->
+<!-- * Dopamine-dependent synaptic plasticity occurs at CTX $\rightarrow$ D1 synapses -->
+<!-- ```{python} -->
+<!-- import numpy as np -->
+<!-- import matplotlib.pyplot as plt -->
+<!-- tau = 0.1 -->
+<!-- T = 200 -->
+<!-- t = np.arange(0, T, tau) -->
+<!-- n_steps = t.shape[0] -->
+<!-- n_trials = 1 -->
+<!-- # Cells: CTX, D1, D2, GPi, GPe, Thal, STN -->
+<!-- # CTX -> D1 -> GPi -> Thal -> CTX -->
+<!-- # CTX -> D2 -> GPe -> GPi -> Thal -> CTX -->
+<!-- # CTX -> STN -> GPi -->
+<!-- # STN <-> GPe -->
+<!-- # # striatal projection neuron -->
+<!-- # C = 50; vr = -80; vt = -25; vpeak = 40; -->
+<!-- # a = 0.01; b = -20; c = -55; d = 150; k = 1; -->
+<!-- # # regular spiking neuron -->
+<!-- # C = 100; vr = -60; vt = -40; vpeak = 35; -->
+<!-- # a = 0.03; b = -2; c = -50; d = 100; k = 0.7; -->
+<!-- iz_params = np.array([ -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # viusal ctx (rs) 0 -->
+<!--     [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d1 (spn) 1 -->
+<!--     [50, -80, -25, 40, 0.01, -20, -55, 150, 1],  # d2 (spn) 2 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpi (rs) 3 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # gpe (rs) 4 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # thal (rs) 5 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7],  # stn (rs) 6 -->
+<!--     [100, -60, -40, 35, 0.03, -2, -50, 100, 0.7]  # motor ctx (rs) 7 -->
+<!-- ]) -->
+<!-- # NOTE: baseline firing -->
+<!-- E_mu = np.array([0, 0, 0, 300, 300, 300, 0, 50]) -->
+<!-- E_sd = np.array([0, 0, 0, 0, 0, 0, 0, 100]) -->
+<!-- n_cells = iz_params.shape[0] -->
+<!-- # response of each spike on post synaptic membrane v -->
+<!-- psp_amp = 1e3 -->
+<!-- psp_decay = 100 -->
+<!-- # allocate memory for each neuron -->
+<!-- v = np.zeros((n_cells, n_steps)) -->
+<!-- u = np.zeros((n_cells, n_steps)) -->
+<!-- g = np.zeros((n_cells, n_steps)) -->
+<!-- spike = np.zeros((n_cells, n_steps)) -->
+<!-- v[:, 0] = iz_params[:, 1] + np.random.rand(n_cells) * 100 -->
+<!-- # connection weight matrix -->
+<!-- w = np.zeros((n_cells, n_cells)) -->
+<!-- # direct pathway -->
+<!-- w[0, 1] = 100  # NOTE: start this off small to allow for learning -->
+<!-- w[1, 3] = -1 * 100 -->
+<!-- # indirect pathway -->
+<!-- # w[0, 2] = 1 * 100 -->
+<!-- # w[2, 4] = -1 * 100 -->
+<!-- # w[4, 3] = -1 * 25 -->
+<!-- # hyperdirect pathway -->
+<!-- # w[0, 6] = 1 * 50 * 0 -->
+<!-- # w[6, 3] = 1 -->
+<!-- # stn-gpe feedback -->
+<!-- # w[6, 4] = 1 -->
+<!-- # w[4, 6] = -1 * 50 -->
+<!-- # gpi-thal -->
+<!-- w[3, 5] = -1 * 100 -->
+<!-- # thal-motor -->
+<!-- w[5, 7] = 100 -->
+<!-- # fb from thal back to input ctx -->
+<!-- # w[5, 0] = 1 -->
+<!-- # input into cells from other cells -->
+<!-- I_net = np.zeros((n_cells, n_steps)) -->
+<!-- # define input signal (artificial input into ctx) -->
+<!-- I_in = np.zeros(n_steps) -->
+<!-- I_in[5000:] = 5e1 -->
+<!-- # NOTE: response threshold -->
+<!-- resp_thresh = 25 -->
+<!-- # NOTE: predicted reward -->
+<!-- pr = 0 -->
+<!-- # NOTE: records -->
+<!-- w_rec = np.zeros(n_trials) -->
+<!-- resp_rec = np.zeros(n_trials) -->
+<!-- pr_rec = np.zeros(n_trials) -->
+<!-- # NOTE: iterate over trials -->
+<!-- for trl in range(n_trials): -->
+<!--     # NOTE: initialise response to zero -->
+<!--     resp = 0 -->
+<!--     for i in range(1, n_steps): -->
+<!--         dt = t[i] - t[i - 1] -->
+<!--         I_net = np.zeros((n_cells, n_steps)) -->
+<!--         for jj in range(n_cells): -->
+<!--             for kk in range(n_cells): -->
+<!--                 if jj != kk: -->
+<!--                     I_net[jj, i - 1] += w[kk, jj] * g[kk, i - 1] -->
+<!--                 if jj == 0: -->
+<!--                     I_net[jj, i - 1] += I_in[i - 1] -->
+<!--             C = iz_params[jj, 0] -->
+<!--             vr = iz_params[jj, 1] -->
+<!--             vt = iz_params[jj, 2] -->
+<!--             vpeak = iz_params[jj, 3] -->
+<!--             a = iz_params[jj, 4] -->
+<!--             b = iz_params[jj, 5] -->
+<!--             c = iz_params[jj, 6] -->
+<!--             d = iz_params[jj, 7] -->
+<!--             k = iz_params[jj, 8] -->
+<!--             # NOTE: The np.random.normal() below is new -->
+<!--             dvdt = (k * (v[jj, i - 1] - vr) * -->
+<!--                     (v[jj, i - 1] - vt) - u[jj, i - 1] + I_net[jj, i - 1] + -->
+<!--                     np.random.normal(E_mu[jj], E_sd[jj])) / C -->
+<!--             dudt = a * (b * (v[jj, i - 1] - vr) - u[jj, i - 1]) -->
+<!--             dgdt = (-g[jj, i - 1] + psp_amp * spike[jj, i - 1]) / psp_decay -->
+<!--             v[jj, i] = v[jj, i - 1] + dvdt * dt -->
+<!--             u[jj, i] = u[jj, i - 1] + dudt * dt -->
+<!--             g[jj, i] = g[jj, i - 1] + dgdt * dt -->
+<!--             if v[jj, i] >= vpeak: -->
+<!--                 v[jj, i - 1] = vpeak -->
+<!--                 v[jj, i] = c -->
+<!--                 u[jj, i] = u[jj, i] + d -->
+<!--                 spike[jj, i] = 1 -->
+<!--         # NOTE: respond if motor unit crosses resp_thresh -->
+<!--         # NOTE: 5000 is Ugly hack to cut out the annoying initial spikes -->
+<!--         if (g[7, i] > resp_thresh) and i > 5000: -->
+<!--             resp = 1 -->
+<!--             break -->
+<!--     # NOTE: force exploratory responses (e.g., epsilon greedy) -->
+<!--     if np.random.uniform() > 0.8: -->
+<!--         resp = 1 -->
+<!--     # NOTE: compute rewards and prediction errors -->
+<!--     if resp == 1: -->
+<!--         r = 1 -->
+<!--     else: -->
+<!--         r = 0 -->
+<!--     rpe = r - pr -->
+<!--     pr += 0.1 * rpe # NOTE: this learning is a free parameter -->
+<!--     # NOTE: update weight (learning rate is another free parameter) -->
+<!--     pre = g[0, :].sum() -->
+<!--     post = g[1, :].sum() -->
+<!--     w[0, 1] += 0.1 * pre * post * rpe -->
+<!--     # NOTE: keep records -->
+<!--     w_rec[trl] = w[0, 1] -->
+<!--     resp_rec[trl] = resp -->
+<!--     pr_rec[trl] = pr -->
+<!-- fig, ax = plt.subplots(1, 3, squeeze=False) -->
+<!-- ax[0, 0].plot(pr_rec) -->
+<!-- ax[0, 1].plot(w_rec) -->
+<!-- ax[0, 2].plot(resp_rec) -->
+<!-- plt.show() -->
+<!-- fig, ax = plt.subplots(3, 5, squeeze=False) -->
+<!-- # ctx -->
+<!-- ax[1, 0].set_title('ctx') -->
+<!-- ax1 = ax[1, 0] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[0, :], 'C0') -->
+<!-- ax2.plot(t, g[0, :], 'C1') -->
+<!-- # stn -->
+<!-- ax[0, 1].set_title('stn') -->
+<!-- ax1 = ax[0, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[6, :], 'C0')  # stn -->
+<!-- ax2.plot(t, g[6, :], 'C1')  # stn -->
+<!-- # d1 -->
+<!-- ax[1, 1].set_title('d1') -->
+<!-- ax1 = ax[1, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[1, :], 'C0')  # d1 -->
+<!-- ax2.plot(t, g[1, :], 'C1')  # d1 -->
+<!-- # d2 -->
+<!-- ax[2, 1].set_title('d2') -->
+<!-- ax1 = ax[2, 1] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[2, :], 'C0')  # d2 -->
+<!-- ax2.plot(t, g[2, :], 'C1')  # d2 -->
+<!-- # gpi -->
+<!-- ax[1, 2].set_title('gpi') -->
+<!-- ax1 = ax[1, 2] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[3, :], 'C0')  # gpi -->
+<!-- ax2.plot(t, g[3, :], 'C1')  # gpi -->
+<!-- # gpe -->
+<!-- ax[2, 2].set_title('gpe') -->
+<!-- ax1 = ax[2, 2] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[4, :], 'C0')  # gpe -->
+<!-- ax2.plot(t, g[4, :], 'C1')  # gpe -->
+<!-- # thal -->
+<!-- ax[1, 3].set_title('thal') -->
+<!-- ax1 = ax[1, 3] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[5, :], 'C0')  # thal -->
+<!-- ax2.plot(t, g[5, :], 'C1')  # thal -->
+<!-- # motor -->
+<!-- ax[1, 4].set_title('motor') -->
+<!-- ax1 = ax[1, 4] -->
+<!-- ax2 = ax1.twinx() -->
+<!-- ax1.plot(t, v[7, :], 'C0')  # motor -->
+<!-- ax2.plot(t, g[7, :], 'C1')  # motor -->
+<!-- # plt.tight_layout() -->
+<!-- plt.show() -->
+<!-- ``` -->
+
+<div id="reinforcement-learning-framework" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Reinforcement learning framework<a href="example-3.html#reinforcement-learning-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>An agent can occupy a discrete set of states <span class="math inline">\(S\)</span> and can
+take a discrete set of actions <span class="math inline">\(A\)</span> from each state as determined
+by some policy <span class="math inline">\(\pi\)</span>.</li>
+</ul>
+<p><span class="math display">\[
+S = \{s_1, s_2, \ldots, s_n\} \\
+A = \{a_1, a_2, \ldots, a_n\} \\
+\pi \rightarrow P(a_i | s_j)
+\]</span></p>
+<ul>
+<li><p>The actions <span class="math inline">\(a_i\)</span> taken by the agent determine the
+probability that the state will transition from <span class="math inline">\(s_i\)</span> to
+<span class="math inline">\(s_j\)</span>, and also determine the probability of current and
+future reward (because rewards are causally determined by
+states).</p></li>
+<li><p>The goal of the agent is to learn to take actions that
+maximize current and future reward. That is, the RL agent
+tries to determine the state-value function <span class="math inline">\(V_{\pi}(s)\)</span> of
+a given policy <span class="math inline">\(\pi\)</span> as a function of each state <span class="math inline">\(s\)</span>.</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+  V_{\pi}(s) &amp;= \operatorname{E}[R | \pi, s] \nonumber \\
+             &amp;= \operatorname{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t | \pi, s \right].
+\end{align}
+\]</span></p>
+<ul>
+<li><p>Here, <span class="math inline">\(\gamma\)</span> is a temporal discounting factor that
+allows the agent to care more about near rewards than about
+distant future rewards.</p></li>
+<li><p>The fundamental goal of RL is to estimate <span class="math inline">\(V_{\pi}(s)\)</span>
+using nothing more than the experience an agent gains while
+navigating its environment. The specific way in which an RL
+algorithm does this varies greatly from one algorithm to the
+next, and is still very much an active area of research.</p></li>
+</ul>
+</div>
+<div id="estimating-the-state-value-function" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Estimating the state-value function<a href="example-3.html#estimating-the-state-value-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>RL aims to learn state-value function through experience.</p></li>
+<li><p>The general structure is to give the agent many trials of
+experience, where on each trial the agent visits some
+sequence of states by taking some sequence of actions.</p></li>
+<li><p>A trial of experience comes to an end whenever a terminal
+state is visited, but in principle, goes on forever until
+such a state is experienced.</p></li>
+<li><p>The layout of an RL program will generally look something
+like the following:</p></li>
+</ul>
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Specify the policy <span class="math inline">\(\pi\)</span> to be evaluated</p></li>
+<li><p>Initialise <span class="math inline">\(V(s)\)</span></p></li>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p><span class="math inline">\(A \leftarrow\)</span> action given by <span class="math inline">\(\pi\)</span> for <span class="math inline">\(S\)</span></p></li>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p>Update value function <span class="math inline">\(V\)</span></p></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<ul>
+<li>Put in <code>Python</code> pseudo code:</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="example-3.html#cb33-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb33-2"><a href="example-3.html#cb33-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb33-3"><a href="example-3.html#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="example-3.html#cb33-4" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb33-5"><a href="example-3.html#cb33-5" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="example-3.html#cb33-6" tabindex="-1"></a><span class="co"># specify the set of states</span></span>
+<span id="cb33-7"><a href="example-3.html#cb33-7" tabindex="-1"></a>states <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb33-8"><a href="example-3.html#cb33-8" tabindex="-1"></a>n_states <span class="op">=</span> states.shape[<span class="dv">0</span>]</span>
+<span id="cb33-9"><a href="example-3.html#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="example-3.html#cb33-10" tabindex="-1"></a><span class="co"># initialise value estimate</span></span>
+<span id="cb33-11"><a href="example-3.html#cb33-11" tabindex="-1"></a>v <span class="op">=</span> np.zeros((n_trials, n_states))</span>
+<span id="cb33-12"><a href="example-3.html#cb33-12" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="example-3.html#cb33-13" tabindex="-1"></a><span class="cf">for</span> trial <span class="kw">in</span> <span class="bu">range</span>(n_trials):</span>
+<span id="cb33-14"><a href="example-3.html#cb33-14" tabindex="-1"></a>  </span>
+<span id="cb33-15"><a href="example-3.html#cb33-15" tabindex="-1"></a>  terminate <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb33-16"><a href="example-3.html#cb33-16" tabindex="-1"></a>  <span class="cf">while</span> <span class="kw">not</span> terminate:</span>
+<span id="cb33-17"><a href="example-3.html#cb33-17" tabindex="-1"></a>    <span class="co"># select action (using policy pi)</span></span>
+<span id="cb33-18"><a href="example-3.html#cb33-18" tabindex="-1"></a>    </span>
+<span id="cb33-19"><a href="example-3.html#cb33-19" tabindex="-1"></a>    <span class="co"># transition to new state (determined by environment)</span></span>
+<span id="cb33-20"><a href="example-3.html#cb33-20" tabindex="-1"></a>    </span>
+<span id="cb33-21"><a href="example-3.html#cb33-21" tabindex="-1"></a>    <span class="co"># possibly receive reward (determined by environment)</span></span>
+<span id="cb33-22"><a href="example-3.html#cb33-22" tabindex="-1"></a>    </span>
+<span id="cb33-23"><a href="example-3.html#cb33-23" tabindex="-1"></a>    <span class="co"># update value estimate of newly arrived in state</span></span>
+<span id="cb33-24"><a href="example-3.html#cb33-24" tabindex="-1"></a>    <span class="co"># (variety of RL algorithms for this -- e.g., TD</span></span>
+<span id="cb33-25"><a href="example-3.html#cb33-25" tabindex="-1"></a>    <span class="co"># learning (see below))</span></span>
+<span id="cb33-26"><a href="example-3.html#cb33-26" tabindex="-1"></a>    </span>
+<span id="cb33-27"><a href="example-3.html#cb33-27" tabindex="-1"></a>    <span class="co"># check if current state is terminal</span></span>
+<span id="cb33-28"><a href="example-3.html#cb33-28" tabindex="-1"></a>    <span class="co"># if s == 3:</span></span>
+<span id="cb33-29"><a href="example-3.html#cb33-29" tabindex="-1"></a>    <span class="co">#   terminate = True</span></span>
+<span id="cb33-30"><a href="example-3.html#cb33-30" tabindex="-1"></a>    </span>
+<span id="cb33-31"><a href="example-3.html#cb33-31" tabindex="-1"></a>    <span class="co"># for now just set to True to avoid infinite while loop</span></span>
+<span id="cb33-32"><a href="example-3.html#cb33-32" tabindex="-1"></a>    terminate <span class="op">=</span> <span class="va">True</span></span></code></pre></div>
+</div>
+<div id="temporal-difference-td-learning" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Temporal difference (TD) learning<a href="example-3.html#temporal-difference-td-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>TD RL estimates the state-value function under the
+assumption that the action policy is fixed.</p></li>
+<li><p>The term <em>temporal</em> in TD learning refers to the
+difference between successive visits to a particular state
+(across trials), not <em>necessarily</em> across different times
+within a trial.</p></li>
+<li><p>TD learning simply tries to iteratively update its
+estimate of a states value by directly experiencing them,
+comparing what was experienced to what was expected, and
+updating its expectation to more closely match recent
+experience.</p></li>
+<li><p>Let <span class="math inline">\(n\)</span> index the current trial, <span class="math inline">\(s\)</span> be the state just
+arrived in, <span class="math inline">\(s&#39;\)</span> be the next future state (knowable because
+TD assumes a fixed action selection policy), and
+<span class="math inline">\(\hat{V}_{n}(s)\)</span> be the state-value function estimate on
+trial <span class="math inline">\(n\)</span> of state <span class="math inline">\(s\)</span>.</p></li>
+<li><p>TD learning updates the state-value function across trials
+as follows:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\hat{V}_{n}(s) = \hat{V}_{n-1}(s) +
+\alpha (r_{n}(s) + \gamma \hat{V}_{n-1}(s&#39;) - \hat{V}_{n-1}(s)).
+\end{equation}
+\]</span></p>
+<ul>
+<li><p>The term <span class="math inline">\(r_{n}\)</span> is the reward that was delivered upon
+arrival to the current state <span class="math inline">\(s&#39;\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat{V}_{n-1}(s&#39;)\)</span> is the reward that is expected to
+arrive in <em>future</em> states visited beyond <span class="math inline">\(s&#39;\)</span>. This value
+has to come from the the state-value function estimate in
+the previous trial <span class="math inline">\(n-1\)</span> because the agent has not yet
+experienced states beyond <span class="math inline">\(s&#39;\)</span> in the current trial.</p></li>
+<li><p><span class="math inline">\(\alpha\)</span> is called the learning rate and <span class="math inline">\(\gamma\)</span> is the
+temporal discounting parameter.</p></li>
+<li><p>Notice that you can write the value update as follows:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\hat{V}_{n}(s) =
+(1-\alpha) (\hat{V}_{n-1}(s)) +
+\alpha (r_{n}(s) + \gamma \hat{V}_{n-1}(s&#39;)).
+\end{equation}
+\]</span></p>
+<ul>
+<li><p>In this form it may be easier to see that the update to
+our estimate of the state-value function is a weighted
+average of whatever it was on the previous trial with
+whatever current reward was experienced and future reward is
+expected from the newly arrived in state <span class="math inline">\(s&#39;\)</span>.</p></li>
+<li><p>In the psuedo code notation used by your RL book it looks
+like this:</p></li>
+</ul>
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Specify the policy <span class="math inline">\(\pi\)</span> to be evaluated</p></li>
+<li><p>Initialise <span class="math inline">\(V(s)\)</span></p></li>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p><span class="math inline">\(A \leftarrow\)</span> action given by <span class="math inline">\(\pi\)</span> for <span class="math inline">\(S\)</span></p></li>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p><span class="math inline">\(V(S) \leftarrow V(S) + \alpha \left[ R + \gamma V(S&#39;) - V(S) \right]\)</span></p></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="td-rl-model-of-classical-conditioning" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> TD RL model of classical conditioning<a href="example-3.html#td-rl-model-of-classical-conditioning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Consider the classic Pavlov’s dog experiment.</p></li>
+<li><p>States are taken to be time steps between cue onset and
+reward delivery, which occurs on every trial at time step
+<span class="math inline">\(T\)</span> with magnitude <span class="math inline">\(r\)</span>.</p></li>
+<li><p>The value update equation then becomes:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\hat{V}_{n}(t) = \hat{V}_{n-1}(t) +
+\alpha (r_{n}(t) + \gamma \hat{V}_{n-1}(t+1) - \hat{V}_{n-1}(t))
+\end{equation}
+\]</span></p>
+<ul>
+<li><p>To get a feel for how this works, consider the first few
+trials.</p></li>
+<li><p><span class="math inline">\(n=1, t=T\)</span></p></li>
+<li><p>_{0} for all <span class="math inline">\(t\)</span> by assumption of initial
+conditions.</p></li>
+<li><p><span class="math inline">\(r_{1}(T)=r\)</span> because the dog receives a reward on each
+trial at time <span class="math inline">\(T\)</span>.</p></li>
+<li><p>This leads to the following:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+\hat{V}_{1}(T) &amp;= \hat{V}_{0}(t) +  \alpha [r_{1}(T) + \gamma \hat{V}_{0}(T+1) - \hat{V}_{0}(T)] \\
+               &amp;= \alpha r \\\\
+\end{align}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(n=2, t=T-1\)</span></p></li>
+<li><p><span class="math inline">\(\hat{V}_{1}(T-1)=0\)</span> because at time <span class="math inline">\(T-1\)</span> of trial <span class="math inline">\(1\)</span>
+the agent has not yet received any rewards.</p></li>
+<li><p><span class="math inline">\(r_{2}(T-1)=0\)</span> because rewards are delivered only at time
+<span class="math inline">\(T\)</span>, not at time <span class="math inline">\(T-1\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat{V}_2(T-1)=\alpha r\)</span> as we showed above.</p></li>
+<li><p>This leads to the following:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align}
+\hat{V}_{2}(T-1) &amp;= \hat{V}_{1}(T-1) + \alpha [r_{2}(T-1)+ \gamma \hat{V}_{1}(T) - \hat{V}_{1}(T-1)] \\
+                 &amp;= \alpha^2 \gamma r
+\end{align}
+\]</span></p>
+<ul>
+<li><p>In other words, the reward prediction error <span class="math inline">\(\delta\)</span> that
+occurred at time <span class="math inline">\(T\)</span> on trial <span class="math inline">\(1\)</span> has propagated back on
+trial <span class="math inline">\(2\)</span> to the immediately preceding state (i.e., <span class="math inline">\(T−1\)</span>).</p></li>
+<li><p>Similarly, on trial <span class="math inline">\(3\)</span>, the positive value associated
+with state <span class="math inline">\(T-1\)</span> will propagate back to state <span class="math inline">\(T-2\)</span>.</p></li>
+<li><p>In this way, the value associated with earlier and earlier
+states will increase.</p></li>
+<li><p>This propagation will continue until it eventually reaches
+the time of cue presentation – that is, until
+<span class="math inline">\(\hat{V}_{n}(0) &gt; 0\)</span>, for some value of <span class="math inline">\(n\)</span>.</p></li>
+<li><p>It will not propagate to earlier times than this however,
+so long as cue presentation times are unpredictable.</p></li>
+<li><p>We can implement this simple system in <code>python</code> code as
+follows:</p></li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="example-3.html#cb34-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb34-2"><a href="example-3.html#cb34-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb34-3"><a href="example-3.html#cb34-3" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="example-3.html#cb34-4" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb34-5"><a href="example-3.html#cb34-5" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb34-6"><a href="example-3.html#cb34-6" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="example-3.html#cb34-7" tabindex="-1"></a>v_init <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb34-8"><a href="example-3.html#cb34-8" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="example-3.html#cb34-9" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb34-10"><a href="example-3.html#cb34-10" tabindex="-1"></a>gamma <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb34-11"><a href="example-3.html#cb34-11" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="example-3.html#cb34-12" tabindex="-1"></a>v <span class="op">=</span> np.zeros((n_steps, n_trials))</span>
+<span id="cb34-13"><a href="example-3.html#cb34-13" tabindex="-1"></a>v[:, <span class="dv">0</span>] <span class="op">=</span> v_init</span>
+<span id="cb34-14"><a href="example-3.html#cb34-14" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="example-3.html#cb34-15" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n_trials):</span>
+<span id="cb34-16"><a href="example-3.html#cb34-16" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(n_steps <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb34-17"><a href="example-3.html#cb34-17" tabindex="-1"></a>        s <span class="op">=</span> t</span>
+<span id="cb34-18"><a href="example-3.html#cb34-18" tabindex="-1"></a>        sprime <span class="op">=</span> t <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb34-19"><a href="example-3.html#cb34-19" tabindex="-1"></a>        r <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> s <span class="op">==</span> (n_steps <span class="op">-</span> <span class="dv">2</span>) <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb34-20"><a href="example-3.html#cb34-20" tabindex="-1"></a>        v[s, n] <span class="op">=</span> v[s, n <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> alpha <span class="op">*</span> (r <span class="op">+</span> gamma <span class="op">*</span> v[sprime, n <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> v[s, n <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb34-21"><a href="example-3.html#cb34-21" tabindex="-1"></a></span>
+<span id="cb34-22"><a href="example-3.html#cb34-22" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-23"><a href="example-3.html#cb34-23" tabindex="-1"></a>pos <span class="op">=</span> ax[<span class="dv">0</span>, <span class="dv">0</span>].imshow(v, aspect<span class="op">=</span><span class="st">&#39;auto&#39;</span>)</span>
+<span id="cb34-24"><a href="example-3.html#cb34-24" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;trial&#39;</span>)</span>
+<span id="cb34-25"><a href="example-3.html#cb34-25" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;time step (state)&#39;</span>)</span>
+<span id="cb34-26"><a href="example-3.html#cb34-26" tabindex="-1"></a>cbar <span class="op">=</span> fig.colorbar(pos, ax<span class="op">=</span>ax[<span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb34-27"><a href="example-3.html#cb34-27" tabindex="-1"></a>cbar.ax.get_yaxis().labelpad <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb34-28"><a href="example-3.html#cb34-28" tabindex="-1"></a>cbar.ax.set_ylabel(<span class="st">&#39;Value function estimate&#39;</span>, rotation<span class="op">=</span><span class="dv">270</span>)</span>
+<span id="cb34-29"><a href="example-3.html#cb34-29" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+</div>
+<div id="td-rl-as-the-learning-signal-in-a-spiking-network" class="section level3 hasAnchor" number="14.3.2">
+<h3><span class="header-section-number">14.3.2</span> TD RL as the learning signal in a spiking network<a href="example-3.html#td-rl-as-the-learning-signal-in-a-spiking-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Schultz, W., Dayan, P., &amp; Montague, P. R. (1997). A Neural
+Substrate of Prediction and Reward. Science, 275(5306),
+1593–1599.</p></li>
+<li><p>In my opinion, one of the coolest ever stories to emerge
+from computational neuroscience is the idea that dopamine
+encodes the reward prediction error of TD RL system, and
+that this prediction error signal drives learning in the
+basal ganglia.</p></li>
+<li><p>Here, we will consider a simple spiking network consisting
+of two neurons <span class="math inline">\(A \rightarrow B\)</span> in which the synaptic
+strength connecting them is learned using the TD RL reward
+prediction error.</p></li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="example-3.html#cb35-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb35-2"><a href="example-3.html#cb35-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb35-3"><a href="example-3.html#cb35-3" tabindex="-1"></a><span class="im">import</span> matplotlib.gridspec <span class="im">as</span> gridspec</span>
+<span id="cb35-4"><a href="example-3.html#cb35-4" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="example-3.html#cb35-5" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="example-3.html#cb35-6" tabindex="-1"></a><span class="kw">def</span> init_arrays():</span>
+<span id="cb35-7"><a href="example-3.html#cb35-7" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="example-3.html#cb35-8" tabindex="-1"></a>    resp <span class="op">=</span> np.zeros((n, n_trials))</span>
+<span id="cb35-9"><a href="example-3.html#cb35-9" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="example-3.html#cb35-10" tabindex="-1"></a>    <span class="co"># TD arrays</span></span>
+<span id="cb35-11"><a href="example-3.html#cb35-11" tabindex="-1"></a>    v <span class="op">=</span> np.zeros((n, n_trials))</span>
+<span id="cb35-12"><a href="example-3.html#cb35-12" tabindex="-1"></a>    r <span class="op">=</span> np.zeros((n, n_trials))</span>
+<span id="cb35-13"><a href="example-3.html#cb35-13" tabindex="-1"></a>    rpe <span class="op">=</span> np.zeros((n, n_trials))</span>
+<span id="cb35-14"><a href="example-3.html#cb35-14" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="example-3.html#cb35-15" tabindex="-1"></a>    v1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-16"><a href="example-3.html#cb35-16" tabindex="-1"></a>    u1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-17"><a href="example-3.html#cb35-17" tabindex="-1"></a>    g1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-18"><a href="example-3.html#cb35-18" tabindex="-1"></a>    spike1 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-19"><a href="example-3.html#cb35-19" tabindex="-1"></a>    v1[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb35-20"><a href="example-3.html#cb35-20" tabindex="-1"></a></span>
+<span id="cb35-21"><a href="example-3.html#cb35-21" tabindex="-1"></a>    v2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-22"><a href="example-3.html#cb35-22" tabindex="-1"></a>    u2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-23"><a href="example-3.html#cb35-23" tabindex="-1"></a>    g2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-24"><a href="example-3.html#cb35-24" tabindex="-1"></a>    spike2 <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-25"><a href="example-3.html#cb35-25" tabindex="-1"></a>    v2[<span class="dv">0</span>] <span class="op">=</span> vr</span>
+<span id="cb35-26"><a href="example-3.html#cb35-26" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="example-3.html#cb35-27" tabindex="-1"></a>    w_01 <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> np.ones(n_trials)</span>
+<span id="cb35-28"><a href="example-3.html#cb35-28" tabindex="-1"></a></span>
+<span id="cb35-29"><a href="example-3.html#cb35-29" tabindex="-1"></a>    <span class="co"># needs to be 2D since it changes every time step</span></span>
+<span id="cb35-30"><a href="example-3.html#cb35-30" tabindex="-1"></a>    w_12 <span class="op">=</span> <span class="fl">0.4</span> <span class="op">*</span> np.ones((n, n_trials))</span>
+<span id="cb35-31"><a href="example-3.html#cb35-31" tabindex="-1"></a></span>
+<span id="cb35-32"><a href="example-3.html#cb35-32" tabindex="-1"></a>    g_record <span class="op">=</span> np.zeros((n_trials, n))</span>
+<span id="cb35-33"><a href="example-3.html#cb35-33" tabindex="-1"></a>    v1_record <span class="op">=</span> np.zeros((n_trials, n))</span>
+<span id="cb35-34"><a href="example-3.html#cb35-34" tabindex="-1"></a>    g1_record <span class="op">=</span> np.zeros((n_trials, n))</span>
+<span id="cb35-35"><a href="example-3.html#cb35-35" tabindex="-1"></a>    v2_record <span class="op">=</span> np.zeros((n_trials, n))</span>
+<span id="cb35-36"><a href="example-3.html#cb35-36" tabindex="-1"></a>    g2_record <span class="op">=</span> np.zeros((n_trials, n))</span>
+<span id="cb35-37"><a href="example-3.html#cb35-37" tabindex="-1"></a></span>
+<span id="cb35-38"><a href="example-3.html#cb35-38" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb35-39"><a href="example-3.html#cb35-39" tabindex="-1"></a>        <span class="st">&#39;resp&#39;</span>: resp,</span>
+<span id="cb35-40"><a href="example-3.html#cb35-40" tabindex="-1"></a>        <span class="st">&#39;v&#39;</span>: v,</span>
+<span id="cb35-41"><a href="example-3.html#cb35-41" tabindex="-1"></a>        <span class="st">&#39;r&#39;</span>: r,</span>
+<span id="cb35-42"><a href="example-3.html#cb35-42" tabindex="-1"></a>        <span class="st">&#39;rpe&#39;</span>: rpe,</span>
+<span id="cb35-43"><a href="example-3.html#cb35-43" tabindex="-1"></a>        <span class="st">&#39;v1&#39;</span>: v1,</span>
+<span id="cb35-44"><a href="example-3.html#cb35-44" tabindex="-1"></a>        <span class="st">&#39;u1&#39;</span>: u1,</span>
+<span id="cb35-45"><a href="example-3.html#cb35-45" tabindex="-1"></a>        <span class="st">&#39;g1&#39;</span>: g1,</span>
+<span id="cb35-46"><a href="example-3.html#cb35-46" tabindex="-1"></a>        <span class="st">&#39;spike1&#39;</span>: spike1,</span>
+<span id="cb35-47"><a href="example-3.html#cb35-47" tabindex="-1"></a>        <span class="st">&#39;v2&#39;</span>: v2,</span>
+<span id="cb35-48"><a href="example-3.html#cb35-48" tabindex="-1"></a>        <span class="st">&#39;u2&#39;</span>: u2,</span>
+<span id="cb35-49"><a href="example-3.html#cb35-49" tabindex="-1"></a>        <span class="st">&#39;g2&#39;</span>: g2,</span>
+<span id="cb35-50"><a href="example-3.html#cb35-50" tabindex="-1"></a>        <span class="st">&#39;spike2&#39;</span>: spike2,</span>
+<span id="cb35-51"><a href="example-3.html#cb35-51" tabindex="-1"></a>        <span class="st">&#39;w_01&#39;</span>: w_01,</span>
+<span id="cb35-52"><a href="example-3.html#cb35-52" tabindex="-1"></a>        <span class="st">&#39;w_12&#39;</span>: w_12,</span>
+<span id="cb35-53"><a href="example-3.html#cb35-53" tabindex="-1"></a>        <span class="st">&#39;g_record&#39;</span>: g_record,</span>
+<span id="cb35-54"><a href="example-3.html#cb35-54" tabindex="-1"></a>        <span class="st">&#39;v1_record&#39;</span>: v1_record,</span>
+<span id="cb35-55"><a href="example-3.html#cb35-55" tabindex="-1"></a>        <span class="st">&#39;g1_record&#39;</span>: g1_record,</span>
+<span id="cb35-56"><a href="example-3.html#cb35-56" tabindex="-1"></a>        <span class="st">&#39;v2_record&#39;</span>: v2_record,</span>
+<span id="cb35-57"><a href="example-3.html#cb35-57" tabindex="-1"></a>        <span class="st">&#39;g2_record&#39;</span>: g2_record</span>
+<span id="cb35-58"><a href="example-3.html#cb35-58" tabindex="-1"></a>    }</span>
+<span id="cb35-59"><a href="example-3.html#cb35-59" tabindex="-1"></a></span>
+<span id="cb35-60"><a href="example-3.html#cb35-60" tabindex="-1"></a></span>
+<span id="cb35-61"><a href="example-3.html#cb35-61" tabindex="-1"></a><span class="kw">def</span> simulate_network_inst_TD():</span>
+<span id="cb35-62"><a href="example-3.html#cb35-62" tabindex="-1"></a>    <span class="kw">global</span> trl, r_obtained, r_predicted</span>
+<span id="cb35-63"><a href="example-3.html#cb35-63" tabindex="-1"></a></span>
+<span id="cb35-64"><a href="example-3.html#cb35-64" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_trials <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb35-65"><a href="example-3.html#cb35-65" tabindex="-1"></a>        trl <span class="op">=</span> j</span>
+<span id="cb35-66"><a href="example-3.html#cb35-66" tabindex="-1"></a></span>
+<span id="cb35-67"><a href="example-3.html#cb35-67" tabindex="-1"></a>        <span class="co"># press lever / earn reward on a random % of all trials</span></span>
+<span id="cb35-68"><a href="example-3.html#cb35-68" tabindex="-1"></a>        <span class="cf">if</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">&gt;</span> <span class="fl">0.95</span>:</span>
+<span id="cb35-69"><a href="example-3.html#cb35-69" tabindex="-1"></a></span>
+<span id="cb35-70"><a href="example-3.html#cb35-70" tabindex="-1"></a>            <span class="co"># press lever / earn reward at the end of the trial</span></span>
+<span id="cb35-71"><a href="example-3.html#cb35-71" tabindex="-1"></a>            resp[<span class="op">-</span><span class="dv">2</span>, trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-72"><a href="example-3.html#cb35-72" tabindex="-1"></a>            r[<span class="op">-</span><span class="dv">2</span>, trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-73"><a href="example-3.html#cb35-73" tabindex="-1"></a></span>
+<span id="cb35-74"><a href="example-3.html#cb35-74" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb35-75"><a href="example-3.html#cb35-75" tabindex="-1"></a></span>
+<span id="cb35-76"><a href="example-3.html#cb35-76" tabindex="-1"></a>            dt <span class="op">=</span> t[i] <span class="op">-</span> t[i <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb35-77"><a href="example-3.html#cb35-77" tabindex="-1"></a></span>
+<span id="cb35-78"><a href="example-3.html#cb35-78" tabindex="-1"></a>            <span class="co"># external input</span></span>
+<span id="cb35-79"><a href="example-3.html#cb35-79" tabindex="-1"></a>            dgdt <span class="op">=</span> (<span class="op">-</span>g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb35-80"><a href="example-3.html#cb35-80" tabindex="-1"></a>            g[i] <span class="op">=</span> g[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt <span class="op">*</span> dt</span>
+<span id="cb35-81"><a href="example-3.html#cb35-81" tabindex="-1"></a></span>
+<span id="cb35-82"><a href="example-3.html#cb35-82" tabindex="-1"></a>            <span class="co"># neuron 1</span></span>
+<span id="cb35-83"><a href="example-3.html#cb35-83" tabindex="-1"></a>            dvdt1 <span class="op">=</span> (k <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span></span>
+<span id="cb35-84"><a href="example-3.html#cb35-84" tabindex="-1"></a>                     (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> w_01[trl] <span class="op">*</span> g[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb35-85"><a href="example-3.html#cb35-85" tabindex="-1"></a>            dudt1 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u1[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb35-86"><a href="example-3.html#cb35-86" tabindex="-1"></a>            dgdt1 <span class="op">=</span> (<span class="op">-</span>g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike1[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb35-87"><a href="example-3.html#cb35-87" tabindex="-1"></a>            v1[i] <span class="op">=</span> v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt1 <span class="op">*</span> dt</span>
+<span id="cb35-88"><a href="example-3.html#cb35-88" tabindex="-1"></a>            u1[i] <span class="op">=</span> u1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt1 <span class="op">*</span> dt</span>
+<span id="cb35-89"><a href="example-3.html#cb35-89" tabindex="-1"></a>            g1[i] <span class="op">=</span> g1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt1 <span class="op">*</span> dt</span>
+<span id="cb35-90"><a href="example-3.html#cb35-90" tabindex="-1"></a>            <span class="cf">if</span> v1[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb35-91"><a href="example-3.html#cb35-91" tabindex="-1"></a>                v1[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb35-92"><a href="example-3.html#cb35-92" tabindex="-1"></a>                v1[i] <span class="op">=</span> c</span>
+<span id="cb35-93"><a href="example-3.html#cb35-93" tabindex="-1"></a>                u1[i] <span class="op">=</span> u1[i] <span class="op">+</span> d</span>
+<span id="cb35-94"><a href="example-3.html#cb35-94" tabindex="-1"></a>                spike1[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-95"><a href="example-3.html#cb35-95" tabindex="-1"></a></span>
+<span id="cb35-96"><a href="example-3.html#cb35-96" tabindex="-1"></a>            <span class="co"># neuron 2</span></span>
+<span id="cb35-97"><a href="example-3.html#cb35-97" tabindex="-1"></a>            dvdt2 <span class="op">=</span> (k <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vt) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span></span>
+<span id="cb35-98"><a href="example-3.html#cb35-98" tabindex="-1"></a>                     w_12[i <span class="op">-</span> <span class="dv">1</span>, trl] <span class="op">*</span> g1[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> C</span>
+<span id="cb35-99"><a href="example-3.html#cb35-99" tabindex="-1"></a>            dudt2 <span class="op">=</span> a <span class="op">*</span> (b <span class="op">*</span> (v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> vr) <span class="op">-</span> u2[i <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb35-100"><a href="example-3.html#cb35-100" tabindex="-1"></a>            dgdt2 <span class="op">=</span> (<span class="op">-</span>g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> psp_amp <span class="op">*</span> spike2[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> psp_decay</span>
+<span id="cb35-101"><a href="example-3.html#cb35-101" tabindex="-1"></a>            v2[i] <span class="op">=</span> v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dvdt2 <span class="op">*</span> dt</span>
+<span id="cb35-102"><a href="example-3.html#cb35-102" tabindex="-1"></a>            u2[i] <span class="op">=</span> u2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dudt2 <span class="op">*</span> dt</span>
+<span id="cb35-103"><a href="example-3.html#cb35-103" tabindex="-1"></a>            g2[i] <span class="op">=</span> g2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> dgdt2 <span class="op">*</span> dt</span>
+<span id="cb35-104"><a href="example-3.html#cb35-104" tabindex="-1"></a>            <span class="cf">if</span> v2[i] <span class="op">&gt;=</span> vpeak:</span>
+<span id="cb35-105"><a href="example-3.html#cb35-105" tabindex="-1"></a>                v2[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">=</span> vpeak</span>
+<span id="cb35-106"><a href="example-3.html#cb35-106" tabindex="-1"></a>                v2[i] <span class="op">=</span> c</span>
+<span id="cb35-107"><a href="example-3.html#cb35-107" tabindex="-1"></a>                u2[i] <span class="op">=</span> u2[i] <span class="op">+</span> d</span>
+<span id="cb35-108"><a href="example-3.html#cb35-108" tabindex="-1"></a>                spike2[i] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-109"><a href="example-3.html#cb35-109" tabindex="-1"></a></span>
+<span id="cb35-110"><a href="example-3.html#cb35-110" tabindex="-1"></a>            <span class="co"># check for response if none has been made yet</span></span>
+<span id="cb35-111"><a href="example-3.html#cb35-111" tabindex="-1"></a>            <span class="cf">if</span> resp[:, trl].<span class="bu">sum</span>() <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb35-112"><a href="example-3.html#cb35-112" tabindex="-1"></a></span>
+<span id="cb35-113"><a href="example-3.html#cb35-113" tabindex="-1"></a>                <span class="co"># press the lever / earn reward if neuron 2 is sufficiently active</span></span>
+<span id="cb35-114"><a href="example-3.html#cb35-114" tabindex="-1"></a>                <span class="cf">if</span> g2.<span class="bu">sum</span>() <span class="op">&gt;</span> resp_thresh:</span>
+<span id="cb35-115"><a href="example-3.html#cb35-115" tabindex="-1"></a>                    resp[i, trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-116"><a href="example-3.html#cb35-116" tabindex="-1"></a>                    r[<span class="op">-</span><span class="dv">2</span>, trl] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-117"><a href="example-3.html#cb35-117" tabindex="-1"></a></span>
+<span id="cb35-118"><a href="example-3.html#cb35-118" tabindex="-1"></a>            <span class="co"># update TD value function estimate</span></span>
+<span id="cb35-119"><a href="example-3.html#cb35-119" tabindex="-1"></a>            rpe[i, trl] <span class="op">=</span> r[i, trl] <span class="op">+</span> gamma <span class="op">*</span> v[i <span class="op">+</span> <span class="dv">1</span>, trl <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> v[i, trl <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb35-120"><a href="example-3.html#cb35-120" tabindex="-1"></a>            v[i, trl] <span class="op">=</span> v[i, trl <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> alpha <span class="op">*</span> rpe[i, trl]</span>
+<span id="cb35-121"><a href="example-3.html#cb35-121" tabindex="-1"></a></span>
+<span id="cb35-122"><a href="example-3.html#cb35-122" tabindex="-1"></a>            <span class="co"># update synaptic weights</span></span>
+<span id="cb35-123"><a href="example-3.html#cb35-123" tabindex="-1"></a>            delta_w <span class="op">=</span> alpha_w <span class="op">*</span> rpe[i, trl]</span>
+<span id="cb35-124"><a href="example-3.html#cb35-124" tabindex="-1"></a>            w_12[i <span class="op">+</span> <span class="dv">1</span>, trl] <span class="op">=</span> w_12[i, trl] <span class="op">+</span> delta_w</span>
+<span id="cb35-125"><a href="example-3.html#cb35-125" tabindex="-1"></a></span>
+<span id="cb35-126"><a href="example-3.html#cb35-126" tabindex="-1"></a>        <span class="co"># store trial info</span></span>
+<span id="cb35-127"><a href="example-3.html#cb35-127" tabindex="-1"></a>        g_record[trl, :] <span class="op">=</span> g</span>
+<span id="cb35-128"><a href="example-3.html#cb35-128" tabindex="-1"></a>        v1_record[trl, :] <span class="op">=</span> v1</span>
+<span id="cb35-129"><a href="example-3.html#cb35-129" tabindex="-1"></a>        g1_record[trl, :] <span class="op">=</span> g1</span>
+<span id="cb35-130"><a href="example-3.html#cb35-130" tabindex="-1"></a>        v2_record[trl, :] <span class="op">=</span> v2</span>
+<span id="cb35-131"><a href="example-3.html#cb35-131" tabindex="-1"></a>        g2_record[trl, :] <span class="op">=</span> g2</span>
+<span id="cb35-132"><a href="example-3.html#cb35-132" tabindex="-1"></a></span>
+<span id="cb35-133"><a href="example-3.html#cb35-133" tabindex="-1"></a>    <span class="co"># plot_results</span></span>
+<span id="cb35-134"><a href="example-3.html#cb35-134" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb35-135"><a href="example-3.html#cb35-135" tabindex="-1"></a>    ax.flatten()[<span class="dv">0</span>].imshow(v, aspect<span class="op">=</span><span class="st">&#39;auto&#39;</span>)</span>
+<span id="cb35-136"><a href="example-3.html#cb35-136" tabindex="-1"></a>    ax.flatten()[<span class="dv">1</span>].imshow(rpe, aspect<span class="op">=</span><span class="st">&#39;auto&#39;</span>)</span>
+<span id="cb35-137"><a href="example-3.html#cb35-137" tabindex="-1"></a>    ax.flatten()[<span class="dv">2</span>].imshow(w_12, aspect<span class="op">=</span><span class="st">&#39;auto&#39;</span>)</span>
+<span id="cb35-138"><a href="example-3.html#cb35-138" tabindex="-1"></a>    ax.flatten()[<span class="dv">3</span>].spy(resp, aspect<span class="op">=</span><span class="st">&#39;auto&#39;</span>, marker<span class="op">=</span><span class="st">&#39;o&#39;</span>, markersize<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb35-139"><a href="example-3.html#cb35-139" tabindex="-1"></a>    ax.flatten()[<span class="dv">0</span>].set_title(<span class="st">&#39;value function estimate&#39;</span>)</span>
+<span id="cb35-140"><a href="example-3.html#cb35-140" tabindex="-1"></a>    ax.flatten()[<span class="dv">1</span>].set_title(<span class="st">&#39;reward prediction error&#39;</span>)</span>
+<span id="cb35-141"><a href="example-3.html#cb35-141" tabindex="-1"></a>    ax.flatten()[<span class="dv">2</span>].set_title(<span class="st">&#39;synaptic weight&#39;</span>)</span>
+<span id="cb35-142"><a href="example-3.html#cb35-142" tabindex="-1"></a>    ax.flatten()[<span class="dv">3</span>].set_title(<span class="st">&#39;response&#39;</span>)</span>
+<span id="cb35-143"><a href="example-3.html#cb35-143" tabindex="-1"></a>    [x.set_xlabel(<span class="st">&#39;trial&#39;</span>) <span class="cf">for</span> x <span class="kw">in</span> ax.flatten()]</span>
+<span id="cb35-144"><a href="example-3.html#cb35-144" tabindex="-1"></a>    [x.set_ylabel(<span class="st">&#39;time step&#39;</span>) <span class="cf">for</span> x <span class="kw">in</span> ax.flatten()]</span>
+<span id="cb35-145"><a href="example-3.html#cb35-145" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb35-146"><a href="example-3.html#cb35-146" tabindex="-1"></a>    plt.show()</span>
+<span id="cb35-147"><a href="example-3.html#cb35-147" tabindex="-1"></a></span>
+<span id="cb35-148"><a href="example-3.html#cb35-148" tabindex="-1"></a></span>
+<span id="cb35-149"><a href="example-3.html#cb35-149" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb35-150"><a href="example-3.html#cb35-150" tabindex="-1"></a>trl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb35-151"><a href="example-3.html#cb35-151" tabindex="-1"></a></span>
+<span id="cb35-152"><a href="example-3.html#cb35-152" tabindex="-1"></a>tau <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb35-153"><a href="example-3.html#cb35-153" tabindex="-1"></a>T <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb35-154"><a href="example-3.html#cb35-154" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, T, tau)</span>
+<span id="cb35-155"><a href="example-3.html#cb35-155" tabindex="-1"></a>n <span class="op">=</span> t.shape[<span class="dv">0</span>]</span>
+<span id="cb35-156"><a href="example-3.html#cb35-156" tabindex="-1"></a></span>
+<span id="cb35-157"><a href="example-3.html#cb35-157" tabindex="-1"></a>C <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb35-158"><a href="example-3.html#cb35-158" tabindex="-1"></a>vr <span class="op">=</span> <span class="op">-</span><span class="dv">80</span></span>
+<span id="cb35-159"><a href="example-3.html#cb35-159" tabindex="-1"></a>vt <span class="op">=</span> <span class="op">-</span><span class="dv">25</span></span>
+<span id="cb35-160"><a href="example-3.html#cb35-160" tabindex="-1"></a>vpeak <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb35-161"><a href="example-3.html#cb35-161" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-162"><a href="example-3.html#cb35-162" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb35-163"><a href="example-3.html#cb35-163" tabindex="-1"></a>b <span class="op">=</span> <span class="op">-</span><span class="dv">20</span></span>
+<span id="cb35-164"><a href="example-3.html#cb35-164" tabindex="-1"></a>c <span class="op">=</span> <span class="op">-</span><span class="dv">55</span></span>
+<span id="cb35-165"><a href="example-3.html#cb35-165" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">150</span></span>
+<span id="cb35-166"><a href="example-3.html#cb35-166" tabindex="-1"></a></span>
+<span id="cb35-167"><a href="example-3.html#cb35-167" tabindex="-1"></a>psp_amp <span class="op">=</span> <span class="fl">1e5</span></span>
+<span id="cb35-168"><a href="example-3.html#cb35-168" tabindex="-1"></a>psp_decay <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb35-169"><a href="example-3.html#cb35-169" tabindex="-1"></a></span>
+<span id="cb35-170"><a href="example-3.html#cb35-170" tabindex="-1"></a>g <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-171"><a href="example-3.html#cb35-171" tabindex="-1"></a>spike <span class="op">=</span> np.zeros(n)</span>
+<span id="cb35-172"><a href="example-3.html#cb35-172" tabindex="-1"></a>spike[<span class="dv">200</span>:<span class="dv">800</span>:<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-173"><a href="example-3.html#cb35-173" tabindex="-1"></a></span>
+<span id="cb35-174"><a href="example-3.html#cb35-174" tabindex="-1"></a><span class="co"># the _w notation is to distinguish from the TD params below</span></span>
+<span id="cb35-175"><a href="example-3.html#cb35-175" tabindex="-1"></a>alpha_w <span class="op">=</span> <span class="fl">2e1</span></span>
+<span id="cb35-176"><a href="example-3.html#cb35-176" tabindex="-1"></a></span>
+<span id="cb35-177"><a href="example-3.html#cb35-177" tabindex="-1"></a><span class="co"># TD params</span></span>
+<span id="cb35-178"><a href="example-3.html#cb35-178" tabindex="-1"></a>v_init <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb35-179"><a href="example-3.html#cb35-179" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb35-180"><a href="example-3.html#cb35-180" tabindex="-1"></a>gamma <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb35-181"><a href="example-3.html#cb35-181" tabindex="-1"></a></span>
+<span id="cb35-182"><a href="example-3.html#cb35-182" tabindex="-1"></a>resp_thresh <span class="op">=</span> <span class="fl">3e5</span></span>
+<span id="cb35-183"><a href="example-3.html#cb35-183" tabindex="-1"></a></span>
+<span id="cb35-184"><a href="example-3.html#cb35-184" tabindex="-1"></a>array_dict <span class="op">=</span> init_arrays()</span>
+<span id="cb35-185"><a href="example-3.html#cb35-185" tabindex="-1"></a></span>
+<span id="cb35-186"><a href="example-3.html#cb35-186" tabindex="-1"></a>resp <span class="op">=</span> array_dict[<span class="st">&#39;resp&#39;</span>]</span>
+<span id="cb35-187"><a href="example-3.html#cb35-187" tabindex="-1"></a>rpe <span class="op">=</span> array_dict[<span class="st">&#39;rpe&#39;</span>]</span>
+<span id="cb35-188"><a href="example-3.html#cb35-188" tabindex="-1"></a>v <span class="op">=</span> array_dict[<span class="st">&#39;v&#39;</span>]</span>
+<span id="cb35-189"><a href="example-3.html#cb35-189" tabindex="-1"></a>r <span class="op">=</span> array_dict[<span class="st">&#39;r&#39;</span>]</span>
+<span id="cb35-190"><a href="example-3.html#cb35-190" tabindex="-1"></a>v1 <span class="op">=</span> array_dict[<span class="st">&#39;v1&#39;</span>]</span>
+<span id="cb35-191"><a href="example-3.html#cb35-191" tabindex="-1"></a>u1 <span class="op">=</span> array_dict[<span class="st">&#39;u1&#39;</span>]</span>
+<span id="cb35-192"><a href="example-3.html#cb35-192" tabindex="-1"></a>g1 <span class="op">=</span> array_dict[<span class="st">&#39;g1&#39;</span>]</span>
+<span id="cb35-193"><a href="example-3.html#cb35-193" tabindex="-1"></a>spike1 <span class="op">=</span> array_dict[<span class="st">&#39;spike1&#39;</span>]</span>
+<span id="cb35-194"><a href="example-3.html#cb35-194" tabindex="-1"></a>v2 <span class="op">=</span> array_dict[<span class="st">&#39;v2&#39;</span>]</span>
+<span id="cb35-195"><a href="example-3.html#cb35-195" tabindex="-1"></a>u2 <span class="op">=</span> array_dict[<span class="st">&#39;u2&#39;</span>]</span>
+<span id="cb35-196"><a href="example-3.html#cb35-196" tabindex="-1"></a>g2 <span class="op">=</span> array_dict[<span class="st">&#39;g2&#39;</span>]</span>
+<span id="cb35-197"><a href="example-3.html#cb35-197" tabindex="-1"></a>spike2 <span class="op">=</span> array_dict[<span class="st">&#39;spike2&#39;</span>]</span>
+<span id="cb35-198"><a href="example-3.html#cb35-198" tabindex="-1"></a>w_01 <span class="op">=</span> array_dict[<span class="st">&#39;w_01&#39;</span>]</span>
+<span id="cb35-199"><a href="example-3.html#cb35-199" tabindex="-1"></a>w_12 <span class="op">=</span> array_dict[<span class="st">&#39;w_12&#39;</span>]</span>
+<span id="cb35-200"><a href="example-3.html#cb35-200" tabindex="-1"></a>g_record <span class="op">=</span> array_dict[<span class="st">&#39;g_record&#39;</span>]</span>
+<span id="cb35-201"><a href="example-3.html#cb35-201" tabindex="-1"></a>v1_record <span class="op">=</span> array_dict[<span class="st">&#39;v1_record&#39;</span>]</span>
+<span id="cb35-202"><a href="example-3.html#cb35-202" tabindex="-1"></a>g1_record <span class="op">=</span> array_dict[<span class="st">&#39;g1_record&#39;</span>]</span>
+<span id="cb35-203"><a href="example-3.html#cb35-203" tabindex="-1"></a>v2_record <span class="op">=</span> array_dict[<span class="st">&#39;v2_record&#39;</span>]</span>
+<span id="cb35-204"><a href="example-3.html#cb35-204" tabindex="-1"></a>g2_record <span class="op">=</span> array_dict[<span class="st">&#39;g2_record&#39;</span>]</span>
+<span id="cb35-205"><a href="example-3.html#cb35-205" tabindex="-1"></a></span>
+<span id="cb35-206"><a href="example-3.html#cb35-206" tabindex="-1"></a>simulate_network_inst_TD()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-42-3.png" width="672" /></p>
+
+</div>
+</div>
+<div id="td0-for-estimating-v_pi" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> TD(0) for estimating <span class="math inline">\(v_{\pi}\)</span><a href="example-3.html#td0-for-estimating-v_pi" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>TD(0) is about <em>prediction</em>, not about <em>control</em></p></li>
+<li><p>You can see this in the algorithm description below in
+that the policy <span class="math inline">\(\pi\)</span> is fixed and specified at the top of
+the program.</p></li>
+</ul>
+<hr />
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Specify the policy <span class="math inline">\(\pi\)</span> to be evaluated</p></li>
+<li><p>Initialise <span class="math inline">\(V(s)\)</span></p></li>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p><span class="math inline">\(A \leftarrow\)</span> action given by <span class="math inline">\(\pi\)</span> for <span class="math inline">\(S\)</span></p></li>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p><span class="math inline">\(V(S) \leftarrow V(S) + \alpha \left[ R + \gamma V(S&#39;) - V(S) \right]\)</span></p></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div id="td-in-a-simple-2-arm-bandit-task" class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> TD in a simple 2-arm bandit task<a href="example-3.html#td-in-a-simple-2-arm-bandit-task" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>This is a very simple scenario in which the agent begins
+in state <span class="math inline">\(s_0\)</span> and can select only one of two actions.
+Action <span class="math inline">\(a_1\)</span> selects the slot machine on the left and leads
+to state <span class="math inline">\(s_l\)</span>, and action <span class="math inline">\(a_2\)</span> selects the slot machine on
+the right and leads to state <span class="math inline">\(s_r\)</span>. Reward is delivered in
+state <span class="math inline">\(s_l\)</span> and <span class="math inline">\(s_r\)</span> with different probability, and both
+are terminal states.</p></li>
+<li><p>Let <span class="math inline">\(n\)</span> index the current trial and <span class="math inline">\(\hat{V}_{n}(s)\)</span> be
+the state-value function estimate on trial <span class="math inline">\(n\)</span> of state
+<span class="math inline">\(s\in\{s_l,s_r\}\)</span>. In the 2-armed bandit task descirbed
+above, TD iteratively updates its estimate of
+<span class="math inline">\(\hat{V}_{n}(s)\)</span> according to the following:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\hat{V}_{n}(s) = \hat{V}_{n-1}(s) + \alpha (r_{n} - \hat{V}_{n-1}(s)).
+\end{equation}
+\]</span></p>
+<ul>
+<li><p>The rightmost term <span class="math inline">\(r_{n} - \hat{V}_{n-1}(s)\)</span> is called
+the reward prediction error (RPE).</p></li>
+<li><p>Conceptually, RPE is simply the difference between the
+obtained and expected reward.</p></li>
+<li><p>It is easy to see that learning a good estimate of the
+value function is equivalent to eliminating RPE.</p></li>
+<li><p>RPE is often notated as <span class="math inline">\(\delta\)</span>, so we can write
+<span class="math inline">\(\delta_{n}=r_{n}-\hat{V}_{n-1}(s)\)</span>.</p></li>
+<li><p>You can also write the value update equation in the
+following form:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{equation}
+\hat{V}_{n}(s) =  (1-\alpha) \hat{V}_{n-1}(s) +  \alpha r_{n}.
+\end{equation}
+\]</span></p>
+<ul>
+<li><p>In this form it may be easier to see that the update to
+our estimate of the state-value function is a weighted
+average of whatever it was on the previous trial with
+whatever current reward was experienced.</p></li>
+<li><p>In code, a TD agent performing a 2-armed bandit task in
+which it simply chooses which bandit to select at random
+looks as follows:</p></li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="example-3.html#cb36-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb36-2"><a href="example-3.html#cb36-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb36-3"><a href="example-3.html#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="example-3.html#cb36-4" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb36-5"><a href="example-3.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="example-3.html#cb36-6" tabindex="-1"></a>v_init <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb36-7"><a href="example-3.html#cb36-7" tabindex="-1"></a>p_reward_1 <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb36-8"><a href="example-3.html#cb36-8" tabindex="-1"></a>p_reward_2 <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb36-9"><a href="example-3.html#cb36-9" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb36-10"><a href="example-3.html#cb36-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb36-11"><a href="example-3.html#cb36-11" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="example-3.html#cb36-12" tabindex="-1"></a>v <span class="op">=</span> np.zeros((<span class="dv">2</span>, n_trials))</span>
+<span id="cb36-13"><a href="example-3.html#cb36-13" tabindex="-1"></a>v[:, <span class="dv">0</span>] <span class="op">=</span> v_init</span>
+<span id="cb36-14"><a href="example-3.html#cb36-14" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="example-3.html#cb36-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_trials <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb36-16"><a href="example-3.html#cb36-16" tabindex="-1"></a></span>
+<span id="cb36-17"><a href="example-3.html#cb36-17" tabindex="-1"></a>    <span class="co"># action selection - guessing</span></span>
+<span id="cb36-18"><a href="example-3.html#cb36-18" tabindex="-1"></a>    <span class="cf">if</span> np.random.uniform() <span class="op">&lt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb36-19"><a href="example-3.html#cb36-19" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb36-20"><a href="example-3.html#cb36-20" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_1, <span class="dv">2</span>)</span>
+<span id="cb36-21"><a href="example-3.html#cb36-21" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="example-3.html#cb36-22" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb36-23"><a href="example-3.html#cb36-23" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb36-24"><a href="example-3.html#cb36-24" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="example-3.html#cb36-25" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb36-26"><a href="example-3.html#cb36-26" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb36-27"><a href="example-3.html#cb36-27" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb36-28"><a href="example-3.html#cb36-28" tabindex="-1"></a></span>
+<span id="cb36-29"><a href="example-3.html#cb36-29" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb36-30"><a href="example-3.html#cb36-30" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb36-31"><a href="example-3.html#cb36-31" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_2, <span class="dv">2</span>)</span>
+<span id="cb36-32"><a href="example-3.html#cb36-32" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="example-3.html#cb36-33" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb36-34"><a href="example-3.html#cb36-34" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb36-35"><a href="example-3.html#cb36-35" tabindex="-1"></a></span>
+<span id="cb36-36"><a href="example-3.html#cb36-36" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb36-37"><a href="example-3.html#cb36-37" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb36-38"><a href="example-3.html#cb36-38" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb36-39"><a href="example-3.html#cb36-39" tabindex="-1"></a></span>
+<span id="cb36-40"><a href="example-3.html#cb36-40" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-41"><a href="example-3.html#cb36-41" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">0</span>, :], label<span class="op">=</span><span class="st">&#39;value 1&#39;</span>)</span>
+<span id="cb36-42"><a href="example-3.html#cb36-42" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">1</span>, :], label<span class="op">=</span><span class="st">&#39;value 2&#39;</span>)</span>
+<span id="cb36-43"><a href="example-3.html#cb36-43" tabindex="-1"></a>plt.legend()</span>
+<span id="cb36-44"><a href="example-3.html#cb36-44" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-43-5.png" width="672" /></p>
+</div>
+<div id="action-selection-policy" class="section level3 hasAnchor" number="14.4.2">
+<h3><span class="header-section-number">14.4.2</span> Action selection policy<a href="example-3.html#action-selection-policy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>We saw above that even if the agent simply guesses at each
+bandit, never modifying its action selection strategy to
+reflect its updating beliefs about the value of the the two
+options, the estimate of the value function still approaches
+the true value.</p></li>
+<li><p>This makes clear that some amount of guessing (i.e.,
+exploration) is good for learning the value function, but
+perhaps not so great for actually maximising the obtained
+rewards (the actual goal of an RL agent).</p></li>
+<li><p>Two popular action selection policies – epsilon greedy
+(<span class="math inline">\(\epsilon\)</span>-greedy) and softman – attempt to balance
+exploration with exploitation.</p></li>
+</ul>
+<div id="epsilon-greedy" class="section level4 hasAnchor" number="14.4.2.1">
+<h4><span class="header-section-number">14.4.2.1</span> Epsilon greedy<a href="example-3.html#epsilon-greedy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="example-3.html#cb37-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb37-2"><a href="example-3.html#cb37-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb37-3"><a href="example-3.html#cb37-3" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="example-3.html#cb37-4" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb37-5"><a href="example-3.html#cb37-5" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="example-3.html#cb37-6" tabindex="-1"></a>v_init <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb37-7"><a href="example-3.html#cb37-7" tabindex="-1"></a>p_reward_1 <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb37-8"><a href="example-3.html#cb37-8" tabindex="-1"></a>p_reward_2 <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb37-9"><a href="example-3.html#cb37-9" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb37-10"><a href="example-3.html#cb37-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb37-11"><a href="example-3.html#cb37-11" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="example-3.html#cb37-12" tabindex="-1"></a>v <span class="op">=</span> np.zeros((<span class="dv">2</span>, n_trials))</span>
+<span id="cb37-13"><a href="example-3.html#cb37-13" tabindex="-1"></a>v[:, <span class="dv">0</span>] <span class="op">=</span> v_init</span>
+<span id="cb37-14"><a href="example-3.html#cb37-14" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="example-3.html#cb37-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_trials <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb37-16"><a href="example-3.html#cb37-16" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="example-3.html#cb37-17" tabindex="-1"></a>    <span class="co"># action selection - greedy epsilon</span></span>
+<span id="cb37-18"><a href="example-3.html#cb37-18" tabindex="-1"></a>    <span class="cf">if</span> np.random.uniform() <span class="op">&lt;</span> epsilon:</span>
+<span id="cb37-19"><a href="example-3.html#cb37-19" tabindex="-1"></a>        a <span class="op">=</span> np.<span class="bu">round</span>(np.random.uniform())</span>
+<span id="cb37-20"><a href="example-3.html#cb37-20" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb37-21"><a href="example-3.html#cb37-21" tabindex="-1"></a>        a <span class="op">=</span> np.argmax(v[:, i])</span>
+<span id="cb37-22"><a href="example-3.html#cb37-22" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="example-3.html#cb37-23" tabindex="-1"></a>    <span class="cf">if</span> a <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb37-24"><a href="example-3.html#cb37-24" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb37-25"><a href="example-3.html#cb37-25" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_1, <span class="dv">2</span>)</span>
+<span id="cb37-26"><a href="example-3.html#cb37-26" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="example-3.html#cb37-27" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb37-28"><a href="example-3.html#cb37-28" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb37-29"><a href="example-3.html#cb37-29" tabindex="-1"></a></span>
+<span id="cb37-30"><a href="example-3.html#cb37-30" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb37-31"><a href="example-3.html#cb37-31" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb37-32"><a href="example-3.html#cb37-32" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb37-33"><a href="example-3.html#cb37-33" tabindex="-1"></a></span>
+<span id="cb37-34"><a href="example-3.html#cb37-34" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb37-35"><a href="example-3.html#cb37-35" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb37-36"><a href="example-3.html#cb37-36" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_2, <span class="dv">2</span>)</span>
+<span id="cb37-37"><a href="example-3.html#cb37-37" tabindex="-1"></a></span>
+<span id="cb37-38"><a href="example-3.html#cb37-38" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb37-39"><a href="example-3.html#cb37-39" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb37-40"><a href="example-3.html#cb37-40" tabindex="-1"></a></span>
+<span id="cb37-41"><a href="example-3.html#cb37-41" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb37-42"><a href="example-3.html#cb37-42" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb37-43"><a href="example-3.html#cb37-43" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb37-44"><a href="example-3.html#cb37-44" tabindex="-1"></a></span>
+<span id="cb37-45"><a href="example-3.html#cb37-45" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb37-46"><a href="example-3.html#cb37-46" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">0</span>, :], label<span class="op">=</span><span class="st">&#39;value 1&#39;</span>)</span>
+<span id="cb37-47"><a href="example-3.html#cb37-47" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">1</span>, :], label<span class="op">=</span><span class="st">&#39;value 2&#39;</span>)</span>
+<span id="cb37-48"><a href="example-3.html#cb37-48" tabindex="-1"></a>plt.legend()</span>
+<span id="cb37-49"><a href="example-3.html#cb37-49" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-44-7.png" width="672" /></p>
+</div>
+<div id="softmax" class="section level4 hasAnchor" number="14.4.2.2">
+<h4><span class="header-section-number">14.4.2.2</span> Softmax<a href="example-3.html#softmax" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="example-3.html#cb38-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb38-2"><a href="example-3.html#cb38-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb38-3"><a href="example-3.html#cb38-3" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="example-3.html#cb38-4" tabindex="-1"></a>n_trials <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb38-5"><a href="example-3.html#cb38-5" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="example-3.html#cb38-6" tabindex="-1"></a>v_init <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb38-7"><a href="example-3.html#cb38-7" tabindex="-1"></a>p_reward_1 <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb38-8"><a href="example-3.html#cb38-8" tabindex="-1"></a>p_reward_2 <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb38-9"><a href="example-3.html#cb38-9" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb38-10"><a href="example-3.html#cb38-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb38-11"><a href="example-3.html#cb38-11" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="example-3.html#cb38-12" tabindex="-1"></a>v <span class="op">=</span> np.zeros((<span class="dv">2</span>, n_trials))</span>
+<span id="cb38-13"><a href="example-3.html#cb38-13" tabindex="-1"></a>v[:, <span class="dv">0</span>] <span class="op">=</span> v_init</span>
+<span id="cb38-14"><a href="example-3.html#cb38-14" tabindex="-1"></a></span>
+<span id="cb38-15"><a href="example-3.html#cb38-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_trials <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb38-16"><a href="example-3.html#cb38-16" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="example-3.html#cb38-17" tabindex="-1"></a>    <span class="co"># action selection - softmax</span></span>
+<span id="cb38-18"><a href="example-3.html#cb38-18" tabindex="-1"></a>    sm <span class="op">=</span> np.exp(v[:, i]) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(v[:, i]))</span>
+<span id="cb38-19"><a href="example-3.html#cb38-19" tabindex="-1"></a>    <span class="cf">if</span> np.random.uniform() <span class="op">&lt;</span> sm[<span class="dv">0</span>]:</span>
+<span id="cb38-20"><a href="example-3.html#cb38-20" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb38-21"><a href="example-3.html#cb38-21" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_1, <span class="dv">2</span>)</span>
+<span id="cb38-22"><a href="example-3.html#cb38-22" tabindex="-1"></a></span>
+<span id="cb38-23"><a href="example-3.html#cb38-23" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb38-24"><a href="example-3.html#cb38-24" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb38-25"><a href="example-3.html#cb38-25" tabindex="-1"></a></span>
+<span id="cb38-26"><a href="example-3.html#cb38-26" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb38-27"><a href="example-3.html#cb38-27" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb38-28"><a href="example-3.html#cb38-28" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb38-29"><a href="example-3.html#cb38-29" tabindex="-1"></a></span>
+<span id="cb38-30"><a href="example-3.html#cb38-30" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb38-31"><a href="example-3.html#cb38-31" tabindex="-1"></a>        <span class="co"># reward</span></span>
+<span id="cb38-32"><a href="example-3.html#cb38-32" tabindex="-1"></a>        r <span class="op">=</span> np.random.normal(p_reward_2, <span class="dv">2</span>)</span>
+<span id="cb38-33"><a href="example-3.html#cb38-33" tabindex="-1"></a></span>
+<span id="cb38-34"><a href="example-3.html#cb38-34" tabindex="-1"></a>        <span class="co"># reward prediction error</span></span>
+<span id="cb38-35"><a href="example-3.html#cb38-35" tabindex="-1"></a>        delta <span class="op">=</span> r <span class="op">-</span> v[<span class="dv">1</span>, i]</span>
+<span id="cb38-36"><a href="example-3.html#cb38-36" tabindex="-1"></a></span>
+<span id="cb38-37"><a href="example-3.html#cb38-37" tabindex="-1"></a>        <span class="co"># value update</span></span>
+<span id="cb38-38"><a href="example-3.html#cb38-38" tabindex="-1"></a>        v[<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">1</span>, i] <span class="op">+</span> alpha <span class="op">*</span> delta</span>
+<span id="cb38-39"><a href="example-3.html#cb38-39" tabindex="-1"></a>        v[<span class="dv">0</span>, i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[<span class="dv">0</span>, i]</span>
+<span id="cb38-40"><a href="example-3.html#cb38-40" tabindex="-1"></a></span>
+<span id="cb38-41"><a href="example-3.html#cb38-41" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb38-42"><a href="example-3.html#cb38-42" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">0</span>, :], label<span class="op">=</span><span class="st">&#39;value 1&#39;</span>)</span>
+<span id="cb38-43"><a href="example-3.html#cb38-43" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].plot(v[<span class="dv">1</span>, :], label<span class="op">=</span><span class="st">&#39;value 2&#39;</span>)</span>
+<span id="cb38-44"><a href="example-3.html#cb38-44" tabindex="-1"></a>plt.legend()</span>
+<span id="cb38-45"><a href="example-3.html#cb38-45" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-45-9.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="sarsa-for-estimating-q" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> SARSA for estimating <span class="math inline">\(Q\)</span><a href="example-3.html#sarsa-for-estimating-q" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>SARSA – state-action-reward-state-action – attempts to
+learn <span class="math inline">\(Q(s, a)\)</span>, called the action-value function, which
+represents the value (or <em>quality</em> hence the <span class="math inline">\(Q\)</span>) of taking
+action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>.</p></li>
+<li><p>The policy that controls behaviour is derived from <span class="math inline">\(Q\)</span> and
+that makes SARSA about both <em>prediction</em> and <em>control</em>.</p></li>
+<li><p>SARSA is called <strong>on policy</strong> because the only <span class="math inline">\(Q\)</span> values
+that are learned about are those that correspond to
+state-action pairs that were directly experienced.</p></li>
+</ul>
+<hr />
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Choose <span class="math inline">\(A\)</span> from <span class="math inline">\(S\)</span> using policy derived from <span class="math inline">\(Q\)</span> (e.g.,
+<span class="math inline">\(\epsilon\)</span>-greedy)</p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p>Choose <span class="math inline">\(A&#39;\)</span> from <span class="math inline">\(S&#39;\)</span> using policy derived from <span class="math inline">\(Q\)</span> (e.g.,
+<span class="math inline">\(\epsilon\)</span>-greedy)</p></li>
+<li><p><span class="math inline">\(Q(S, A) \leftarrow Q(S, A) + \alpha \left[ R + \gamma Q(S&#39;, A&#39;) - Q(S, A) \right]\)</span></p></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span>, <span class="math inline">\(A \leftarrow A&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="q-learning-for-estimating-pi" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Q-learning for estimating <span class="math inline">\(\pi\)</span><a href="example-3.html#q-learning-for-estimating-pi" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Like SARSA, Q-learning attempts to learn <span class="math inline">\(Q(s, a)\)</span>.</p></li>
+<li><p>Again like SARSA, Q-learning is about both <em>prediction</em>
+and <em>control</em>.</p></li>
+<li><p>Q-learning is called <strong>off policy</strong> because the <span class="math inline">\(Q\)</span> values
+that are learned about are not necessarily only those that
+correspond to state-action pairs that were directly
+experienced.</p></li>
+</ul>
+<hr />
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Initialise <span class="math inline">\(Q(s, a)\)</span></p></li>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p>Choose <span class="math inline">\(A\)</span> from <span class="math inline">\(S\)</span> using policy derived from <span class="math inline">\(Q\)</span> (e.g.,
+<span class="math inline">\(\epsilon\)</span>-greedy)</p></li>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p><span class="math inline">\(Q(S, A) \leftarrow Q(S, A) + \alpha \left[ R + \gamma \max_{a} Q(S&#39;, a) - Q(S, A) \right]\)</span></p></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div id="q-learning-applied-to-instrumental-conditioning" class="section level3 hasAnchor" number="14.6.1">
+<h3><span class="header-section-number">14.6.1</span> Q-learning applied to instrumental conditioning<a href="example-3.html#q-learning-applied-to-instrumental-conditioning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="example-3.html#cb39-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb39-2"><a href="example-3.html#cb39-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb39-3"><a href="example-3.html#cb39-3" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="example-3.html#cb39-4" tabindex="-1"></a>n_episodes <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb39-5"><a href="example-3.html#cb39-5" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb39-6"><a href="example-3.html#cb39-6" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="example-3.html#cb39-7" tabindex="-1"></a>n_states <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb39-8"><a href="example-3.html#cb39-8" tabindex="-1"></a>n_actions <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-9"><a href="example-3.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="example-3.html#cb39-10" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb39-11"><a href="example-3.html#cb39-11" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="example-3.html#cb39-12" tabindex="-1"></a><span class="co"># initialise q(s,a)</span></span>
+<span id="cb39-13"><a href="example-3.html#cb39-13" tabindex="-1"></a>q <span class="op">=</span> np.ones((n_states, n_actions)) <span class="op">*</span> <span class="fl">0.5</span></span>
+<span id="cb39-14"><a href="example-3.html#cb39-14" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="example-3.html#cb39-15" tabindex="-1"></a><span class="co"># iterate over episodes</span></span>
+<span id="cb39-16"><a href="example-3.html#cb39-16" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(n_episodes):</span>
+<span id="cb39-17"><a href="example-3.html#cb39-17" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="example-3.html#cb39-18" tabindex="-1"></a>    <span class="co"># initialise s</span></span>
+<span id="cb39-19"><a href="example-3.html#cb39-19" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-20"><a href="example-3.html#cb39-20" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="example-3.html#cb39-21" tabindex="-1"></a>    <span class="co"># iterate over steps per episodes</span></span>
+<span id="cb39-22"><a href="example-3.html#cb39-22" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(n_steps):</span>
+<span id="cb39-23"><a href="example-3.html#cb39-23" tabindex="-1"></a></span>
+<span id="cb39-24"><a href="example-3.html#cb39-24" tabindex="-1"></a>        <span class="co"># choose a from s using policy derived from q</span></span>
+<span id="cb39-25"><a href="example-3.html#cb39-25" tabindex="-1"></a>        <span class="co"># here, we use softmax</span></span>
+<span id="cb39-26"><a href="example-3.html#cb39-26" tabindex="-1"></a>        sm <span class="op">=</span> np.exp(q[s, :]) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(q[s, :]))</span>
+<span id="cb39-27"><a href="example-3.html#cb39-27" tabindex="-1"></a>        a <span class="op">=</span> np.random.choice([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>np.squeeze(sm))</span>
+<span id="cb39-28"><a href="example-3.html#cb39-28" tabindex="-1"></a></span>
+<span id="cb39-29"><a href="example-3.html#cb39-29" tabindex="-1"></a>        <span class="co"># take action a, observe r, s&#39;</span></span>
+<span id="cb39-30"><a href="example-3.html#cb39-30" tabindex="-1"></a></span>
+<span id="cb39-31"><a href="example-3.html#cb39-31" tabindex="-1"></a>        <span class="cf">if</span> s<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb39-32"><a href="example-3.html#cb39-32" tabindex="-1"></a>            <span class="co"># press lever</span></span>
+<span id="cb39-33"><a href="example-3.html#cb39-33" tabindex="-1"></a>            <span class="cf">if</span> a <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb39-34"><a href="example-3.html#cb39-34" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-35"><a href="example-3.html#cb39-35" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb39-36"><a href="example-3.html#cb39-36" tabindex="-1"></a></span>
+<span id="cb39-37"><a href="example-3.html#cb39-37" tabindex="-1"></a>            <span class="co"># pull chain</span></span>
+<span id="cb39-38"><a href="example-3.html#cb39-38" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb39-39"><a href="example-3.html#cb39-39" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-40"><a href="example-3.html#cb39-40" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb39-41"><a href="example-3.html#cb39-41" tabindex="-1"></a></span>
+<span id="cb39-42"><a href="example-3.html#cb39-42" tabindex="-1"></a>            <span class="co"># enter magazine</span></span>
+<span id="cb39-43"><a href="example-3.html#cb39-43" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb39-44"><a href="example-3.html#cb39-44" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-45"><a href="example-3.html#cb39-45" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-46"><a href="example-3.html#cb39-46" tabindex="-1"></a></span>
+<span id="cb39-47"><a href="example-3.html#cb39-47" tabindex="-1"></a>        <span class="cf">elif</span> s<span class="op">==</span><span class="dv">1</span>:</span>
+<span id="cb39-48"><a href="example-3.html#cb39-48" tabindex="-1"></a>            <span class="co"># press lever</span></span>
+<span id="cb39-49"><a href="example-3.html#cb39-49" tabindex="-1"></a>            <span class="cf">if</span> a <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb39-50"><a href="example-3.html#cb39-50" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-51"><a href="example-3.html#cb39-51" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-52"><a href="example-3.html#cb39-52" tabindex="-1"></a></span>
+<span id="cb39-53"><a href="example-3.html#cb39-53" tabindex="-1"></a>            <span class="co"># pull chain</span></span>
+<span id="cb39-54"><a href="example-3.html#cb39-54" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb39-55"><a href="example-3.html#cb39-55" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-56"><a href="example-3.html#cb39-56" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-57"><a href="example-3.html#cb39-57" tabindex="-1"></a></span>
+<span id="cb39-58"><a href="example-3.html#cb39-58" tabindex="-1"></a>            <span class="co"># enter magazine</span></span>
+<span id="cb39-59"><a href="example-3.html#cb39-59" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb39-60"><a href="example-3.html#cb39-60" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb39-61"><a href="example-3.html#cb39-61" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb39-62"><a href="example-3.html#cb39-62" tabindex="-1"></a></span>
+<span id="cb39-63"><a href="example-3.html#cb39-63" tabindex="-1"></a>        <span class="cf">elif</span> s<span class="op">==</span><span class="dv">2</span>:</span>
+<span id="cb39-64"><a href="example-3.html#cb39-64" tabindex="-1"></a>            <span class="co"># press lever</span></span>
+<span id="cb39-65"><a href="example-3.html#cb39-65" tabindex="-1"></a>            <span class="cf">if</span> a <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb39-66"><a href="example-3.html#cb39-66" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-67"><a href="example-3.html#cb39-67" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-68"><a href="example-3.html#cb39-68" tabindex="-1"></a></span>
+<span id="cb39-69"><a href="example-3.html#cb39-69" tabindex="-1"></a>            <span class="co"># pull chain</span></span>
+<span id="cb39-70"><a href="example-3.html#cb39-70" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb39-71"><a href="example-3.html#cb39-71" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-72"><a href="example-3.html#cb39-72" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb39-73"><a href="example-3.html#cb39-73" tabindex="-1"></a></span>
+<span id="cb39-74"><a href="example-3.html#cb39-74" tabindex="-1"></a>            <span class="co"># enter magazine</span></span>
+<span id="cb39-75"><a href="example-3.html#cb39-75" tabindex="-1"></a>            <span class="cf">elif</span> a <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb39-76"><a href="example-3.html#cb39-76" tabindex="-1"></a>                r <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb39-77"><a href="example-3.html#cb39-77" tabindex="-1"></a>                sprime <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb39-78"><a href="example-3.html#cb39-78" tabindex="-1"></a></span>
+<span id="cb39-79"><a href="example-3.html#cb39-79" tabindex="-1"></a>        <span class="co"># update q-function</span></span>
+<span id="cb39-80"><a href="example-3.html#cb39-80" tabindex="-1"></a>        q[s, a] <span class="op">+=</span> alpha <span class="op">*</span> (r <span class="op">+</span> np.<span class="bu">max</span>(q[sprime, :]) <span class="op">-</span> q[s, a])</span>
+<span id="cb39-81"><a href="example-3.html#cb39-81" tabindex="-1"></a></span>
+<span id="cb39-82"><a href="example-3.html#cb39-82" tabindex="-1"></a>        <span class="co"># reset state</span></span>
+<span id="cb39-83"><a href="example-3.html#cb39-83" tabindex="-1"></a>        s <span class="op">=</span> sprime</span>
+<span id="cb39-84"><a href="example-3.html#cb39-84" tabindex="-1"></a></span>
+<span id="cb39-85"><a href="example-3.html#cb39-85" tabindex="-1"></a>        <span class="co"># stop if s is terminal</span></span>
+<span id="cb39-86"><a href="example-3.html#cb39-86" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="dv">3</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">4</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb39-87"><a href="example-3.html#cb39-87" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb39-88"><a href="example-3.html#cb39-88" tabindex="-1"></a></span>
+<span id="cb39-89"><a href="example-3.html#cb39-89" tabindex="-1"></a></span>
+<span id="cb39-90"><a href="example-3.html#cb39-90" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb39-91"><a href="example-3.html#cb39-91" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].imshow(q)</span>
+<span id="cb39-92"><a href="example-3.html#cb39-92" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;action&#39;</span>)</span>
+<span id="cb39-93"><a href="example-3.html#cb39-93" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;state&#39;</span>)</span>
+<span id="cb39-94"><a href="example-3.html#cb39-94" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-46-11.png" width="672" /></p>
+</div>
+<div id="q-learning-applied-to-instrumental-conditioning-2" class="section level3 hasAnchor" number="14.6.2">
+<h3><span class="header-section-number">14.6.2</span> Q-learning applied to instrumental conditioning 2<a href="example-3.html#q-learning-applied-to-instrumental-conditioning-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="example-3.html#cb40-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb40-2"><a href="example-3.html#cb40-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb40-3"><a href="example-3.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="example-3.html#cb40-4" tabindex="-1"></a>n_episodes <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb40-5"><a href="example-3.html#cb40-5" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb40-6"><a href="example-3.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="example-3.html#cb40-7" tabindex="-1"></a>n_states <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb40-8"><a href="example-3.html#cb40-8" tabindex="-1"></a>n_actions <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb40-9"><a href="example-3.html#cb40-9" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="example-3.html#cb40-10" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb40-11"><a href="example-3.html#cb40-11" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="example-3.html#cb40-12" tabindex="-1"></a><span class="co"># initialise q(s,a)</span></span>
+<span id="cb40-13"><a href="example-3.html#cb40-13" tabindex="-1"></a>q <span class="op">=</span> np.ones((n_states, n_actions)) <span class="op">*</span> <span class="fl">0.5</span></span>
+<span id="cb40-14"><a href="example-3.html#cb40-14" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="example-3.html#cb40-15" tabindex="-1"></a><span class="co"># states</span></span>
+<span id="cb40-16"><a href="example-3.html#cb40-16" tabindex="-1"></a>S <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">1</span>)</span>
+<span id="cb40-17"><a href="example-3.html#cb40-17" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="example-3.html#cb40-18" tabindex="-1"></a><span class="co"># Actions</span></span>
+<span id="cb40-19"><a href="example-3.html#cb40-19" tabindex="-1"></a>A <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb40-20"><a href="example-3.html#cb40-20" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="example-3.html#cb40-21" tabindex="-1"></a><span class="co"># state transition probabilities</span></span>
+<span id="cb40-22"><a href="example-3.html#cb40-22" tabindex="-1"></a>T <span class="op">=</span> np.zeros((n_states, n_actions, n_states))</span>
+<span id="cb40-23"><a href="example-3.html#cb40-23" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="example-3.html#cb40-24" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># press lever transition to state 1</span></span>
+<span id="cb40-25"><a href="example-3.html#cb40-25" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># pull chain transition to state 2</span></span>
+<span id="cb40-26"><a href="example-3.html#cb40-26" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># enter magazine terminal no reward</span></span>
+<span id="cb40-27"><a href="example-3.html#cb40-27" tabindex="-1"></a></span>
+<span id="cb40-28"><a href="example-3.html#cb40-28" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># press lever terminal no reward</span></span>
+<span id="cb40-29"><a href="example-3.html#cb40-29" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># pull chain terminal no reward</span></span>
+<span id="cb40-30"><a href="example-3.html#cb40-30" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># enter magazine terminal reward</span></span>
+<span id="cb40-31"><a href="example-3.html#cb40-31" tabindex="-1"></a></span>
+<span id="cb40-32"><a href="example-3.html#cb40-32" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># press lever terminal no reward</span></span>
+<span id="cb40-33"><a href="example-3.html#cb40-33" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># pull chain terminal no reward</span></span>
+<span id="cb40-34"><a href="example-3.html#cb40-34" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>] <span class="op">=</span> <span class="dv">1</span> <span class="co"># enter magazine terminal reward</span></span>
+<span id="cb40-35"><a href="example-3.html#cb40-35" tabindex="-1"></a></span>
+<span id="cb40-36"><a href="example-3.html#cb40-36" tabindex="-1"></a><span class="co"># state rewards</span></span>
+<span id="cb40-37"><a href="example-3.html#cb40-37" tabindex="-1"></a>R <span class="op">=</span> np.zeros(n_states)</span>
+<span id="cb40-38"><a href="example-3.html#cb40-38" tabindex="-1"></a>R[<span class="dv">4</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb40-39"><a href="example-3.html#cb40-39" tabindex="-1"></a>R[<span class="dv">5</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb40-40"><a href="example-3.html#cb40-40" tabindex="-1"></a></span>
+<span id="cb40-41"><a href="example-3.html#cb40-41" tabindex="-1"></a><span class="co"># iterate over episodes</span></span>
+<span id="cb40-42"><a href="example-3.html#cb40-42" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(n_episodes):</span>
+<span id="cb40-43"><a href="example-3.html#cb40-43" tabindex="-1"></a></span>
+<span id="cb40-44"><a href="example-3.html#cb40-44" tabindex="-1"></a>    <span class="co"># initialise s</span></span>
+<span id="cb40-45"><a href="example-3.html#cb40-45" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb40-46"><a href="example-3.html#cb40-46" tabindex="-1"></a></span>
+<span id="cb40-47"><a href="example-3.html#cb40-47" tabindex="-1"></a>    <span class="co"># iterate over steps per episodes</span></span>
+<span id="cb40-48"><a href="example-3.html#cb40-48" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(n_steps):</span>
+<span id="cb40-49"><a href="example-3.html#cb40-49" tabindex="-1"></a></span>
+<span id="cb40-50"><a href="example-3.html#cb40-50" tabindex="-1"></a>        <span class="co"># choose a from s using policy derived from q</span></span>
+<span id="cb40-51"><a href="example-3.html#cb40-51" tabindex="-1"></a>        <span class="co"># here, we use softmax</span></span>
+<span id="cb40-52"><a href="example-3.html#cb40-52" tabindex="-1"></a>        sm <span class="op">=</span> np.exp(q[s, :]) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(q[s, :]))</span>
+<span id="cb40-53"><a href="example-3.html#cb40-53" tabindex="-1"></a>        a <span class="op">=</span> np.random.choice(A, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>np.squeeze(sm))</span>
+<span id="cb40-54"><a href="example-3.html#cb40-54" tabindex="-1"></a></span>
+<span id="cb40-55"><a href="example-3.html#cb40-55" tabindex="-1"></a>        <span class="co"># take action a, observe r, s&#39;</span></span>
+<span id="cb40-56"><a href="example-3.html#cb40-56" tabindex="-1"></a>        sprime <span class="op">=</span> np.random.choice(S, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>np.squeeze(T[s, a, :]))</span>
+<span id="cb40-57"><a href="example-3.html#cb40-57" tabindex="-1"></a>        r <span class="op">=</span> R[sprime]</span>
+<span id="cb40-58"><a href="example-3.html#cb40-58" tabindex="-1"></a></span>
+<span id="cb40-59"><a href="example-3.html#cb40-59" tabindex="-1"></a>        <span class="co"># update q-function</span></span>
+<span id="cb40-60"><a href="example-3.html#cb40-60" tabindex="-1"></a>        q[s, a] <span class="op">+=</span> alpha <span class="op">*</span> (r <span class="op">+</span> np.<span class="bu">max</span>(q[sprime, :]) <span class="op">-</span> q[s, a])</span>
+<span id="cb40-61"><a href="example-3.html#cb40-61" tabindex="-1"></a></span>
+<span id="cb40-62"><a href="example-3.html#cb40-62" tabindex="-1"></a>        <span class="co"># reset state</span></span>
+<span id="cb40-63"><a href="example-3.html#cb40-63" tabindex="-1"></a>        s <span class="op">=</span> sprime</span>
+<span id="cb40-64"><a href="example-3.html#cb40-64" tabindex="-1"></a></span>
+<span id="cb40-65"><a href="example-3.html#cb40-65" tabindex="-1"></a>        <span class="co"># stop if s is terminal</span></span>
+<span id="cb40-66"><a href="example-3.html#cb40-66" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="dv">3</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">4</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb40-67"><a href="example-3.html#cb40-67" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb40-68"><a href="example-3.html#cb40-68" tabindex="-1"></a></span>
+<span id="cb40-69"><a href="example-3.html#cb40-69" tabindex="-1"></a></span>
+<span id="cb40-70"><a href="example-3.html#cb40-70" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb40-71"><a href="example-3.html#cb40-71" tabindex="-1"></a>ax[<span class="dv">0</span>,<span class="dv">0</span>].imshow(q)</span>
+<span id="cb40-72"><a href="example-3.html#cb40-72" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;action&#39;</span>)</span>
+<span id="cb40-73"><a href="example-3.html#cb40-73" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;state&#39;</span>)</span>
+<span id="cb40-74"><a href="example-3.html#cb40-74" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-47-13.png" width="672" /></p>
+</div>
+</div>
+<div id="dyna-q-model-based-rl" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> Dyna-Q: Model-based RL<a href="example-3.html#dyna-q-model-based-rl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<div style="border: 1px solid black; background: lightgrey;">
+<ul>
+<li><p>Initialise <span class="math inline">\(Q(s, a)\)</span>, <span class="math inline">\(\widehat{Q}(s, a)\)</span>, and
+<span class="math inline">\(\widehat{R}(s)\)</span></p></li>
+<li><p>Iterate over episodes</p>
+<ul>
+<li><p>Initialise <span class="math inline">\(S\)</span></p></li>
+<li><p>Iterate over steps per episodes</p>
+<ul>
+<li><p>Choose <span class="math inline">\(A\)</span> from <span class="math inline">\(S\)</span> using policy derived from <span class="math inline">\(Q\)</span> (e.g.,
+<span class="math inline">\(\epsilon\)</span>-greedy)</p></li>
+<li><p>Take action <span class="math inline">\(A\)</span>, observe <span class="math inline">\(R\)</span>, <span class="math inline">\(S&#39;\)</span></p></li>
+<li><p><span class="math inline">\(Q(S, A) \leftarrow Q(S, A) + \alpha \left[ R + \gamma \max_{a} Q(S&#39;, a) - Q(S, A) \right]\)</span></p></li>
+<li><p>Iterate over model-based episodes</p>
+<ul>
+<li><p><span class="math inline">\(S \leftarrow\)</span> random previously observed state</p></li>
+<li><p><span class="math inline">\(A \leftarrow\)</span> random previously taken action from state <span class="math inline">\(S\)</span></p></li>
+<li><p><span class="math inline">\(S&#39; \leftarrow\)</span> sampled with probability <span class="math inline">\(\widehat{T}(S, A, S&#39;)\)</span></p></li>
+<li><p><span class="math inline">\(R \leftarrow \widehat{R}(S)\)</span></p></li>
+<li><p><span class="math inline">\(Q(S, A) \leftarrow Q(S, A) + \alpha \left[ R + \gamma \max_{a} Q(S&#39;, a) - Q(S, A) \right]\)</span></p></li>
+</ul></li>
+<li><p><span class="math inline">\(S \leftarrow S&#39;\)</span></p></li>
+<li><p>If <span class="math inline">\(S = S_{\text{terminal}}\)</span> then break</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div id="dyna-q-applied-to-instrumental-conditioning" class="section level3 hasAnchor" number="14.7.1">
+<h3><span class="header-section-number">14.7.1</span> Dyna-Q applied to instrumental conditioning<a href="example-3.html#dyna-q-applied-to-instrumental-conditioning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="example-3.html#cb41-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb41-2"><a href="example-3.html#cb41-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb41-3"><a href="example-3.html#cb41-3" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="example-3.html#cb41-4" tabindex="-1"></a>n_episodes <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb41-5"><a href="example-3.html#cb41-5" tabindex="-1"></a>n_steps <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb41-6"><a href="example-3.html#cb41-6" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="example-3.html#cb41-7" tabindex="-1"></a>n_states <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb41-8"><a href="example-3.html#cb41-8" tabindex="-1"></a>n_actions <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb41-9"><a href="example-3.html#cb41-9" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="example-3.html#cb41-10" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb41-11"><a href="example-3.html#cb41-11" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="example-3.html#cb41-12" tabindex="-1"></a><span class="co"># initialise q(s,a)</span></span>
+<span id="cb41-13"><a href="example-3.html#cb41-13" tabindex="-1"></a>q <span class="op">=</span> np.ones((n_states, n_actions)) <span class="op">*</span> <span class="fl">0.5</span></span>
+<span id="cb41-14"><a href="example-3.html#cb41-14" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="example-3.html#cb41-15" tabindex="-1"></a><span class="co"># states</span></span>
+<span id="cb41-16"><a href="example-3.html#cb41-16" tabindex="-1"></a>S <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">1</span>)</span>
+<span id="cb41-17"><a href="example-3.html#cb41-17" tabindex="-1"></a></span>
+<span id="cb41-18"><a href="example-3.html#cb41-18" tabindex="-1"></a><span class="co"># Actions</span></span>
+<span id="cb41-19"><a href="example-3.html#cb41-19" tabindex="-1"></a>A <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span>
+<span id="cb41-20"><a href="example-3.html#cb41-20" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="example-3.html#cb41-21" tabindex="-1"></a><span class="co"># state transition probabilities</span></span>
+<span id="cb41-22"><a href="example-3.html#cb41-22" tabindex="-1"></a>T <span class="op">=</span> np.zeros((n_states, n_actions, n_states))</span>
+<span id="cb41-23"><a href="example-3.html#cb41-23" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="example-3.html#cb41-24" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># press lever transition to state 1</span></span>
+<span id="cb41-25"><a href="example-3.html#cb41-25" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># pull chain transition to state 2</span></span>
+<span id="cb41-26"><a href="example-3.html#cb41-26" tabindex="-1"></a>T[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># enter magazine terminal no reward</span></span>
+<span id="cb41-27"><a href="example-3.html#cb41-27" tabindex="-1"></a></span>
+<span id="cb41-28"><a href="example-3.html#cb41-28" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># press lever terminal no reward</span></span>
+<span id="cb41-29"><a href="example-3.html#cb41-29" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># pull chain terminal no reward</span></span>
+<span id="cb41-30"><a href="example-3.html#cb41-30" tabindex="-1"></a>T[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># enter magazine terminal reward</span></span>
+<span id="cb41-31"><a href="example-3.html#cb41-31" tabindex="-1"></a></span>
+<span id="cb41-32"><a href="example-3.html#cb41-32" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># press lever terminal no reward</span></span>
+<span id="cb41-33"><a href="example-3.html#cb41-33" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># pull chain terminal no reward</span></span>
+<span id="cb41-34"><a href="example-3.html#cb41-34" tabindex="-1"></a>T[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>] <span class="op">=</span> <span class="dv">1</span>  <span class="co"># enter magazine terminal reward</span></span>
+<span id="cb41-35"><a href="example-3.html#cb41-35" tabindex="-1"></a></span>
+<span id="cb41-36"><a href="example-3.html#cb41-36" tabindex="-1"></a><span class="co"># state rewards</span></span>
+<span id="cb41-37"><a href="example-3.html#cb41-37" tabindex="-1"></a>R <span class="op">=</span> np.zeros(n_states)</span>
+<span id="cb41-38"><a href="example-3.html#cb41-38" tabindex="-1"></a>R[<span class="dv">4</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb41-39"><a href="example-3.html#cb41-39" tabindex="-1"></a>R[<span class="dv">5</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb41-40"><a href="example-3.html#cb41-40" tabindex="-1"></a></span>
+<span id="cb41-41"><a href="example-3.html#cb41-41" tabindex="-1"></a><span class="co"># model of the environment</span></span>
+<span id="cb41-42"><a href="example-3.html#cb41-42" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb41-43"><a href="example-3.html#cb41-43" tabindex="-1"></a>T_hat <span class="op">=</span> np.zeros((n_states, n_actions, n_states))</span>
+<span id="cb41-44"><a href="example-3.html#cb41-44" tabindex="-1"></a>R_hat <span class="op">=</span> np.zeros(n_states)</span>
+<span id="cb41-45"><a href="example-3.html#cb41-45" tabindex="-1"></a>S_past <span class="op">=</span> np.array([])</span>
+<span id="cb41-46"><a href="example-3.html#cb41-46" tabindex="-1"></a>A_past <span class="op">=</span> np.ones((n_states, n_actions)) <span class="op">*</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb41-47"><a href="example-3.html#cb41-47" tabindex="-1"></a></span>
+<span id="cb41-48"><a href="example-3.html#cb41-48" tabindex="-1"></a><span class="co"># iterate over episodes</span></span>
+<span id="cb41-49"><a href="example-3.html#cb41-49" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(n_episodes):</span>
+<span id="cb41-50"><a href="example-3.html#cb41-50" tabindex="-1"></a></span>
+<span id="cb41-51"><a href="example-3.html#cb41-51" tabindex="-1"></a>    <span class="co"># initialise s</span></span>
+<span id="cb41-52"><a href="example-3.html#cb41-52" tabindex="-1"></a>    s <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb41-53"><a href="example-3.html#cb41-53" tabindex="-1"></a></span>
+<span id="cb41-54"><a href="example-3.html#cb41-54" tabindex="-1"></a>    <span class="co"># iterate over steps per episodes</span></span>
+<span id="cb41-55"><a href="example-3.html#cb41-55" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(n_steps):</span>
+<span id="cb41-56"><a href="example-3.html#cb41-56" tabindex="-1"></a></span>
+<span id="cb41-57"><a href="example-3.html#cb41-57" tabindex="-1"></a>        <span class="co"># choose a from s using policy derived from q</span></span>
+<span id="cb41-58"><a href="example-3.html#cb41-58" tabindex="-1"></a>        <span class="co"># here, we use softmax</span></span>
+<span id="cb41-59"><a href="example-3.html#cb41-59" tabindex="-1"></a>        sm <span class="op">=</span> np.exp(q[s, :]) <span class="op">/</span> np.<span class="bu">sum</span>(np.exp(q[s, :]))</span>
+<span id="cb41-60"><a href="example-3.html#cb41-60" tabindex="-1"></a>        a <span class="op">=</span> np.random.choice(A, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>np.squeeze(sm))[<span class="dv">0</span>]</span>
+<span id="cb41-61"><a href="example-3.html#cb41-61" tabindex="-1"></a></span>
+<span id="cb41-62"><a href="example-3.html#cb41-62" tabindex="-1"></a>        <span class="co"># take action a, observe r, s&#39;</span></span>
+<span id="cb41-63"><a href="example-3.html#cb41-63" tabindex="-1"></a>        sprime <span class="op">=</span> np.random.choice(S, size<span class="op">=</span><span class="dv">1</span>, p<span class="op">=</span>np.squeeze(T[s, a, :]))[<span class="dv">0</span>]</span>
+<span id="cb41-64"><a href="example-3.html#cb41-64" tabindex="-1"></a>        r <span class="op">=</span> R[sprime]</span>
+<span id="cb41-65"><a href="example-3.html#cb41-65" tabindex="-1"></a></span>
+<span id="cb41-66"><a href="example-3.html#cb41-66" tabindex="-1"></a>        <span class="co"># update q-function</span></span>
+<span id="cb41-67"><a href="example-3.html#cb41-67" tabindex="-1"></a>        q[s, a] <span class="op">+=</span> alpha <span class="op">*</span> (r <span class="op">+</span> np.<span class="bu">max</span>(q[sprime, :]) <span class="op">-</span> q[s, a])</span>
+<span id="cb41-68"><a href="example-3.html#cb41-68" tabindex="-1"></a></span>
+<span id="cb41-69"><a href="example-3.html#cb41-69" tabindex="-1"></a>        <span class="co"># update models of the environment (tabular Dyna-Q p. 164)</span></span>
+<span id="cb41-70"><a href="example-3.html#cb41-70" tabindex="-1"></a>        <span class="co"># assuming deterministic environment</span></span>
+<span id="cb41-71"><a href="example-3.html#cb41-71" tabindex="-1"></a>        T_hat[s, a, sprime] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb41-72"><a href="example-3.html#cb41-72" tabindex="-1"></a>        R_hat[sprime] <span class="op">=</span> r</span>
+<span id="cb41-73"><a href="example-3.html#cb41-73" tabindex="-1"></a></span>
+<span id="cb41-74"><a href="example-3.html#cb41-74" tabindex="-1"></a>        <span class="co"># keep track of experienced states and actions</span></span>
+<span id="cb41-75"><a href="example-3.html#cb41-75" tabindex="-1"></a>        S_past <span class="op">=</span> np.append(S_past, [s])</span>
+<span id="cb41-76"><a href="example-3.html#cb41-76" tabindex="-1"></a>        S_past <span class="op">=</span> np.unique(S_past)</span>
+<span id="cb41-77"><a href="example-3.html#cb41-77" tabindex="-1"></a>        A_past[s, a] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb41-78"><a href="example-3.html#cb41-78" tabindex="-1"></a></span>
+<span id="cb41-79"><a href="example-3.html#cb41-79" tabindex="-1"></a>        <span class="co"># Simulate experience</span></span>
+<span id="cb41-80"><a href="example-3.html#cb41-80" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb41-81"><a href="example-3.html#cb41-81" tabindex="-1"></a>            <span class="co"># pick a previously experienced state</span></span>
+<span id="cb41-82"><a href="example-3.html#cb41-82" tabindex="-1"></a>            s <span class="op">=</span> np.random.choice(S_past, size<span class="op">=</span><span class="dv">1</span>)[<span class="dv">0</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb41-83"><a href="example-3.html#cb41-83" tabindex="-1"></a></span>
+<span id="cb41-84"><a href="example-3.html#cb41-84" tabindex="-1"></a>            <span class="co"># select an action previously taken from state s</span></span>
+<span id="cb41-85"><a href="example-3.html#cb41-85" tabindex="-1"></a>            eligible_actions <span class="op">=</span> A_past[s, :] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb41-86"><a href="example-3.html#cb41-86" tabindex="-1"></a>            a <span class="op">=</span> np.random.choice(np.where(eligible_actions)[<span class="dv">0</span>], size<span class="op">=</span><span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb41-87"><a href="example-3.html#cb41-87" tabindex="-1"></a></span>
+<span id="cb41-88"><a href="example-3.html#cb41-88" tabindex="-1"></a>            <span class="co"># simulate the outcome</span></span>
+<span id="cb41-89"><a href="example-3.html#cb41-89" tabindex="-1"></a>            sprime_sim <span class="op">=</span> np.random.choice(S,</span>
+<span id="cb41-90"><a href="example-3.html#cb41-90" tabindex="-1"></a>                                          size<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb41-91"><a href="example-3.html#cb41-91" tabindex="-1"></a>                                          p<span class="op">=</span>np.squeeze(T_hat[s, a, :]))[<span class="dv">0</span>]</span>
+<span id="cb41-92"><a href="example-3.html#cb41-92" tabindex="-1"></a>            r <span class="op">=</span> R[sprime_sim]</span>
+<span id="cb41-93"><a href="example-3.html#cb41-93" tabindex="-1"></a></span>
+<span id="cb41-94"><a href="example-3.html#cb41-94" tabindex="-1"></a>            <span class="co"># update the real Q function on the basis of the simulated outcome</span></span>
+<span id="cb41-95"><a href="example-3.html#cb41-95" tabindex="-1"></a>            q[s, a] <span class="op">+=</span> alpha <span class="op">*</span> (r <span class="op">+</span> np.<span class="bu">max</span>(q[sprime_sim, :]) <span class="op">-</span> q[s, a])</span>
+<span id="cb41-96"><a href="example-3.html#cb41-96" tabindex="-1"></a></span>
+<span id="cb41-97"><a href="example-3.html#cb41-97" tabindex="-1"></a>        <span class="co"># reset state</span></span>
+<span id="cb41-98"><a href="example-3.html#cb41-98" tabindex="-1"></a>        s <span class="op">=</span> sprime</span>
+<span id="cb41-99"><a href="example-3.html#cb41-99" tabindex="-1"></a></span>
+<span id="cb41-100"><a href="example-3.html#cb41-100" tabindex="-1"></a>        <span class="co"># stop if s is terminal</span></span>
+<span id="cb41-101"><a href="example-3.html#cb41-101" tabindex="-1"></a>        <span class="cf">if</span> s <span class="op">==</span> <span class="dv">3</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">4</span> <span class="kw">or</span> s <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb41-102"><a href="example-3.html#cb41-102" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb41-103"><a href="example-3.html#cb41-103" tabindex="-1"></a></span>
+<span id="cb41-104"><a href="example-3.html#cb41-104" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, squeeze<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb41-105"><a href="example-3.html#cb41-105" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].imshow(q)</span>
+<span id="cb41-106"><a href="example-3.html#cb41-106" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_xlabel(<span class="st">&#39;action&#39;</span>)</span>
+<span id="cb41-107"><a href="example-3.html#cb41-107" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">&#39;state&#39;</span>)</span>
+<span id="cb41-108"><a href="example-3.html#cb41-108" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<p><img src="bookdown_files_files/figure-html/unnamed-chunk-48-15.png" width="672" /></p>
+<!-- ## TD sequential decision making task -->
+<!-- * **NOTE: ** This example is starting to encroach on -->
+<!-- something called Q-learning, which is like TD learning but -->
+<!-- explicitly incorporates actions into the value function. I -->
+<!-- will cover Q learning next week and make clear its -->
+<!-- relationship to this example. -->
+<!-- * Consider a task in which the agent must first choose -->
+<!-- between two bandits, but then, rather than being transported -->
+<!-- to a terminal state as in the simple 2-arm bandit task, is -->
+<!-- instead transported to one of two new states in which the -->
+<!-- agent must choose between two new bandits. Reward is again -->
+<!-- given only in the terminal states. The possible state -->
+<!-- transitions are given by the following: -->
+<!-- $$ -->
+<!-- s_{l} \rightarrow s \in \{s_{ll}, s_{lr}\} \\ -->
+<!-- s_{r} \rightarrow s \in \{s_{rl}, s_{rr}\} -->
+<!-- $$ -->
+<!-- * In code, a TD agent performing a sequential decision -->
+<!-- making task looks as follows: -->
+<!-- ```{python} -->
+<!-- import numpy as np -->
+<!-- import matplotlib.pyplot as plt -->
+<!-- n_trials = 1000 -->
+<!-- v_init = 0.5 -->
+<!-- p_reward = [0.0, 0.0, 0.0, 50, 100, 25, 150] -->
+<!-- alpha = 0.01 -->
+<!-- gamma = 0.1 -->
+<!-- epsilon = 0.2 -->
+<!-- v = np.zeros((7, n_trials)) -->
+<!-- v[:, 0] = v_init -->
+<!-- for i in range(0, n_trials - 1): -->
+<!--     s_trace = np.zeros(3) -->
+<!--     # step 0 -->
+<!--     s = 0 -->
+<!--     sprime_set = [1, 2] -->
+<!--     sm = np.exp(v[sprime_set, i]) / np.sum(np.exp(v[sprime_set, i])) -->
+<!--     a = (np.random.uniform() < sm[0]).astype(int) -->
+<!--     sprime = sprime_set[a] -->
+<!--     r = 0 -->
+<!--     v[s, i + 1] = v[s, i] + alpha * (r + gamma * v[sprime, i] - v[s, i]) -->
+<!--     s_trace[1] = sprime -->
+<!--     # step 1 -->
+<!--     s = sprime -->
+<!--     sprime_set = [3, 4] if s == 1 else [5, 6] -->
+<!--     sm = np.exp(v[sprime_set, i]) / np.sum(np.exp(v[sprime_set, i])) -->
+<!--     a = (np.random.uniform() < sm[0]).astype(int) -->
+<!--     sprime = sprime_set[a] -->
+<!--     r = 0 -->
+<!--     v[s, i + 1] = v[s, i] + alpha * (r + gamma * v[sprime, i] - v[s, i]) -->
+<!--     s_trace[2] = sprime -->
+<!--     # step 2 -->
+<!--     s = sprime -->
+<!--     r = np.random.normal(p_reward[sprime], 2) -->
+<!--     v[s, i + 1] = v[s, i] + alpha * (r - v[s, i]) -->
+<!--     nots = np.setdiff1d(np.arange(0, 7, 1), s_trace) -->
+<!--     v[nots, i + 1] = v[nots, i] -->
+<!-- fig, ax = plt.subplots(1, 3, squeeze=False) -->
+<!-- ax[0, 0].plot(v[0, :], label='value 0') -->
+<!-- ax[0, 1].plot(v[1, :], label='value 1') -->
+<!-- ax[0, 1].plot(v[2, :], label='value 2') -->
+<!-- ax[0, 2].plot(v[3, :], label='value 3') -->
+<!-- ax[0, 2].plot(v[4, :], label='value 4') -->
+<!-- ax[0, 2].plot(v[5, :], label='value 5') -->
+<!-- ax[0, 2].plot(v[6, :], label='value 6') -->
+<!-- ax[0, 0].legend() -->
+<!-- ax[0, 1].legend() -->
+<!-- ax[0, 2].legend() -->
+<!-- plt.show() -->
+<!-- ``` -->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="example-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supervised-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"depth": 2
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
