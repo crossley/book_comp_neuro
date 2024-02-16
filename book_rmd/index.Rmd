@@ -13,5 +13,31 @@ output:
 ---
 
 # Introduction to the book
+First and foremost, this book is an active work in progress
+and is liable to change somehwat from week to week.  If you
+find errors, or if you find any section particularly
+confusion, please feel free to reach out to me for help.
 
-Put intro here.
+**Python competency**: We will spend a little time going
+over `Python` but we will move fast. There are too many
+other excellent resources available on this topic for me to
+devote much time and space to it here. 
+
+**Computational literacy**: The main objective of the book 
+is for you to be able to spend time with published
+computational modelling papers, and replicate most or all of
+the results in those papers. This is a super power among
+cognitive neuroscientist.
+
+**Mathematical literacy**: Math is beautiful and useful and
+I encourage to learn as much of it as you can. A good goal
+for a casual computational modeller is to have made it
+through linear algebra, calculus, and a first year
+differential equations unit. However, you can still have a
+great time and learn a lot from this book without much of a
+math background. You will certainly have to tolerate looking
+at some fancy looking math --- e.g., derivatives
+($\frac{d}{dx}f(x)$), integrals ($\int x dx$), and
+differential equations ($\frac{d}{dx}f(x) = g(x)$) --- but
+the emphasis will be on translating these things into code,
+not on interacting with them much in the abstract.

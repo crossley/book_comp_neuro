@@ -3,8 +3,6 @@ library(reticulate)
 use_python('/Users/mq20185996/miniconda3/bin/python')
 ```
 
-# Reinforcement Learning
-
 # Reinforcement learning rule
 
 * Strengthen synapses responsible for behaviour that lead to
@@ -76,7 +74,7 @@ r_{\text{predicted}}(t) = r_{\text{predicted}}(t-1) + \gamma \delta
 $$
 
 
-# Example 1
+## Example 1
 
 * We will simulate a two neuron network in which neuron 1
 projects to neuron 2, the first neuron is driven by an
@@ -345,7 +343,7 @@ update_weight_func = update_weight_rl
 simulate_network(update_weight_func)
 ```
 
-# Example 2
+## Example 2
 
 * In the previous example, we simply assumed that the aggent
 received a reward with magnitude 1 on the first 1/4 and 3/4
@@ -488,7 +486,7 @@ update_weight_func = update_weight_rl
 simulate_network_inst(update_weight_func)
 ```
 
-# Example 3
+## Example 3
 
 * In the previous example, we programmed the model to make
 responses / earn rewards completely randomly.
